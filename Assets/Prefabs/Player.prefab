@@ -230,7 +230,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 18867aa1b6053454bb9de3528284deeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KnockbackReceiver
-  knockbackDuration: 0.15
 --- !u!114 &3992665721113785766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,15 +244,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpellCaster
   mana: {fileID: 6474100269915427117}
   primarySpell:
-    spell: {fileID: 11400000, guid: a7f226f4ffba87344b9dbf430a15d496, type: 2}
+    spell: {fileID: 0}
     cooldownRemaining: 0
     activeRecastSpell: {fileID: 0}
   secondarySpell:
-    spell: {fileID: 11400000, guid: 02f375ae407befa4cbfa408a89e8b120, type: 2}
+    spell: {fileID: 0}
     cooldownRemaining: 0
     activeRecastSpell: {fileID: 0}
   thirdSpell:
-    spell: {fileID: 11400000, guid: b9aa7e8aa820c06428022004780ff342, type: 2}
+    spell: {fileID: 0}
     cooldownRemaining: 0
     activeRecastSpell: {fileID: 0}
   spellSpawn: {fileID: 8038514236875986973}

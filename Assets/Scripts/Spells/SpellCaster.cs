@@ -20,6 +20,21 @@ public class SpellCaster : MonoBehaviour
         mana = GetComponent<Mana>();
     }
 
+    public void ApplyBuild(WizardBuild build)
+    {
+        primarySpell.spell = build.primarySpell;
+        secondarySpell.spell = build.secondarySpell;
+        thirdSpell.spell = build.thirdSpell;
+
+        primarySpell.cooldownRemaining = 0f;
+        secondarySpell.cooldownRemaining = 0f;
+        thirdSpell.cooldownRemaining = 0f;
+
+        primarySpell.activeRecastSpell = null;
+        secondarySpell.activeRecastSpell = null;
+        thirdSpell.activeRecastSpell = null;
+    }
+
     private void Update()
     {
         TickCooldown(primarySpell);

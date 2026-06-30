@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34445ebea772c51438069255528492d5, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: Assembly-CSharp::Spell
+  category: 0
   spellName: Fireball
   icon: {fileID: 21300000, guid: cc7d056842d2a7c4490919117feff6e6, type: 3}
+  description: This is placeholder for description
   cooldown: 1.2
   manaCost: 4
   castSFX: {fileID: 8300000, guid: 33b0e57b273f8424b94d8686cdc0ddc3, type: 3}

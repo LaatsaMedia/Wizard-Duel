@@ -55,11 +55,6 @@ public class MatchManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    private void Start()
-    {
-        StartMatch();
-    }
-
     public void StartMatch()
     {
         CurrentRound = 1;
@@ -125,10 +120,22 @@ public class MatchManager : MonoBehaviour
             currentArena.PlayerSpawn.position,
             currentArena.PlayerSpawn.rotation);
 
+        if (currentPlayer.TryGetComponent(out SpellCaster playerCaster))
+        {
+            playerCaster.ApplyBuild(
+                RunManager.Instance.PlayerBuild);
+        }
+
         currentEnemy = Instantiate(
             enemyPrefab,
             currentArena.EnemySpawn.position,
             currentArena.EnemySpawn.rotation);
+
+        if (currentEnemy.TryGetComponent(out SpellCaster enemyCaster))
+        {
+            enemyCaster.ApplyBuild(
+                RunManager.Instance.EnemyBuild);
+        }
 
         OnCharactersSpawned?.Invoke();
     }

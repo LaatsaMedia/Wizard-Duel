@@ -12,8 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34445ebea772c51438069255528492d5, type: 3}
   m_Name: Ice Shard
   m_EditorClassIdentifier: Assembly-CSharp::Spell
+  category: 0
   spellName: Ice Shard
   icon: {fileID: 21300000, guid: c18640c6a9d07b049811621542f3e5ab, type: 3}
+  description: This is placeholder for description
   cooldown: 0.4
   manaCost: 2
   castSFX: {fileID: 8300000, guid: ffa2740460128a744afda6ff807e03ff, type: 3}
