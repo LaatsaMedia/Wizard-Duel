@@ -2638,7 +2638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcc3821b61b486149a309003445448fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MatchManager
-  winsToWin: 3
+  winsToWin: 1
   arenaPrefab: {fileID: 3883224366244279062, guid: 09109bb3b8678df4dbac3013ba09a728, type: 3}
   playerPrefab: {fileID: 938558370967978883, guid: 1594210f0f4c1834cbce2facc602d461, type: 3}
   enemyPrefab: {fileID: 4933466168834943965, guid: 3d132447baef4c840b636955f8e99db2, type: 3}

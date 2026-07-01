@@ -22,15 +22,22 @@ public class SetupPhase : MonoBehaviour
 
     private void GenerateRewards()
     {
+        SpellCategory? spellCategory =
+            RunManager.Instance.CurrentSpellCategory;
+
+        if (spellCategory == null)
+            return;
+
         List<Spell> rewards =
             RunManager.Instance.GetRandomSpells(
-                SpellCategory.Offensive,
+                spellCategory.Value,
                 3);
 
         foreach (Spell spell in rewards)
         {
-            RewardCard card =
-                Instantiate(rewardCardPrefab, rewardContainer);
+            RewardCard card = Instantiate(
+                rewardCardPrefab,
+                rewardContainer);
 
             card.Setup(spell);
         }
@@ -52,8 +59,10 @@ public class SetupPhase : MonoBehaviour
         if (selectedCard == null)
             return;
 
-        RunManager.Instance.PlayerBuild.primarySpell =
-            selectedCard.Spell;
+        RunManager.Instance.PlayerBuild.AddSpell(
+            selectedCard.Spell);
+
+        RunManager.Instance.GenerateEnemyReward();
 
         RunManager.Instance.LoadCombat();
     }

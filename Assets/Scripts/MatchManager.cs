@@ -219,5 +219,8 @@ public class MatchManager : MonoBehaviour
         {
             Debug.Log("MATCH DRAW!");
         }
+
+        RunManager.Instance.MatchFinished(
+            PlayerRoundWins > EnemyRoundWins);
     }
 }

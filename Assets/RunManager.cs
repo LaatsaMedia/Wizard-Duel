@@ -6,6 +6,11 @@ public class RunManager : MonoBehaviour
 {
     public static RunManager Instance { get; private set; }
 
+    [SerializeField] private RewardProgression rewardProgression;
+    private int currentRewardIndex;
+
+    public RewardCategory CurrentRewardCategory => rewardProgression.rewardOrder[currentRewardIndex];
+
     private const string SetupScene = "Setup";
     private const string CombatScene = "Combat";
 
@@ -49,6 +54,45 @@ public class RunManager : MonoBehaviour
         SceneManager.LoadScene(CombatScene);
     }
 
+    public void AdvanceSetupPhase()
+    {
+        currentRewardIndex++;
+    }
+
+    public SpellCategory? CurrentSpellCategory
+    {
+        get
+        {
+            return CurrentRewardCategory switch
+            {
+                RewardCategory.Offensive => SpellCategory.Offensive,
+                RewardCategory.Utility => SpellCategory.Utility,
+                RewardCategory.Disable => SpellCategory.Disable,
+                RewardCategory.Defensive => SpellCategory.Defensive,
+                _ => null
+            };
+        }
+    }
+
+    public void GenerateEnemyReward()
+    {
+        SpellCategory? spellCategory =
+            CurrentSpellCategory;
+
+        if (spellCategory == null)
+            return;
+
+        List<Spell> rewards =
+            GetRandomSpells(
+                spellCategory.Value,
+                1);
+
+        if (rewards.Count > 0)
+        {
+            EnemyBuild.AddSpell(rewards[0]);
+        }
+    }
+
     public List<Spell> GetSpells(SpellCategory category)
     {
         List<Spell> spells = new();
@@ -78,6 +122,27 @@ public class RunManager : MonoBehaviour
         }
 
         return selected;
+    }
+
+    public void MatchFinished(bool playerWon)
+    {
+        if (playerWon)
+        {
+            //Extra Reroll
+        }
+        else
+        {
+            //Lose Life
+        }
+        // Later:
+        // - Award reroll if playerWon
+        // - Remove tournament life if playerLost
+        // - Check elimination
+        // - Save statistics
+        
+        AdvanceSetupPhase();
+
+        LoadPreparation();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

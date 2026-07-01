@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Health
   team: 0
-  maxHealth: 1000
+  maxHealth: 30
   currentHealth: 0
 --- !u!114 &6474100269915427117
 MonoBehaviour:
@@ -194,8 +194,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89166608964a59b4ea5c20cd0bc28b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Mana
-  currentMana: 200
-  maxMana: 200
+  currentMana: 20
+  maxMana: 20
   manaRegen: 2.5
   canRegenMana: 1
 --- !u!114 &5823099902678110298
