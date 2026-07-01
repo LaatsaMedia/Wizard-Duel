@@ -7,6 +7,13 @@ public class WizardBuild
     public Spell secondarySpell;
     public Spell thirdSpell;
 
+    public Accessory accessory1;
+    public Accessory accessory2;
+    public Accessory accessory3;
+    public Accessory accessory4;
+    public Accessory accessory5;
+    public Accessory accessory6;
+
     public bool AddSpell(Spell spell)
     {
         if (primarySpell == null)
@@ -24,6 +31,47 @@ public class WizardBuild
         if (thirdSpell == null)
         {
             thirdSpell = spell;
+            return true;
+        }
+
+        return false;
+    }
+
+    public bool AddAccessory(Accessory accessory)
+    {
+        if (accessory1 == null)
+        {
+            accessory1 = accessory;
+            return true;
+        }
+
+        if (accessory2 == null)
+        {
+            accessory2 = accessory;
+            return true;
+        }
+
+        if (accessory3 == null)
+        {
+            accessory3 = accessory;
+            return true;
+        }
+
+        if (accessory4 == null)
+        {
+            accessory4 = accessory;
+            return true;
+        }
+
+        if (accessory5 == null)
+        {
+            accessory5 = accessory;
+            return true;
+        }
+
+        if (accessory6 == null)
+        {
+            accessory6 = accessory;
             return true;
         }
 

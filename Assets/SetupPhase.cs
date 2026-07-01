@@ -22,6 +22,24 @@ public class SetupPhase : MonoBehaviour
 
     private void GenerateRewards()
     {
+        switch (RunManager.Instance.CurrentRewardCategory)
+        {
+            case RewardCategory.Offensive:
+            case RewardCategory.Utility:
+            case RewardCategory.Disable:
+            case RewardCategory.Defensive:
+            case RewardCategory.Any:
+                GenerateSpellRewards();
+                break;
+
+            case RewardCategory.Accessory:
+                GenerateAccessoryRewards();
+                break;
+        }
+    }
+
+    private void GenerateSpellRewards()
+    {
         SpellCategory? spellCategory =
             RunManager.Instance.CurrentSpellCategory;
 
@@ -43,6 +61,26 @@ public class SetupPhase : MonoBehaviour
         }
     }
 
+    private void GenerateAccessoryRewards()
+    {
+        List<Accessory> rewards =
+            RunManager.Instance.GetRandomAccessories(3);
+
+        foreach (Accessory accessory in rewards)
+        {
+            RewardCard card = Instantiate(
+                rewardCardPrefab,
+                rewardContainer);
+
+            card.Setup(accessory);
+        }
+    }
+
+    private void GenerateStatRewards()
+    {
+        // We'll implement this later.
+    }
+
     public void SelectCard(RewardCard card)
     {
         if (selectedCard != null)
@@ -59,11 +97,24 @@ public class SetupPhase : MonoBehaviour
         if (selectedCard == null)
             return;
 
-        RunManager.Instance.PlayerBuild.AddSpell(
-            selectedCard.Spell);
+        switch (RunManager.Instance.CurrentRewardCategory)
+        {
+            case RewardCategory.Offensive:
+            case RewardCategory.Utility:
+            case RewardCategory.Disable:
+            case RewardCategory.Defensive:
+            case RewardCategory.Any:
+                RunManager.Instance.PlayerBuild.AddSpell(
+                    selectedCard.Spell);
+                break;
+
+            case RewardCategory.Accessory:
+                RunManager.Instance.PlayerBuild.AddAccessory(
+                    selectedCard.Accessory);
+                break;
+        }
 
         RunManager.Instance.GenerateEnemyReward();
-
         RunManager.Instance.LoadCombat();
     }
 }

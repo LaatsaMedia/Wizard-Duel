@@ -126,6 +126,12 @@ public class MatchManager : MonoBehaviour
                 RunManager.Instance.PlayerBuild);
         }
 
+        if (currentPlayer.TryGetComponent(out BuildApplier playerBuildApplier))
+        {
+            playerBuildApplier.ApplyBuild(
+                RunManager.Instance.PlayerBuild);
+        }
+
         currentEnemy = Instantiate(
             enemyPrefab,
             currentArena.EnemySpawn.position,
@@ -134,6 +140,12 @@ public class MatchManager : MonoBehaviour
         if (currentEnemy.TryGetComponent(out SpellCaster enemyCaster))
         {
             enemyCaster.ApplyBuild(
+                RunManager.Instance.EnemyBuild);
+        }
+
+        if (currentEnemy.TryGetComponent(out BuildApplier enemyBuildApplier))
+        {
+            enemyBuildApplier.ApplyBuild(
                 RunManager.Instance.EnemyBuild);
         }
 

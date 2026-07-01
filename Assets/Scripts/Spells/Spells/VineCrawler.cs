@@ -72,6 +72,13 @@ public class VineCrawler : SpellBehaviour
         if (activated)
             return;
 
+        // Caster died before activating the VineCrawler.
+        if (caster == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         // Enemy automatically recasts when the player gets close.
         if (caster.TryGetComponent(out Health health) &&
             health.Team == Team.Enemy)

@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52d5d13949e058942995bb555b41fc81, type: 3}
   m_Name: Reward Progression
   m_EditorClassIdentifier: Assembly-CSharp::RewardProgression
-  rewardOrder: 000000000100000002000000
+  rewardOrder: 000000000400000001000000040000000200000004000000

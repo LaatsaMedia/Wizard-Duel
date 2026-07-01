@@ -5,7 +5,7 @@ public class Mana : MonoBehaviour
 {
     public float currentMana = 20f;
     public float maxMana = 20f;
-    public float manaRegen = 2f;
+    public float manaRegeneration = 2f;
     public float CurrentManaPercent => currentMana / maxMana;
 
     public float CurrentMana => currentMana;
@@ -21,7 +21,7 @@ public class Mana : MonoBehaviour
 
         if (currentMana < maxMana)
         {
-            currentMana += manaRegen * Time.deltaTime;
+            currentMana += manaRegeneration * Time.deltaTime;
             currentMana = Mathf.Min(currentMana, maxMana);
         }
     }

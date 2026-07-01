@@ -25,6 +25,9 @@ public class PlayerController : MonoBehaviour
     private Vector2 mousePosition;
     private bool jumpPressed;
 
+    private bool canDoubleJump;
+    private bool usedDoubleJump;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -52,8 +55,18 @@ public class PlayerController : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.W) && IsGrounded())
-            jumpPressed = true;
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            if (IsGrounded())
+            {
+                jumpPressed = true;
+            }
+            else if (canDoubleJump && !usedDoubleJump)
+            {
+                jumpPressed = true;
+                usedDoubleJump = true;
+            }
+        }
     }
 
     private void FixedUpdate()
@@ -66,7 +79,12 @@ public class PlayerController : MonoBehaviour
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
         }
-        
+
+        if (IsGrounded())
+        {
+            usedDoubleJump = false;
+        }
+
         rb.linearVelocity = new Vector2(
             horizontal * moveSpeed,
             rb.linearVelocity.y);
@@ -75,7 +93,11 @@ public class PlayerController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(
                 rb.linearVelocity.x,
-                jumpForce);
+                0f);
+
+            rb.AddForce(
+                Vector2.up * jumpForce,
+                ForceMode2D.Impulse);
 
             jumpPressed = false;
         }
@@ -107,4 +129,14 @@ public class PlayerController : MonoBehaviour
             groundCheck.position,
             groundRadius);
     }
+
+    #region DOUBLE JUMP
+
+    public void EnableDoubleJump()
+    {
+        canDoubleJump = true;
+    }
+    
+
+    #endregion
 }

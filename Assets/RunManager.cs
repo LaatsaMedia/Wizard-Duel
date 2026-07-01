@@ -16,6 +16,11 @@ public class RunManager : MonoBehaviour
 
     [Header("Databases")]
     [SerializeField] private SpellDatabase spellDatabase;
+    [SerializeField] private AccessoryDatabase accessoryDatabase;
+    public List<Accessory> GetAccessories()
+    {
+        return new List<Accessory>(accessoryDatabase.accessories);
+    }
 
     public WizardBuild PlayerBuild { get; private set; } = new();
     public WizardBuild EnemyBuild { get; private set; } = new();
@@ -76,20 +81,46 @@ public class RunManager : MonoBehaviour
 
     public void GenerateEnemyReward()
     {
-        SpellCategory? spellCategory =
-            CurrentSpellCategory;
+        switch (CurrentRewardCategory)
+        {
+            case RewardCategory.Offensive:
+            case RewardCategory.Utility:
+            case RewardCategory.Disable:
+            case RewardCategory.Defensive:
+            case RewardCategory.Any:
+                GenerateEnemySpellReward();
+                break;
+
+            case RewardCategory.Accessory:
+                GenerateEnemyAccessoryReward();
+                break;
+        }
+    }
+
+    private void GenerateEnemySpellReward()
+    {
+        SpellCategory? spellCategory = CurrentSpellCategory;
 
         if (spellCategory == null)
             return;
 
         List<Spell> rewards =
-            GetRandomSpells(
-                spellCategory.Value,
-                1);
+            GetRandomSpells(spellCategory.Value, 1);
 
         if (rewards.Count > 0)
         {
             EnemyBuild.AddSpell(rewards[0]);
+        }
+    }
+
+    private void GenerateEnemyAccessoryReward()
+    {
+        List<Accessory> rewards =
+            GetRandomAccessories(1);
+
+        if (rewards.Count > 0)
+        {
+            EnemyBuild.AddAccessory(rewards[0]);
         }
     }
 
@@ -124,6 +155,22 @@ public class RunManager : MonoBehaviour
         return selected;
     }
 
+    public List<Accessory> GetRandomAccessories(int amount)
+    {
+        List<Accessory> available = GetAccessories();
+        List<Accessory> selected = new();
+
+        while (selected.Count < amount && available.Count > 0)
+        {
+            int index = Random.Range(0, available.Count);
+
+            selected.Add(available[index]);
+            available.RemoveAt(index);
+        }
+
+        return selected;
+    }
+
     public void MatchFinished(bool playerWon)
     {
         if (playerWon)
@@ -139,7 +186,7 @@ public class RunManager : MonoBehaviour
         // - Remove tournament life if playerLost
         // - Check elimination
         // - Save statistics
-        
+
         AdvanceSetupPhase();
 
         LoadPreparation();

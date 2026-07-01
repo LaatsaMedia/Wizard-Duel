@@ -7,8 +7,8 @@ public class Health : MonoBehaviour
     public Team Team => team;
 
     [Header("Health")]
-    [SerializeField] private float maxHealth = 100f;
-    [SerializeField] private float currentHealth;
+    public float maxHealth = 100f;
+    public float currentHealth;
 
     public float CurrentHealth => currentHealth;
     public float MaxHealth => maxHealth;

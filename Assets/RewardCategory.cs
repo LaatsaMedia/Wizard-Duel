@@ -4,7 +4,6 @@ public enum RewardCategory
     Utility,
     Disable,
     Defensive,
-    Stats,
     Accessory,
     Any
 }

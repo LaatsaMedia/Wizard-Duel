@@ -21,6 +21,9 @@ public class RewardCard : MonoBehaviour
     private Spell spell;
     public Spell Spell => spell;
 
+    private Accessory accessory;
+    public Accessory Accessory => accessory;
+
     private void Awake()
     {
         originalScale = transform.localScale;
@@ -35,6 +38,17 @@ public class RewardCard : MonoBehaviour
         type.text = spell.Category.ToString();
         description.text = spell.description;
         cost.text = $"Mana Cost: {spell.manaCost}";
+    }
+
+    public void Setup(Accessory accessory)
+    {
+        this.accessory = accessory;
+
+        icon.sprite = accessory.icon;
+        title.text = accessory.accessoryName;
+        type.text = "Accessory";
+        description.text = accessory.description;
+        cost.text = "";
     }
 
     public void OnClick()

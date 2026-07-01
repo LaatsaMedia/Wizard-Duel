@@ -287,6 +287,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
   rewardProgression: {fileID: 11400000, guid: ac71c63328b640449b087f379a3bf3b7, type: 2}
   spellDatabase: {fileID: 11400000, guid: 57724347d35c3d3408230ea84f397d08, type: 2}
+  accessoryDatabase: {fileID: 11400000, guid: 0d280a0602db7b244ae410741ac3e57b, type: 2}
 --- !u!4 &2005517388
 Transform:
   m_ObjectHideFlags: 0

@@ -50,6 +50,7 @@ GameObject:
   - component: {fileID: 644066907243837287}
   - component: {fileID: 304326137324484969}
   - component: {fileID: -1275070747495986371}
+  - component: {fileID: -4767231401383292959}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -105,7 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Mana
   currentMana: 20
   maxMana: 20
-  manaRegen: 2.5
+  manaRegeneration: 2
   canRegenMana: 1
 --- !u!114 &3730816254802958494
 MonoBehaviour:
@@ -288,6 +289,18 @@ MonoBehaviour:
   shakeDuration: 0.08
   shakeStrength: 0.15
   shakeFrequency: 0.015
+--- !u!114 &-4767231401383292959
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4933466168834943965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b23a0f05e8a384498646857a5385ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildApplier
 --- !u!1 &5794122623333587705
 GameObject:
   m_ObjectHideFlags: 0

@@ -141,6 +141,7 @@ GameObject:
   - component: {fileID: 8901088506126641714}
   - component: {fileID: 8871090612279741353}
   - component: {fileID: -8409670984736024020}
+  - component: {fileID: -3877588376278877642}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -196,7 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Mana
   currentMana: 20
   maxMana: 20
-  manaRegen: 2.5
+  manaRegeneration: 2
   canRegenMana: 1
 --- !u!114 &5823099902678110298
 MonoBehaviour:
@@ -366,6 +367,18 @@ MonoBehaviour:
   shakeDuration: 0.08
   shakeStrength: 0.15
   shakeFrequency: 0.015
+--- !u!114 &-3877588376278877642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938558370967978883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b23a0f05e8a384498646857a5385ef6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BuildApplier
 --- !u!1 &1228567029995831404
 GameObject:
   m_ObjectHideFlags: 0

@@ -30,6 +30,9 @@ public class EnemyController : MonoBehaviour
     private float nextDecisionTime;
     private float desiredHorizontal;
 
+    private bool canDoubleJump;
+    private bool usedDoubleJump;
+
     private Rigidbody2D rb;
 
     private void Awake()
@@ -85,6 +88,11 @@ public class EnemyController : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;
+        }
+
+        if (IsGrounded())
+        {
+            usedDoubleJump = false;
         }
 
         float distance = Vector2.Distance(transform.position, target.position);
@@ -160,13 +168,21 @@ public class EnemyController : MonoBehaviour
             desiredHorizontal * moveSpeed,
             rb.linearVelocity.y);
 
-        if (IsGrounded())
-        {
-            float heightDifference =
-                target.position.y - transform.position.y;
+        float heightDifference =
+            target.position.y - transform.position.y;
 
-            if (heightDifference > jumpHeightDifference)
+        if (heightDifference > jumpHeightDifference)
+        {
+            if (IsGrounded())
             {
+                rb.linearVelocity = new Vector2(
+                    rb.linearVelocity.x,
+                    jumpForce);
+            }
+            else if (canDoubleJump && !usedDoubleJump)
+            {
+                usedDoubleJump = true;
+
                 rb.linearVelocity = new Vector2(
                     rb.linearVelocity.x,
                     jumpForce);
@@ -223,4 +239,13 @@ public class EnemyController : MonoBehaviour
             groundCheck.position,
             groundRadius);
     }
+
+    #region DOUBLE JUMP
+
+    public void EnableDoubleJump()
+    {
+        canDoubleJump = true;
+    }
+
+    #endregion
 }
