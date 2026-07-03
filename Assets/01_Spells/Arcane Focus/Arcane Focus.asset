@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34445ebea772c51438069255528492d5, type: 3}
+  m_Name: Arcane Focus
+  m_EditorClassIdentifier: Assembly-CSharp::Spell
+  category: 0
+  spellName: Arcane Focus
+  icon: {fileID: 21300000, guid: 4978b6a03da198e439cc959a07528afe, type: 3}
+  description: This is placeholder for description
+  cooldown: 10
+  manaCost: 10
+  castSFX: {fileID: 0}
+  spellPrefab: {fileID: 4475795232772402507, guid: 0fb2e9f43b56b9343945d3655d11aa76, type: 3}

@@ -30,18 +30,19 @@ public class FireWall : MonoBehaviour
 
         float damage = damagePerSecond * Time.deltaTime;
 
-        for (int i = targets.Count - 1; i >= 0; i--)
+        // Make a copy so the original list can safely change
+        Health[] currentTargets = targets.ToArray();
+
+        foreach (Health health in currentTargets)
         {
-            Health health = targets[i];
-
             if (health == null)
-            {
-                targets.RemoveAt(i);
                 continue;
-            }
 
-            health.TakeDamage(damage);
+            health.TakeDamage(damage, false);
         }
+
+        // Clean up any destroyed references
+        targets.RemoveAll(h => h == null);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

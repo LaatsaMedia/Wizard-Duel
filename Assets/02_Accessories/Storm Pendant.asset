@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738a3e32d29419e4fb22ab5ffdad0f36, type: 3}
+  m_Name: Storm Pendant
+  m_EditorClassIdentifier: Assembly-CSharp::Accessory
+  accessoryName: Storm Pendant
+  icon: {fileID: 21300000, guid: 692f2ed4c56186a4e84bacba8883532b, type: 3}
+  description: Max Mana
+  modifiers:
+  - effect: 1
+    value: 10

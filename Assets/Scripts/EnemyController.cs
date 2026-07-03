@@ -84,7 +84,9 @@ public class EnemyController : MonoBehaviour
             return;
             
         // Root prevents movement only.
-        if (statusEffects.HasEffect(StatusEffectType.Root))
+        if (statusEffects.IsRooted ||
+            statusEffects.IsFrozen ||
+            statusEffects.IsStunned)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;

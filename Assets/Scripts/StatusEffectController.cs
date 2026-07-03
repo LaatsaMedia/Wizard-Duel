@@ -8,14 +8,18 @@ public class StatusEffectController : MonoBehaviour
     [SerializeField] private Transform effectContainer;
     [SerializeField] private StatusEffectUI effectPrefab;
 
+    [SerializeField] private Transform visualEffectContainer;
+
     private readonly Dictionary<StatusEffectType, Coroutine> activeEffects = new();
     private readonly Dictionary<StatusEffectType, StatusEffectUI> activeUI = new();
+    private readonly Dictionary<StatusEffectType, GameObject> activeVisuals = new();
 
     public bool IsRooted => HasEffect(StatusEffectType.Root);
     public bool IsBurning => HasEffect(StatusEffectType.Burning);
     public bool IsPoisoned => HasEffect(StatusEffectType.Poison);
     public bool IsFrozen => HasEffect(StatusEffectType.Frozen);
     public bool IsShielded => HasEffect(StatusEffectType.Shield);
+    public bool IsStunned => HasEffect(StatusEffectType.Stun);
 
     public void ApplyEffect(StatusEffect effect, float duration)
     {
@@ -29,6 +33,12 @@ public class StatusEffectController : MonoBehaviour
                 Destroy(existingUI.gameObject);
                 activeUI.Remove(effect.type);
             }
+            
+            if (activeVisuals.TryGetValue(effect.type, out GameObject visual))
+            {
+                Destroy(visual);
+                activeVisuals.Remove(effect.type);
+            }
 
             activeEffects.Remove(effect.type);
         }
@@ -37,6 +47,15 @@ public class StatusEffectController : MonoBehaviour
         ui.Initialize(effect);
 
         activeUI.Add(effect.type, ui);
+
+        if (effect.WorldEffectPrefab != null)
+        {
+            GameObject visual = Instantiate(
+                effect.WorldEffectPrefab,
+                visualEffectContainer);
+
+            activeVisuals.Add(effect.type, visual);
+        }
 
         Coroutine routine = StartCoroutine(
             EffectRoutine(effect.type, duration));
@@ -62,6 +81,11 @@ public class StatusEffectController : MonoBehaviour
             Destroy(ui.gameObject);
             activeUI.Remove(type);
         }
+        if (activeVisuals.TryGetValue(type, out GameObject visual))
+        {
+            Destroy(visual);
+            activeVisuals.Remove(type);
+        }
     }
 
     private IEnumerator EffectRoutine(
@@ -71,5 +95,14 @@ public class StatusEffectController : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         RemoveEffect(type);
+    }
+
+    public bool ConsumeFrozen()
+    {
+        if (!HasEffect(StatusEffectType.Frozen))
+            return false;
+
+        RemoveEffect(StatusEffectType.Frozen);
+        return true;
     }
 }

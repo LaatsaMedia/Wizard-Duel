@@ -3,6 +3,7 @@ using UnityEngine;
 public class VineCrawler : SpellBehaviour
 {
     public override bool SupportsRecast => true;
+    public override bool IsGroundSpell => true;
 
     [Header("Movement")]
     [SerializeField] private float speed = 6f;
@@ -12,7 +13,7 @@ public class VineCrawler : SpellBehaviour
     [Header("Activation")]
     [SerializeField] private VineRootArea rootAreaPrefab;
     [SerializeField] private float rootSpawnYOffset = 1f;
-    
+
     [Header("Enemy AI")]
     [SerializeField] private float minAutoActivateDistance = 2f;
     [SerializeField] private float maxAutoActivateDistance = 3f;
@@ -21,8 +22,6 @@ public class VineCrawler : SpellBehaviour
 
     [Header("Collision")]
     [SerializeField] private LayerMask wallLayer;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private float groundOffset = 0.05f;
 
     [Header("Animation")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -31,7 +30,6 @@ public class VineCrawler : SpellBehaviour
     [SerializeField] private float animationInterval = 0.5f;
 
     private bool useFirstSprite = true;
-
     private bool activated;
 
     private void Start()
@@ -39,29 +37,14 @@ public class VineCrawler : SpellBehaviour
         // Remember which horizontal direction to travel.
         direction = Mathf.Sign(transform.right.x);
 
-        // Reset rotation so the sprite is always upright.
+        // Keep the sprite upright.
         transform.rotation = Quaternion.identity;
-
-        // Find the ground directly below the cast position.
-        RaycastHit2D hit = Physics2D.Raycast(
-            transform.position,
-            Vector2.down,
-            Mathf.Infinity,
-            groundLayer);
-
-        if (hit)
-        {
-            transform.position = new Vector3(
-                transform.position.x,
-                hit.point.y + groundOffset,
-                transform.position.z);
-        }
 
         Invoke(nameof(Activate), lifetime);
 
         autoActivateDistance = Random.Range(
-        minAutoActivateDistance,
-        maxAutoActivateDistance);
+            minAutoActivateDistance,
+            maxAutoActivateDistance);
 
         spriteRenderer.sprite = spriteA;
         InvokeRepeating(nameof(Animate), animationInterval, animationInterval);
@@ -79,7 +62,7 @@ public class VineCrawler : SpellBehaviour
             return;
         }
 
-        // Enemy automatically recasts when the player gets close.
+        // Enemy AI automatically activates when the player gets close.
         if (caster.TryGetComponent(out Health health) &&
             health.Team == Team.Enemy)
         {
@@ -128,7 +111,8 @@ public class VineCrawler : SpellBehaviour
             spawnPosition,
             Quaternion.identity);
 
-        //root.Initialize(caster);
+        // Uncomment if VineRootArea needs to know who cast it.
+        // root.Initialize(caster);
 
         Destroy(gameObject);
     }

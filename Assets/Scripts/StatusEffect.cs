@@ -8,4 +8,8 @@ public class StatusEffect : ScriptableObject
     public string displayName;
 
     public Sprite icon;
+
+    [Header("Visuals")]
+    [SerializeField] private GameObject worldEffectPrefab;
+    public GameObject WorldEffectPrefab => worldEffectPrefab;
 }

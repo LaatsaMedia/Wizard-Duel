@@ -8,7 +8,8 @@ public enum AccessoryEffect
     MoveSpeed,
     SpellDamage,
     CooldownRecovery,
-    DoubleJump
+    DoubleJump,
+    FreezeOnIceShard
 }
 
 [CreateAssetMenu(menuName = "Accessories/Accessory")]

@@ -14,16 +14,41 @@ public class Health : MonoBehaviour
     public float MaxHealth => maxHealth;
     public float HealthPercent => currentHealth / maxHealth;
 
+    private StatusEffectController statusEffects;
+
     private void Awake()
     {
         currentHealth = maxHealth;
+        statusEffects = GetComponent<StatusEffectController>();
     }
 
-    public void TakeDamage(float damage)
+    public void TakeDamage(
+        float damage,
+        bool consumeFrozen = true)
     {
-        currentHealth -= damage;
+        Barrier barrier = GetComponent<Barrier>();
 
-        //Debug.Log($"{name} took {damage} damage.");
+        if (barrier != null)
+        {
+            damage = barrier.AbsorbDamage(damage);
+
+            if (barrier.IsBroken)
+            {
+                Destroy(barrier);
+            }
+
+            if (damage <= 0f)
+                return;
+        }
+
+        if (consumeFrozen &&
+            statusEffects != null &&
+            statusEffects.ConsumeFrozen())
+        {
+            damage *= 1.5f;
+        }
+
+        currentHealth -= damage;
 
         if (TryGetComponent(out HitController hitController))
         {

@@ -105,7 +105,10 @@ public class RunManager : MonoBehaviour
             return;
 
         List<Spell> rewards =
-            GetRandomSpells(spellCategory.Value, 1);
+            GetRandomSpells(
+                spellCategory.Value,
+                EnemyBuild,
+                1);
 
         if (rewards.Count > 0)
         {
@@ -116,7 +119,9 @@ public class RunManager : MonoBehaviour
     private void GenerateEnemyAccessoryReward()
     {
         List<Accessory> rewards =
-            GetRandomAccessories(1);
+            GetRandomAccessories(
+                EnemyBuild,
+                1);
 
         if (rewards.Count > 0)
         {
@@ -139,9 +144,15 @@ public class RunManager : MonoBehaviour
         return spells;
     }
 
-    public List<Spell> GetRandomSpells(SpellCategory category, int amount)
+    public List<Spell> GetRandomSpells(
+        SpellCategory category,
+        WizardBuild build,
+        int amount)
     {
         List<Spell> available = GetSpells(category);
+
+        available.RemoveAll(build.HasSpell);
+
         List<Spell> selected = new();
 
         while (selected.Count < amount && available.Count > 0)
@@ -155,9 +166,14 @@ public class RunManager : MonoBehaviour
         return selected;
     }
 
-    public List<Accessory> GetRandomAccessories(int amount)
+    public List<Accessory> GetRandomAccessories(
+        WizardBuild build,
+        int amount)
     {
         List<Accessory> available = GetAccessories();
+
+        available.RemoveAll(build.HasAccessory);
+
         List<Accessory> selected = new();
 
         while (selected.Count < amount && available.Count > 0)

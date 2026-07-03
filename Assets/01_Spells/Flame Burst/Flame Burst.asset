@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34445ebea772c51438069255528492d5, type: 3}
+  m_Name: Flame Burst
+  m_EditorClassIdentifier: Assembly-CSharp::Spell
+  category: 0
+  spellName: Flame Burst
+  icon: {fileID: 10915, guid: 0000000000000000f000000000000000, type: 0}
+  description: This is placeholder for description
+  cooldown: 6
+  manaCost: 5
+  castSFX: {fileID: 0}
+  spellPrefab: {fileID: 5950869840000082223, guid: 342a90e0299769343b966c04c25feb23, type: 3}

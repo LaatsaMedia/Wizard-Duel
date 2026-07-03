@@ -15,8 +15,13 @@ public class IceShardProjectile : SpellBehaviour
     [Header("VFX")]
     [SerializeField] private GameObject impactPrefab;
 
-    private Rigidbody2D rb;
+    private bool appliesFreeze;
 
+    private int freezeHits;
+    private float freezeWindow;
+    private float freezeDuration;
+
+    private Rigidbody2D rb;
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -29,6 +34,20 @@ public class IceShardProjectile : SpellBehaviour
         Destroy(gameObject, lifetime);
     }
 
+    public void EnableFreeze(
+        int requiredHits,
+        float hitWindow,
+        float freezeDuration)
+    {
+        Debug.Log("Freeze enabled on Ice Shard!");
+
+        appliesFreeze = true;
+
+        freezeHits = requiredHits;
+        freezeWindow = hitWindow;
+        this.freezeDuration = freezeDuration;
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject == caster)
@@ -37,6 +56,15 @@ public class IceShardProjectile : SpellBehaviour
         if (other.TryGetComponent(out Health health))
         {
             health.TakeDamage(damage);
+        }
+
+        if (appliesFreeze &&
+            other.TryGetComponent(out FreezeController freeze))
+        {
+            freeze.AddHit(
+                freezeHits,
+                freezeWindow,
+                freezeDuration);
         }
 
         ApplySlowness(other);

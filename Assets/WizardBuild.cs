@@ -91,4 +91,48 @@ public class WizardBuild
             return count;
         }
     }
+
+    public bool HasSpell(Spell spell)
+    {
+        return primarySpell == spell ||
+            secondarySpell == spell ||
+            thirdSpell == spell;
+    }
+
+    public bool HasAccessory(Accessory accessory)
+    {
+        return accessory1 == accessory ||
+            accessory2 == accessory ||
+            accessory3 == accessory ||
+            accessory4 == accessory ||
+            accessory5 == accessory ||
+            accessory6 == accessory;
+    }
+
+    public bool HasAccessoryEffect(AccessoryEffect effect)
+    {
+        Accessory[] accessories =
+        {
+            accessory1,
+            accessory2,
+            accessory3,
+            accessory4,
+            accessory5,
+            accessory6
+        };
+
+        foreach (Accessory accessory in accessories)
+        {
+            if (accessory == null)
+                continue;
+
+            foreach (AccessoryModifier modifier in accessory.Modifiers)
+            {
+                if (modifier.Effect == effect)
+                    return true;
+            }
+        }
+
+        return false;
+    }
 }

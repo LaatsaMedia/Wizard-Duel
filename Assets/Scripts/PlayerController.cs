@@ -46,7 +46,9 @@ public class PlayerController : MonoBehaviour
         RotateAimPivot();
 
         // Root prevents movement and jumping only.
-        if (statusEffects.HasEffect(StatusEffectType.Root))
+        if (statusEffects.IsRooted ||
+            statusEffects.IsFrozen ||
+            statusEffects.IsStunned)
         {
             horizontal = 0f;
             jumpPressed = false;
@@ -73,8 +75,10 @@ public class PlayerController : MonoBehaviour
     {
         if (knockback != null && knockback.IsKnockedBack)
             return;
-
-        if (statusEffects.HasEffect(StatusEffectType.Root))
+            
+        if (statusEffects.IsRooted ||
+            statusEffects.IsFrozen ||
+            statusEffects.IsStunned)
         {
             rb.linearVelocity = new Vector2(0f, rb.linearVelocity.y);
             return;

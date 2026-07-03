@@ -8,6 +8,7 @@ public class BuildApplier : MonoBehaviour
     private Mana mana;
     private PlayerController playerController;
     private EnemyController enemyController;
+    private FreezeController freezeController;
 
     private void Awake()
     {
@@ -15,6 +16,7 @@ public class BuildApplier : MonoBehaviour
         mana = GetComponent<Mana>();
         playerController = GetComponent<PlayerController>();
         enemyController = GetComponent<EnemyController>();
+        freezeController = GetComponent<FreezeController>();
     }
 
     public void ApplyBuild(WizardBuild build)

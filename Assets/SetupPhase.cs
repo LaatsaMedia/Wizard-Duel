@@ -49,6 +49,7 @@ public class SetupPhase : MonoBehaviour
         List<Spell> rewards =
             RunManager.Instance.GetRandomSpells(
                 spellCategory.Value,
+                RunManager.Instance.PlayerBuild,
                 3);
 
         foreach (Spell spell in rewards)
@@ -64,7 +65,9 @@ public class SetupPhase : MonoBehaviour
     private void GenerateAccessoryRewards()
     {
         List<Accessory> rewards =
-            RunManager.Instance.GetRandomAccessories(3);
+            RunManager.Instance.GetRandomAccessories(
+                RunManager.Instance.PlayerBuild,
+                3);
 
         foreach (Accessory accessory in rewards)
         {
@@ -76,9 +79,16 @@ public class SetupPhase : MonoBehaviour
         }
     }
 
-    private void GenerateStatRewards()
+    public void Reroll()
     {
-        // We'll implement this later.
+        selectedCard = null;
+
+        foreach (Transform child in rewardContainer)
+        {
+            Destroy(child.gameObject);
+        }
+
+        GenerateRewards();
     }
 
     public void SelectCard(RewardCard card)

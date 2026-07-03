@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class SpellCaster : MonoBehaviour
 {
+    private StatusEffectController statusEffects;
     public Mana mana;
+    private WizardBuild build;
 
     [Header("Spell Slots")]
     [SerializeField] private SpellSlot primarySpell;
@@ -14,14 +16,22 @@ public class SpellCaster : MonoBehaviour
     public SpellSlot ThirdSpell => thirdSpell;
 
     [SerializeField] private Transform spellSpawn;
+    public Transform SpellSpawn => spellSpawn;
+
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundOffset = 0.05f;
+    [SerializeField] private float groundCastDistance = 30f;
 
     private void Awake()
     {
         mana = GetComponent<Mana>();
+        statusEffects = GetComponent<StatusEffectController>();
     }
 
     public void ApplyBuild(WizardBuild build)
     {
+        this.build = build;
+
         primarySpell.spell = build.primarySpell;
         secondarySpell.spell = build.secondarySpell;
         thirdSpell.spell = build.thirdSpell;
@@ -71,6 +81,10 @@ public class SpellCaster : MonoBehaviour
 
     private void Cast(SpellSlot slot)
     {
+        if (statusEffects.IsFrozen ||
+            statusEffects.IsStunned)
+            return;
+
         if (slot.spell == null)
             return;
 
@@ -95,14 +109,36 @@ public class SpellCaster : MonoBehaviour
             AudioManager.Instance.Play(slot.spell.castSFX);
         }
 
+        float direction = Mathf.Sign(spellSpawn.right.x);
+
+        Vector3 spawnPosition = spellSpawn.position;
+
+        if (slot.spell.spellPrefab.TryGetComponent(
+            out SpellBehaviour prefabSpell) &&
+            prefabSpell.IsGroundSpell)
+        {
+            spawnPosition = GetGroundSpawnPosition(direction);
+        }
+
         GameObject spellObject = Instantiate(
             slot.spell.spellPrefab,
-            spellSpawn.position,
+            spawnPosition,
             spellSpawn.rotation);
 
         if (spellObject.TryGetComponent(out SpellBehaviour spellBehaviour))
         {
-            spellBehaviour.Initialize(gameObject);
+            spellBehaviour.Initialize(gameObject, direction);
+
+            if (spellObject.TryGetComponent(out IceShardProjectile iceShard))
+            {
+                if (build.HasAccessoryEffect(AccessoryEffect.FreezeOnIceShard))
+                {
+                    iceShard.EnableFreeze(
+                        4,
+                        4f,
+                        1f);
+                }
+            }
 
             if (spellBehaviour.SupportsRecast)
             {
@@ -112,4 +148,35 @@ public class SpellCaster : MonoBehaviour
 
         slot.cooldownRemaining = slot.spell.cooldown;
     }
+
+    private Vector3 GetGroundSpawnPosition(float direction)
+{
+    float x = spellSpawn.position.x + groundCastDistance * direction;
+
+    Vector3 rayOrigin = new Vector3(
+        x,
+        100f,
+        0f);
+
+    Debug.DrawRay(
+        rayOrigin,
+        Vector2.down * 200f,
+        Color.red,
+        5f);
+
+    RaycastHit2D hit = Physics2D.Raycast(
+        rayOrigin,
+        Vector2.down,
+        200f,
+        groundLayer);
+
+    if (hit)
+    {
+        return new Vector3(
+            hit.point.x,
+            hit.point.y + groundOffset,
+            0f);
+    }
+    return spellSpawn.position;
+}
 }
