@@ -103,7 +103,7 @@ GameObject:
   - component: {fileID: 205908156428093677}
   - component: {fileID: 3716864209218365321}
   - component: {fileID: 7680029326893321124}
-  m_Layer: 13
+  m_Layer: 12
   m_Name: BubblePrisonProjectile
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -326,6 +326,7 @@ GameObject:
   - component: {fileID: -4767231401383292959}
   - component: {fileID: 3343575091701872708}
   - component: {fileID: -6839644351888864458}
+  - component: {fileID: -1442511523092615145}
   m_Layer: 10
   m_Name: Enemy
   m_TagString: Untagged
@@ -610,7 +611,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d61e29d6b194f040b08e7ae14fd068b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Barrier
-  maxBarrierHealth: 100
+--- !u!114 &-1442511523092615145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4933466168834943965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8bbadacc8c016042a53df705580b49b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MovementController
 --- !u!1 &5794122623333587705
 GameObject:
   m_ObjectHideFlags: 0

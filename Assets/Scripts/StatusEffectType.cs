@@ -5,5 +5,6 @@ public enum StatusEffectType
     Poison,
     Frozen,
     Shield,
-    Stun
+    Stun,
+    Grounded
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class PlayerController : MonoBehaviour
@@ -9,6 +10,7 @@ public class PlayerController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float jumpForce = 10f;
+    private MovementController movement;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
@@ -34,6 +36,7 @@ public class PlayerController : MonoBehaviour
         cam = Camera.main;
         statusEffects = GetComponent<StatusEffectController>();
         knockback = GetComponent<KnockbackReceiver>();
+        movement = GetComponent<MovementController>();
     }
 
     private void Update()
@@ -57,7 +60,7 @@ public class PlayerController : MonoBehaviour
 
         horizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.W))
+        if (Input.GetKeyDown(KeyCode.W) && !statusEffects.IsGrounded)
         {
             if (IsGrounded())
             {
@@ -90,7 +93,7 @@ public class PlayerController : MonoBehaviour
         }
 
         rb.linearVelocity = new Vector2(
-            horizontal * moveSpeed,
+            horizontal * moveSpeed * movement.MovementMultiplier,
             rb.linearVelocity.y);
 
         if (jumpPressed)

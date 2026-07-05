@@ -8,7 +8,7 @@ public class StatusEffectController : MonoBehaviour
     [SerializeField] private Transform effectContainer;
     [SerializeField] private StatusEffectUI effectPrefab;
 
-    [SerializeField] private Transform visualEffectContainer;
+    public Transform visualEffectContainer;
 
     private readonly Dictionary<StatusEffectType, Coroutine> activeEffects = new();
     private readonly Dictionary<StatusEffectType, StatusEffectUI> activeUI = new();
@@ -20,6 +20,7 @@ public class StatusEffectController : MonoBehaviour
     public bool IsFrozen => HasEffect(StatusEffectType.Frozen);
     public bool IsShielded => HasEffect(StatusEffectType.Shield);
     public bool IsStunned => HasEffect(StatusEffectType.Stun);
+    public bool IsGrounded => HasEffect(StatusEffectType.Grounded);
 
     public void ApplyEffect(StatusEffect effect, float duration)
     {

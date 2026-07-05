@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(Rigidbody2D))]
 public class EnemyController : MonoBehaviour
@@ -9,6 +10,7 @@ public class EnemyController : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 6f;
     [SerializeField] private float jumpForce = 10f;
+    private MovementController movement;
 
     [Header("Ground Check")]
     [SerializeField] private Transform groundCheck;
@@ -38,6 +40,7 @@ public class EnemyController : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        movement = GetComponent<MovementController>();
         statusEffects = GetComponent<StatusEffectController>();
         knockback = GetComponent<KnockbackReceiver>();
     }
@@ -167,7 +170,7 @@ public class EnemyController : MonoBehaviour
         }
 
         rb.linearVelocity = new Vector2(
-            desiredHorizontal * moveSpeed,
+            desiredHorizontal * moveSpeed * movement.MovementMultiplier,
             rb.linearVelocity.y);
 
         float heightDifference =
@@ -175,7 +178,7 @@ public class EnemyController : MonoBehaviour
 
         if (heightDifference > jumpHeightDifference)
         {
-            if (IsGrounded())
+            if (IsGrounded() && !statusEffects.IsGrounded)
             {
                 rb.linearVelocity = new Vector2(
                     rb.linearVelocity.x,
