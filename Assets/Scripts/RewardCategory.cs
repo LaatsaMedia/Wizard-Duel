@@ -5,5 +5,6 @@ public enum RewardCategory
     Disable,
     Defensive,
     Accessory,
-    Any
+    Any,
+    Ultimate
 }

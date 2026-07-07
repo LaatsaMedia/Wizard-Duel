@@ -8,6 +8,10 @@ public class EnemyHUD : MonoBehaviour
 
     [SerializeField] private StatusBarUI healthBar;
     [SerializeField] private StatusBarUI manaBar;
+    private UltimateCharge ultimateCharge;
+
+    [SerializeField] private StatusBarUI ultimateBar;
+    [SerializeField] private GameObject ultimateReady;
     
     private void OnEnable()
     {
@@ -36,6 +40,12 @@ public class EnemyHUD : MonoBehaviour
 
         health = target.GetComponent<Health>();
         mana = target.GetComponent<Mana>();
+        ultimateCharge = target.GetComponent<UltimateCharge>();
+
+        SpellCaster spellCaster = target.GetComponent<SpellCaster>();
+
+        ultimateBar.gameObject.SetActive(
+            spellCaster.Build.HasUltimateSpell());
 
         if (target.TryGetComponent(out HitController hitController))
         {
@@ -46,7 +56,38 @@ public class EnemyHUD : MonoBehaviour
 
     private void Update()
     {
-        healthBar.UpdateBar(health.CurrentHealth, health.MaxHealth);
-        manaBar.UpdateBar(mana.CurrentMana, mana.MaxMana);
+        if (health == null)
+        {
+            AssignTarget();
+            return;
+        }
+
+        healthBar.UpdateBar(
+            health.CurrentHealth,
+            health.MaxHealth);
+
+        manaBar.UpdateBar(
+            mana.CurrentMana,
+            mana.MaxMana);
+
+        if (ultimateBar.gameObject.activeSelf)
+        {
+            ultimateBar.UpdateBar(
+                ultimateCharge.CurrentCharge,
+                100f);
+
+            ultimateReady.SetActive(
+                ultimateCharge.IsReady);
+        }
+        /*
+        if (ultimateBar.gameObject.activeSelf)
+        {
+            ultimateBar.UpdateBar(
+                ultimateCharge.CurrentCharge,
+                100f);
+
+            ultimateReady.SetActive(
+                ultimateCharge.IsReady);
+        }*/
     }
 }

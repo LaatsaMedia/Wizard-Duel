@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34445ebea772c51438069255528492d5, type: 3}
   m_Name: Vine Crawler
   m_EditorClassIdentifier: Assembly-CSharp::Spell
-  category: 0
+  category: 3
+  mastery: 0
   spellName: Vine Crawler
   icon: {fileID: 21300000, guid: dabb7b63db0b5c24f8624c2861a1694f, type: 3}
   description: This is placeholder for description

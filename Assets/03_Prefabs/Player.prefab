@@ -267,6 +267,7 @@ GameObject:
   - component: {fileID: 2237224167068192655}
   - component: {fileID: 6385280347054263235}
   - component: {fileID: 3507204148908336696}
+  - component: {fileID: -3586970484560666786}
   m_Layer: 10
   m_Name: Player
   m_TagString: Untagged
@@ -371,6 +372,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpellCaster
   mana: {fileID: 6474100269915427117}
+  build:
+    primarySpell: {fileID: 0}
+    secondarySpell: {fileID: 0}
+    thirdSpell: {fileID: 0}
+    ultimateSpell: {fileID: 0}
+    accessory1: {fileID: 0}
+    accessory2: {fileID: 0}
+    accessory3: {fileID: 0}
+    accessory4: {fileID: 0}
+    accessory5: {fileID: 0}
+    accessory6: {fileID: 0}
   primarySpell:
     spell: {fileID: 0}
     cooldownRemaining: 0
@@ -383,6 +395,8 @@ MonoBehaviour:
     spell: {fileID: 0}
     cooldownRemaining: 0
     activeRecastSpell: {fileID: 0}
+  ultimateSlot:
+    spell: {fileID: 0}
   spellSpawn: {fileID: 8038514236875986973}
   groundLayer:
     serializedVersion: 2
@@ -550,6 +564,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8bbadacc8c016042a53df705580b49b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MovementController
+--- !u!114 &-3586970484560666786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938558370967978883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc1259f4aa4c03d42a6dd7a2ff2db50f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UltimateCharge
+  passiveChargePerSecond: 2
 --- !u!1 &973271745789817569
 GameObject:
   m_ObjectHideFlags: 0

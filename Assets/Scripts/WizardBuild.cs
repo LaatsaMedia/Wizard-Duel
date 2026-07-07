@@ -6,6 +6,7 @@ public class WizardBuild
     public Spell primarySpell;
     public Spell secondarySpell;
     public Spell thirdSpell;
+    public Spell ultimateSpell;
 
     public Accessory accessory1;
     public Accessory accessory2;
@@ -37,6 +38,20 @@ public class WizardBuild
         return false;
     }
 
+    public bool HasUltimateSpell()
+    {
+        return ultimateSpell != null;
+    }
+
+    public bool SetUltimateSpell(Spell spell)
+    {
+        if (spell == null)
+            return false;
+
+        ultimateSpell = spell;
+        return true;
+    }
+
     public bool AddAccessory(Accessory accessory)
     {
         if (accessory1 == null)
@@ -48,7 +63,7 @@ public class WizardBuild
         if (accessory2 == null)
         {
             accessory2 = accessory;
-            return true;
+            return true;    
         }
 
         if (accessory3 == null)

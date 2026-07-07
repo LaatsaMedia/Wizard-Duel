@@ -5,7 +5,16 @@ public enum SpellCategory
     Offensive,
     Defensive,
     Utility,
-    Disable
+    Disable,
+    None
+}
+
+public enum SpellMastery
+{
+    Apprentice,
+    Adept,
+    Master,
+    Archmage
 }
 
 [CreateAssetMenu(menuName = "Spells/Spell")]
@@ -13,6 +22,9 @@ public class Spell : ScriptableObject
 {
     [SerializeField] private SpellCategory category;
     public SpellCategory Category => category;
+
+    [SerializeField] private SpellMastery mastery;
+    public SpellMastery Mastery => mastery;
     
     public string spellName;
     public Sprite icon;

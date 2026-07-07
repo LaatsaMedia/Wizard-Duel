@@ -26,6 +26,9 @@ public class Health : MonoBehaviour
         float damage,
         bool consumeFrozen = true)
     {
+        if(!MatchManager.RoundActive)
+            return;
+
         Barrier barrier = GetComponent<Barrier>();
 
         if (barrier != null)

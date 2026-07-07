@@ -6,13 +6,16 @@ public class PlayerInput : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
             spellCaster.CastPrimary();
 
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButton(1))
             spellCaster.CastSecondary();
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.E))
             spellCaster.CastThird();
+
+        if(Input.GetKeyDown(KeyCode.F))
+            spellCaster.CastUltimate();
     }
 }

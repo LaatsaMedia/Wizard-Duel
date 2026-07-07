@@ -40,26 +40,63 @@ public class SetupPhase : MonoBehaviour
 
     private void GenerateSpellRewards()
     {
-        SpellCategory? spellCategory =
-            RunManager.Instance.CurrentSpellCategory;
+        List<Spell> generatedSpells = new();
 
-        if (spellCategory == null)
-            return;
+        int normalSpellCount = 3;
 
-        List<Spell> rewards =
-            RunManager.Instance.GetRandomSpells(
-                spellCategory.Value,
-                RunManager.Instance.PlayerBuild,
-                3);
-
-        foreach (Spell spell in rewards)
+        if (RunManager.Instance.ShouldGenerateUltimateReward())
         {
+            normalSpellCount = 2;
+
+            GenerateUltimateReward(generatedSpells);
+        }
+
+        for (int i = 0; i < normalSpellCount; i++)
+        {
+            SpellCategory category =
+                RunManager.Instance.CurrentRewardCategory == RewardCategory.Any
+                ? RunManager.Instance.GetRandomSpellCategory()
+                : RunManager.Instance.GetRewardSpellCategory();
+
+            List<Spell> rewards =
+                RunManager.Instance.GetRandomSpells(
+                    category,
+                    RunManager.Instance.PlayerBuild,
+                    1,
+                    generatedSpells);
+
+            if (rewards.Count == 0)
+                continue;
+
+            Spell spell = rewards[0];
+
+            generatedSpells.Add(spell);
+
             RewardCard card = Instantiate(
                 rewardCardPrefab,
                 rewardContainer);
 
             card.Setup(spell);
         }
+    }
+
+    private void GenerateUltimateReward(
+    List<Spell> generatedSpells)
+    {
+        Spell spell =
+            RunManager.Instance.GetRandomUltimateSpell(
+                RunManager.Instance.PlayerBuild);
+
+        if (spell == null)
+            return;
+
+        generatedSpells.Add(spell);
+
+        RewardCard card = Instantiate(
+            rewardCardPrefab,
+            rewardContainer);
+
+        card.Setup(spell);
     }
 
     private void GenerateAccessoryRewards()
@@ -114,8 +151,18 @@ public class SetupPhase : MonoBehaviour
             case RewardCategory.Disable:
             case RewardCategory.Defensive:
             case RewardCategory.Any:
-                RunManager.Instance.PlayerBuild.AddSpell(
-                    selectedCard.Spell);
+
+                if (selectedCard.Spell.Mastery == SpellMastery.Archmage)
+                {
+                    RunManager.Instance.PlayerBuild.SetUltimateSpell(
+                        selectedCard.Spell);
+                }
+                else
+                {
+                    RunManager.Instance.PlayerBuild.AddSpell(
+                        selectedCard.Spell);
+                }
+
                 break;
 
             case RewardCategory.Accessory:
