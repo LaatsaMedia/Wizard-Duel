@@ -1,15 +1,18 @@
-using System.Text.RegularExpressions;
+using TMPro;
 using UnityEngine;
 
 public class PlayerHUD : MonoBehaviour
 {
     [SerializeField] private Team team;
+
     private Health health;
     private Mana mana;
     private UltimateCharge ultimateCharge;
 
     [SerializeField] private StatusBarUI healthBar;
     [SerializeField] private StatusBarUI manaBar;
+    [SerializeField] private StatusBarUI shieldBar;
+    [SerializeField] private TMP_Text shieldText;
     [SerializeField] private StatusBarUI ultimateBar;
     [SerializeField] private GameObject ultimateReady;
 
@@ -25,6 +28,9 @@ public class PlayerHUD : MonoBehaviour
 
     private void Start()
     {
+        shieldBar.gameObject.SetActive(false);
+        shieldText.gameObject.SetActive(false);
+        
         AssignTarget();
     }
 
@@ -62,19 +68,47 @@ public class PlayerHUD : MonoBehaviour
             return;
         }
 
-        healthBar.UpdateBar(health.CurrentHealth, health.MaxHealth);
-        manaBar.UpdateBar(mana.CurrentMana, mana.MaxMana);
+        Barrier barrier = health.GetComponent<Barrier>();
 
-        ultimateBar.UpdateBar(ultimateCharge.CurrentCharge, 100f);
-    
-        /*if (ultimateBar.gameObject.activeSelf)
+        float shield = 0f;
+
+        if (barrier != null)
         {
-            ultimateBar.UpdateBar(
-                ultimateCharge.CurrentCharge,
-                100f);
+            shieldBar.gameObject.SetActive(true);
 
+            shieldBar.UpdateBar(
+                barrier.CurrentBarrierHealth,
+                barrier.MaxBarrierHealth);
+
+            shieldText.gameObject.SetActive(true);
+            shieldText.text = Mathf.CeilToInt(
+                barrier.CurrentBarrierHealth).ToString();
+        }
+        else
+        {
+            shieldBar.gameObject.SetActive(false);
+            shieldText.gameObject.SetActive(false);
+        }
+
+        healthBar.UpdateBar(
+            health.CurrentHealth,
+            health.MaxHealth,
+            shield);
+
+        manaBar.UpdateBar(
+            mana.CurrentMana,
+            mana.MaxMana);
+
+        ultimateBar.UpdateBar(
+            ultimateCharge.CurrentCharge,
+            100f);
+
+        /*
+        if (ultimateBar.gameObject.activeSelf)
+        {
             ultimateReady.SetActive(
                 ultimateCharge.IsReady);
-        }*/
+        }
+        */
     }
 }

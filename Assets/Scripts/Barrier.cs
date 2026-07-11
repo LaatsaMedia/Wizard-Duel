@@ -4,10 +4,14 @@ public class Barrier : MonoBehaviour
 {
     private float currentBarrierHealth;
 
+    public float CurrentBarrierHealth => currentBarrierHealth;
+    public float MaxBarrierHealth { get; private set; }
+
     public bool IsBroken => currentBarrierHealth <= 0f;
 
     public void Initialize(float health)
     {
+        MaxBarrierHealth = health;
         currentBarrierHealth = health;
     }
 

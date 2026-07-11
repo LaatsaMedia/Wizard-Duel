@@ -2,20 +2,24 @@ using UnityEngine;
 
 public class PlayerInput : MonoBehaviour
 {
+    public static bool InputEnabled = true;
     [SerializeField] private SpellCaster spellCaster;
 
     private void Update()
     {
-        if (Input.GetMouseButton(0))
+        if (!InputEnabled)
+            return;
+
+        if (InputSettings.GetButtonDown(PlayerAction.Primary))
             spellCaster.CastPrimary();
 
-        if (Input.GetMouseButton(1))
+        if (InputSettings.GetButtonDown(PlayerAction.Secondary))
             spellCaster.CastSecondary();
 
-        if (Input.GetKey(KeyCode.E))
+        if (InputSettings.GetButtonDown(PlayerAction.Third))
             spellCaster.CastThird();
 
-        if(Input.GetKeyDown(KeyCode.F))
+        if (InputSettings.GetButtonDown(PlayerAction.Ultimate))
             spellCaster.CastUltimate();
     }
 }

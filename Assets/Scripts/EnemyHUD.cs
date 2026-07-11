@@ -8,6 +8,8 @@ public class EnemyHUD : MonoBehaviour
 
     [SerializeField] private StatusBarUI healthBar;
     [SerializeField] private StatusBarUI manaBar;
+    [SerializeField] private StatusBarUI shieldBar;
+    [SerializeField] private TMPro.TMP_Text shieldText;
     private UltimateCharge ultimateCharge;
 
     [SerializeField] private StatusBarUI ultimateBar;
@@ -25,6 +27,9 @@ public class EnemyHUD : MonoBehaviour
 
     private void Start()
     {
+        shieldBar.gameObject.SetActive(false);
+        shieldText.gameObject.SetActive(false);
+
         AssignTarget();
     }
 
@@ -60,6 +65,27 @@ public class EnemyHUD : MonoBehaviour
         {
             AssignTarget();
             return;
+        }
+
+        Barrier barrier = health.GetComponent<Barrier>();
+
+        if (barrier != null &&
+            barrier.CurrentBarrierHealth > 0f)
+        {
+            shieldBar.gameObject.SetActive(true);
+
+            shieldBar.UpdateBar(
+                barrier.CurrentBarrierHealth,
+                barrier.MaxBarrierHealth);
+
+            shieldText.gameObject.SetActive(true);
+            shieldText.text =
+                Mathf.CeilToInt(barrier.CurrentBarrierHealth).ToString();
+        }
+        else
+        {
+            shieldBar.gameObject.SetActive(false);
+            shieldText.gameObject.SetActive(false);
         }
 
         healthBar.UpdateBar(

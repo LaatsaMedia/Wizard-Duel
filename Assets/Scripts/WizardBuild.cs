@@ -38,6 +38,28 @@ public class WizardBuild
         return false;
     }
 
+    public void SetSpell(BuildSlot slot, Spell spell)
+    {
+        switch (slot)
+        {
+            case BuildSlot.Primary:
+                primarySpell = spell;
+                break;
+
+            case BuildSlot.Secondary:
+                secondarySpell = spell;
+                break;
+
+            case BuildSlot.Third:
+                thirdSpell = spell;
+                break;
+
+            case BuildSlot.Ultimate:
+                ultimateSpell = spell;
+                break;
+        }
+    }
+
     public bool HasUltimateSpell()
     {
         return ultimateSpell != null;
@@ -149,5 +171,37 @@ public class WizardBuild
         }
 
         return false;
+    }
+
+    public WizardBuild Clone()
+    {
+        return new WizardBuild
+        {
+            primarySpell = primarySpell,
+            secondarySpell = secondarySpell,
+            thirdSpell = thirdSpell,
+            ultimateSpell = ultimateSpell,
+
+            accessory1 = accessory1,
+            accessory2 = accessory2,
+            accessory3 = accessory3,
+            accessory4 = accessory4,
+            accessory5 = accessory5,
+            accessory6 = accessory6
+        };
+    }
+    public void RemoveSpell(Spell spell)
+    {
+        if (primarySpell == spell)
+            primarySpell = null;
+
+        if (secondarySpell == spell)
+            secondarySpell = null;
+
+        if (thirdSpell == spell)
+            thirdSpell = null;
+
+        if (ultimateSpell == spell)
+            ultimateSpell = null;
     }
 }

@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9a63ecee00443f43a2e769fd04b1eb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ArcaneBarrierSpell
-  barrierHealth: 50
+  barrierHealth: 30
   duration: 3
 --- !u!1 &5864653483000702202
 GameObject:

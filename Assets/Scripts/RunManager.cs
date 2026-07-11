@@ -6,9 +6,20 @@ public class RunManager : MonoBehaviour
 {
     public static RunManager Instance { get; private set; }
 
-    [SerializeField] private RewardProgression rewardProgression;
-    private int currentRewardIndex;
+    [SerializeField] private int maxRounds = 10;
+    [SerializeField] private int maxLives = 3;
+    private int currentLives;
 
+    public int CurrentLives => currentLives;
+    public int MaxLives => maxLives;
+    public int MaxRounds => maxRounds;
+
+    [SerializeField] private bool unlockAllSpellMasteries;
+
+    [SerializeField] private RewardProgression rewardProgression;
+    public RewardProgression RewardProgression => rewardProgression;
+    [SerializeField] private int currentRewardIndex;
+    public int CurrentRewardIndex => currentRewardIndex;
     public int CurrentStage => currentRewardIndex + 1;
 
     public RewardCategory CurrentRewardCategory => rewardProgression.rewardOrder[currentRewardIndex];
@@ -71,9 +82,20 @@ public class RunManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    private void Start()
+    public void Start()
     {
         LoadPreparation();
+        StartNewRun();
+    }
+
+    public void StartNewRun()
+    {
+        currentRewardIndex = 0;
+
+        currentLives = maxLives;
+
+        PlayerBuild = new WizardBuild();
+        EnemyBuild = new WizardBuild();
     }
 
     public void LoadPreparation()
@@ -109,30 +131,47 @@ public class RunManager : MonoBehaviour
             Random.Range(0, AnySpellCategories.Length)];
     }
 
-    public void GenerateEnemyReward()
+    public void GenerateEnemyBuild()
     {
-        switch (CurrentRewardCategory)
+        EnemyBuild = new WizardBuild();
+
+        for (int i = 0; i <= CurrentRewardIndex; i++)
+        {
+            GenerateEnemyReward(
+                rewardProgression.rewardOrder[i]);
+        }
+    }
+
+    private void GenerateEnemyReward(
+    RewardCategory reward)
+    {
+        switch (reward)
         {
             case RewardCategory.Offensive:
             case RewardCategory.Utility:
             case RewardCategory.Disable:
             case RewardCategory.Defensive:
             case RewardCategory.Any:
-                GenerateEnemySpellReward();
+                GenerateEnemySpellReward(reward);
                 break;
 
             case RewardCategory.Accessory:
                 GenerateEnemyAccessoryReward();
                 break;
+
+            case RewardCategory.Ultimate:
+                GenerateEnemyUltimateReward();
+                break;
         }
     }
 
-    private void GenerateEnemySpellReward()
+    private void GenerateEnemySpellReward(
+        RewardCategory reward)
     {
         SpellCategory category =
-            CurrentRewardCategory == RewardCategory.Any
+            reward == RewardCategory.Any
             ? GetRandomSpellCategory()
-            : GetRewardSpellCategory();
+            : RewardToSpellCategory(reward);
 
         List<Spell> rewards =
             GetRandomSpells(
@@ -159,8 +198,37 @@ public class RunManager : MonoBehaviour
         }
     }
 
+    private void GenerateEnemyUltimateReward()
+    {
+        Spell spell =
+            GetRandomUltimateSpell(
+                EnemyBuild);
+
+        if (spell != null)
+        {
+            EnemyBuild.SetUltimateSpell(spell);
+        }
+    }
+
+    private SpellCategory RewardToSpellCategory(
+        RewardCategory reward)
+    {
+        return reward switch
+        {
+            RewardCategory.Offensive => SpellCategory.Offensive,
+            RewardCategory.Utility => SpellCategory.Utility,
+            RewardCategory.Disable => SpellCategory.Disable,
+            RewardCategory.Defensive => SpellCategory.Defensive,
+            RewardCategory.Any => GetRandomSpellCategory(),
+            _ => SpellCategory.Offensive
+        };
+    }
+
     private SpellMastery GetRewardMastery()
     {
+        if (unlockAllSpellMasteries)
+            return SpellMastery.Master;
+
         int stage = CurrentStage;
 
         int roll = Random.Range(0, 100);
@@ -334,11 +402,18 @@ public class RunManager : MonoBehaviour
     {
         if (playerWon)
         {
-            //Extra Reroll
+            // extra reroll
         }
         else
         {
-            //Lose Life
+            LoseLife();
+            
+            if (CurrentLives <= 0)
+            {
+                // TODO:
+                // Game Over
+                return;
+            }
         }
         // Later:
         // - Award reroll if playerWon
@@ -349,6 +424,11 @@ public class RunManager : MonoBehaviour
         AdvanceSetupPhase();
 
         LoadPreparation();
+    }
+
+    public void LoseLife()
+    {
+        currentLives = Mathf.Max(0, currentLives - 1);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)

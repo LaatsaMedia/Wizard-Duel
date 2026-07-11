@@ -32,10 +32,17 @@ public class AudioManager : MonoBehaviour
     private const string SFXVolumeParameter = "SFXVolume";
     private const string MusicVolumeParameter = "MusicVolume";
 
+    public float MasterVolume => masterVolume;
+    public float SFXVolume => sfxVolume;
+    public float MusicVolume => musicVolume;
+
     private void Awake()
     {
         if (Instance == null)
+        {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
         else
         {
             Destroy(gameObject);
@@ -84,22 +91,28 @@ public class AudioManager : MonoBehaviour
         SetMusicVolume(musicVolume);
     }
 
-    private void SetMasterVolume(float value)
+    public void SetMasterVolume(float value)
     {
+        masterVolume = value;
+
         audioMixer.SetFloat(
             MasterVolumeParameter,
             LinearToDecibel(value));
     }
 
-    private void SetSFXVolume(float value)
+    public void SetSFXVolume(float value)
     {
+        sfxVolume = value;
+
         audioMixer.SetFloat(
             SFXVolumeParameter,
             LinearToDecibel(value));
     }
 
-    private void SetMusicVolume(float value)
+    public void SetMusicVolume(float value)
     {
+        musicVolume = value;
+
         audioMixer.SetFloat(
             MusicVolumeParameter,
             LinearToDecibel(value));

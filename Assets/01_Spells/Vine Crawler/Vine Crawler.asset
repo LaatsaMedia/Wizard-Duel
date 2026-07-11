@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Vine Crawler
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 3
-  mastery: 0
+  mastery: 1
   spellName: Vine Crawler
   icon: {fileID: 21300000, guid: dabb7b63db0b5c24f8624c2861a1694f, type: 3}
   description: This is placeholder for description

@@ -1,5 +1,7 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SetupPhase : MonoBehaviour
 {
@@ -8,7 +10,15 @@ public class SetupPhase : MonoBehaviour
     [SerializeField] private RewardCard rewardCardPrefab;
     [SerializeField] private Transform rewardContainer;
 
+    [Header("UI")]
+    [SerializeField] private TMP_Text primaryButtonText;
+    [SerializeField] private Button rerollButton;
+
     private RewardCard selectedCard;
+    private BuildSlot? selectedBuildSlot;
+
+    private bool IsRewardSelected => selectedCard != null;
+    private bool IsBuildSlotSelected => selectedBuildSlot.HasValue;
 
     private void Awake()
     {
@@ -18,10 +28,12 @@ public class SetupPhase : MonoBehaviour
     private void Start()
     {
         GenerateRewards();
+        UpdatePrimaryButton();
     }
 
     private void GenerateRewards()
     {
+        rerollButton.interactable = true;
         switch (RunManager.Instance.CurrentRewardCategory)
         {
             case RewardCategory.Offensive:
@@ -47,7 +59,6 @@ public class SetupPhase : MonoBehaviour
         if (RunManager.Instance.ShouldGenerateUltimateReward())
         {
             normalSpellCount = 2;
-
             GenerateUltimateReward(generatedSpells);
         }
 
@@ -80,8 +91,7 @@ public class SetupPhase : MonoBehaviour
         }
     }
 
-    private void GenerateUltimateReward(
-    List<Spell> generatedSpells)
+    private void GenerateUltimateReward(List<Spell> generatedSpells)
     {
         Spell spell =
             RunManager.Instance.GetRandomUltimateSpell(
@@ -119,6 +129,7 @@ public class SetupPhase : MonoBehaviour
     public void Reroll()
     {
         selectedCard = null;
+        selectedBuildSlot = null;
 
         foreach (Transform child in rewardContainer)
         {
@@ -126,10 +137,22 @@ public class SetupPhase : MonoBehaviour
         }
 
         GenerateRewards();
+        UpdatePrimaryButton();
     }
 
     public void SelectCard(RewardCard card)
     {
+        if (selectedCard == card)
+        {
+            selectedCard.SetSelected(false);
+            selectedCard = null;
+
+            SpellbookUI.Instance.SetSelectable(false);
+
+            UpdatePrimaryButton();
+            return;
+        }
+
         if (selectedCard != null)
         {
             selectedCard.SetSelected(false);
@@ -137,41 +160,103 @@ public class SetupPhase : MonoBehaviour
 
         selectedCard = card;
         selectedCard.SetSelected(true);
+
+        // NEW
+        SpellbookUI.Instance.SetSelectable(true);
+
+        UpdatePrimaryButton();
     }
 
-    public void Ready()
+    public void SelectBuildSlot(BuildSlot slot)
     {
-        if (selectedCard == null)
+        if (!IsRewardSelected)
             return;
 
-        switch (RunManager.Instance.CurrentRewardCategory)
+        bool isUltimateSpell =
+            selectedCard.Spell.Mastery == SpellMastery.Archmage;
+
+        // Ultimate spells can only go into the Ultimate slot.
+        if (isUltimateSpell && slot != BuildSlot.Ultimate)
+            return;
+
+        // Normal spells cannot go into the Ultimate slot.
+        if (!isUltimateSpell && slot == BuildSlot.Ultimate)
+            return;
+
+        if (IsBuildSlotSelected)
+            return;
+
+        selectedBuildSlot = slot;
+
+        RunManager.Instance.PlayerBuild.SetSpell(
+            slot,
+            selectedCard.Spell);
+
+        SpellbookUI.Instance.Refresh(
+            RunManager.Instance.PlayerBuild);
+
+        SpellbookUI.Instance.SetSelectable(false);
+
+        rerollButton.interactable = false;
+
+        UpdatePrimaryButton();
+    }
+
+    private void UpdatePrimaryButton()
+    {
+        if (!IsRewardSelected)
         {
-            case RewardCategory.Offensive:
-            case RewardCategory.Utility:
-            case RewardCategory.Disable:
-            case RewardCategory.Defensive:
-            case RewardCategory.Any:
-
-                if (selectedCard.Spell.Mastery == SpellMastery.Archmage)
-                {
-                    RunManager.Instance.PlayerBuild.SetUltimateSpell(
-                        selectedCard.Spell);
-                }
-                else
-                {
-                    RunManager.Instance.PlayerBuild.AddSpell(
-                        selectedCard.Spell);
-                }
-
-                break;
-
-            case RewardCategory.Accessory:
-                RunManager.Instance.PlayerBuild.AddAccessory(
-                    selectedCard.Accessory);
-                break;
+            primaryButtonText.text = "Skip";
+            return;
         }
 
-        RunManager.Instance.GenerateEnemyReward();
+        if (RunManager.Instance.CurrentRewardCategory == RewardCategory.Accessory)
+        {
+            primaryButtonText.text = "Ready";
+            return;
+        }
+
+        primaryButtonText.text =
+            IsBuildSlotSelected
+            ? "Ready"
+            : "Choose Slot";
+    }
+
+public void PrimaryButton()
+{
+    if (!IsRewardSelected)
+    {
+        SkipReward();
+        return;
+    }
+
+    bool requiresBuildSlot =
+        RunManager.Instance.CurrentRewardCategory != RewardCategory.Accessory;
+
+    if (requiresBuildSlot && !IsBuildSlotSelected)
+    {
+        Debug.Log("Choose a slot first.");
+        return;
+    }
+
+    ConfirmReward();
+}
+
+    private void SkipReward()
+    {
+        RunManager.Instance.GenerateEnemyBuild();
+        RunManager.Instance.LoadCombat();
+    }
+
+    private void ConfirmReward()
+    {
+        if (selectedCard.Accessory != null)
+        {
+            RunManager.Instance.PlayerBuild.AddAccessory(
+                selectedCard.Accessory);
+        }
+
+        RunManager.Instance.GenerateEnemyBuild();
         RunManager.Instance.LoadCombat();
     }
 }

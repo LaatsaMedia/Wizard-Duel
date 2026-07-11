@@ -265,7 +265,6 @@ GameObject:
   - component: {fileID: -8409670984736024020}
   - component: {fileID: -3877588376278877642}
   - component: {fileID: 2237224167068192655}
-  - component: {fileID: 6385280347054263235}
   - component: {fileID: 3507204148908336696}
   - component: {fileID: -3586970484560666786}
   m_Layer: 10
@@ -540,18 +539,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::FreezeController
   frozenEffect: {fileID: 11400000, guid: 9fb74aa6bf6f97a41bb08b73899f4995, type: 2}
   immuneTime: 6
---- !u!114 &6385280347054263235
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 938558370967978883}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d61e29d6b194f040b08e7ae14fd068b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Barrier
 --- !u!114 &3507204148908336696
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -576,7 +563,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc1259f4aa4c03d42a6dd7a2ff2db50f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UltimateCharge
-  passiveChargePerSecond: 2
+  passiveChargePerSecond: 10
 --- !u!1 &973271745789817569
 GameObject:
   m_ObjectHideFlags: 0

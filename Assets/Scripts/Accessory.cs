@@ -1,5 +1,12 @@
 using UnityEngine;
 
+public enum AccessoryMastery
+{
+    Common,
+    Rare,
+    Epic
+}
+
 public enum AccessoryEffect
 {
     ManaRegen,
@@ -15,6 +22,9 @@ public enum AccessoryEffect
 [CreateAssetMenu(menuName = "Accessories/Accessory")]
 public class Accessory : ScriptableObject
 {
+    [SerializeField] private AccessoryMastery mastery;
+    public AccessoryMastery Mastery => mastery;
+
     public string accessoryName;
     public Sprite icon;
     public string description;
