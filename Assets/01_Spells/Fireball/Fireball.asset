@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Fireball
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 0
+  mastery: 0
   spellName: Fireball
   icon: {fileID: 21300000, guid: cc7d056842d2a7c4490919117feff6e6, type: 3}
   description: This is placeholder for description
@@ -20,3 +21,10 @@ MonoBehaviour:
   manaCost: 4
   castSFX: {fileID: 8300000, guid: 33b0e57b273f8424b94d8686cdc0ddc3, type: 3}
   spellPrefab: {fileID: 3843658216037615004, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
+  aggression: 3
+  preferredRange: 7.5
+  minimumCastRange: 0
+  maximumCastRange: 10
+  baseCastPriority: 80
+  maximumCastHealth: 1
+  idealCastHealth: 0.5

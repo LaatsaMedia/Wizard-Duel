@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Astral Bolt
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 0
+  mastery: 0
   spellName: Astral Bolt
   icon: {fileID: 21300000, guid: e602cbf705047844bbcb0eea00bce3ac, type: 3}
   description: This is placeholder for description
@@ -20,3 +21,10 @@ MonoBehaviour:
   manaCost: 2
   castSFX: {fileID: 0}
   spellPrefab: {fileID: 4353244891452750742, guid: 257e95e4d61f17441ae63b7937fab383, type: 3}
+  aggression: -3
+  preferredRange: 16
+  minimumCastRange: 0
+  maximumCastRange: 24
+  baseCastPriority: 60
+  maximumCastHealth: 1
+  idealCastHealth: 1

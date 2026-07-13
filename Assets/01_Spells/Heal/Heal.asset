@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Heal
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 2
+  mastery: 0
   spellName: Heal
   icon: {fileID: 21300000, guid: ac0c9eb6bf1a8c248aabecdbb8bb0368, type: 3}
   description: This is placeholder for description
@@ -20,3 +21,10 @@ MonoBehaviour:
   manaCost: 6
   castSFX: {fileID: 0}
   spellPrefab: {fileID: 5907501432898766368, guid: ed84ff23bb07b9b469899e20b357cb28, type: 3}
+  aggression: 0
+  preferredRange: 10
+  minimumCastRange: 0
+  maximumCastRange: 100
+  baseCastPriority: 85
+  maximumCastHealth: 0.75
+  idealCastHealth: 0.5

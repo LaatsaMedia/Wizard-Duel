@@ -67,7 +67,8 @@ public class SetupPhase : MonoBehaviour
             SpellCategory category =
                 RunManager.Instance.CurrentRewardCategory == RewardCategory.Any
                 ? RunManager.Instance.GetRandomSpellCategory()
-                : RunManager.Instance.GetRewardSpellCategory();
+                : RunManager.Instance.GetRewardSpellCategory(
+                    RunManager.Instance.CurrentRewardCategory);
 
             List<Spell> rewards =
                 RunManager.Instance.GetRandomSpells(

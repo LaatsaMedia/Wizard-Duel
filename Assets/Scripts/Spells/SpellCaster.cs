@@ -6,7 +6,7 @@ public class SpellCaster : MonoBehaviour
     private StatusEffectController statusEffects;
     public Mana mana;
     [SerializeField] private WizardBuild build;
-    private UltimateCharge ultimateCharge;
+    public UltimateCharge ultimateCharge;
     public WizardBuild Build => build;
 
     [Header("Spell Slots")]

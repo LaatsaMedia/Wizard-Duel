@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Arcane Focus
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 0
-  mastery: 0
+  mastery: 1
   spellName: Arcane Focus
   icon: {fileID: 21300000, guid: 4978b6a03da198e439cc959a07528afe, type: 3}
   description: This is placeholder for description
@@ -21,3 +21,10 @@ MonoBehaviour:
   manaCost: 6
   castSFX: {fileID: 0}
   spellPrefab: {fileID: 4475795232772402507, guid: 0fb2e9f43b56b9343945d3655d11aa76, type: 3}
+  aggression: 1
+  preferredRange: 14
+  minimumCastRange: 0
+  maximumCastRange: 20
+  baseCastPriority: 70
+  maximumCastHealth: 1
+  idealCastHealth: 0.5

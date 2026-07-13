@@ -4,11 +4,17 @@ using UnityEngine;
 public class AstralBoltProjectile : SpellBehaviour
 {
     [Header("Movement")]
-    [SerializeField] private float speed = 24f;
-    [SerializeField] private float lifetime = 2f;
+    [SerializeField] private float speed = 20f;
+    [SerializeField] private float upwardSpeed = 10f;
+    [SerializeField] private float upwardTime = 0.2f;
+    [SerializeField] private float lifetime = 3f;
+
+    [SerializeField] private Vector2 followOffset = new Vector2(0f, 1.5f);
+    [SerializeField] private float followSmoothness = 15f;
+    private bool followingCaster = true;
 
     [Header("Homing")]
-    [SerializeField] private float homingStrength = 180f;
+    [SerializeField] private float homingStrength = 40f;
     [SerializeField] private float detectionRadius = 20f;
 
     [Header("Damage")]
@@ -21,7 +27,11 @@ public class AstralBoltProjectile : SpellBehaviour
     [SerializeField] private AudioSource travelSFX;
 
     private Rigidbody2D rb;
+
     private Transform target;
+    private Vector2 targetPosition;
+
+    private bool launched;
 
     private void Awake()
     {
@@ -35,19 +45,71 @@ public class AstralBoltProjectile : SpellBehaviour
 
         FindTarget();
 
-        rb.linearVelocity = transform.right * speed;
+        // Rise upward first.
+        rb.linearVelocity = Vector2.up * upwardSpeed;
+
+        Invoke(nameof(BeginHoming), upwardTime);
 
         Destroy(gameObject, lifetime);
     }
 
+    private void BeginHoming()
+    {
+        followingCaster = false;
+        launched = true;
+
+        if (target != null)
+            targetPosition = target.position;
+
+        Vector2 direction =
+            (targetPosition - rb.position).normalized;
+
+        float angle =
+            Mathf.Atan2(direction.y, direction.x) *
+            Mathf.Rad2Deg;
+
+        transform.rotation =
+            Quaternion.Euler(0f, 0f, angle);
+
+        rb.linearVelocity =
+            direction * speed;
+    }
+
     private void FixedUpdate()
     {
+        if (followingCaster)
+        {
+            rb.linearVelocity = Vector2.zero;
+            rb.angularVelocity = 0f;
+
+            Vector2 desiredPosition =
+                (Vector2)caster.transform.position +
+                followOffset;
+
+            rb.MovePosition(
+                Vector2.Lerp(
+                    rb.position,
+                    desiredPosition,
+                    followSmoothness * Time.fixedDeltaTime));
+
+            transform.Rotate(
+                0f,
+                0f,
+                360f * Time.fixedDeltaTime);
+
+            return;
+        }
+        
+        if (!launched)
+            return;
+
         if (target == null)
             return;
 
-        float distance = Vector2.Distance(
-            transform.position,
-            target.position);
+        float distance =
+            Vector2.Distance(
+                transform.position,
+                target.position);
 
         if (distance > detectionRadius)
             return;

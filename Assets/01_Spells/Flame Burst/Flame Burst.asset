@@ -21,3 +21,10 @@ MonoBehaviour:
   manaCost: 5
   castSFX: {fileID: 0}
   spellPrefab: {fileID: 5950869840000082223, guid: 342a90e0299769343b966c04c25feb23, type: 3}
+  aggression: 5
+  preferredRange: 1.5
+  minimumCastRange: 0
+  maximumCastRange: 2.5
+  baseCastPriority: 100
+  maximumCastHealth: 1
+  idealCastHealth: 0.6

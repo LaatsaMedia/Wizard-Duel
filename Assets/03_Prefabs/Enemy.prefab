@@ -401,6 +401,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyController
   moveSpeed: 6
   jumpForce: 10
+  jumpDecisionInterval: 0.8
+  baseJumpChance: 0.1
   groundCheck: {fileID: 8584364577978862258}
   groundRadius: 0.15
   groundLayer:
@@ -409,12 +411,17 @@ MonoBehaviour:
   retreatCheckDistance: 3
   wallLayer:
     serializedVersion: 2
-    m_Bits: 1049088
+    m_Bits: 512
+  hazardLayer:
+    serializedVersion: 2
+    m_Bits: 1048576
+  hazardAvoidDistance: 1.25
   aimPivot: {fileID: 3413403791091688486}
   jumpHeightDifference: 1.5
-  preferredDistance: 10
+  preferredDistance: 8
   distanceTolerance: 1.5
-  decisionInterval: 0.35
+  minimumDecisionInterval: 0.2
+  maximumDecisionInterval: 1.2
 --- !u!114 &3083475555657377903
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -429,10 +436,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAI
   spellCaster: {fileID: 1859630566440497891}
   health: {fileID: 4743581632803472184}
-  attackRange: 30
-  healThreshold: 0.4
   castInterval: 0.75
-  lowHealthCastMultiplier: 1.5
 --- !u!70 &6333017163290254212
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -494,16 +498,17 @@ MonoBehaviour:
     accessory4: {fileID: 0}
     accessory5: {fileID: 0}
     accessory6: {fileID: 0}
+  ultimateCharge: {fileID: 0}
   primarySpell:
-    spell: {fileID: 11400000, guid: 02f375ae407befa4cbfa408a89e8b120, type: 2}
+    spell: {fileID: 0}
     cooldownRemaining: 0
     activeRecastSpell: {fileID: 0}
   secondarySpell:
-    spell: {fileID: 11400000, guid: 7baca0570633f554498204bbc49562ab, type: 2}
+    spell: {fileID: 0}
     cooldownRemaining: 0
     activeRecastSpell: {fileID: 0}
   thirdSpell:
-    spell: {fileID: 11400000, guid: b9aa7e8aa820c06428022004780ff342, type: 2}
+    spell: {fileID: 0}
     cooldownRemaining: 0
     activeRecastSpell: {fileID: 0}
   ultimateSlot:

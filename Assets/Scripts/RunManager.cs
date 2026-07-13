@@ -113,9 +113,10 @@ public class RunManager : MonoBehaviour
         currentRewardIndex++;
     }
 
-    public SpellCategory GetRewardSpellCategory()
+    public SpellCategory GetRewardSpellCategory(
+        RewardCategory rewardCategory)
     {
-        return CurrentRewardCategory switch
+        return rewardCategory switch
         {
             RewardCategory.Offensive => SpellCategory.Offensive,
             RewardCategory.Utility => SpellCategory.Utility,
@@ -137,9 +138,34 @@ public class RunManager : MonoBehaviour
 
         for (int i = 0; i <= CurrentRewardIndex; i++)
         {
-            GenerateEnemyReward(
-                rewardProgression.rewardOrder[i]);
+            RewardCategory reward = rewardProgression.rewardOrder[i];
+
+            // First spell must always be Offensive.
+            if (i == 0 &&
+                reward != RewardCategory.Offensive)
+            {
+                GenerateEnemyStarterSpell();
+            }
+            else
+            {
+                GenerateEnemyReward(reward);
+            }
         }
+    }
+
+    private void GenerateEnemyStarterSpell()
+    {
+        List<Spell> spells = GetSpells(
+            SpellCategory.Offensive,
+            SpellMastery.Apprentice);
+
+        if (spells.Count == 0)
+            return;
+
+        Spell spell = spells[
+            Random.Range(0, spells.Count)];
+
+        EnemyBuild.AddSpell(spell);
     }
 
     private void GenerateEnemyReward(
@@ -165,13 +191,28 @@ public class RunManager : MonoBehaviour
         }
     }
 
-    private void GenerateEnemySpellReward(
-        RewardCategory reward)
+    private void GenerateEnemySpellReward(RewardCategory rewardCategory)
     {
+        // First spell is always a random Apprentice Offensive spell.
+        if (EnemyBuild.SpellCount == 0)
+        {
+            List<Spell> starters = GetSpells(
+                SpellCategory.Offensive,
+                SpellMastery.Apprentice);
+
+            if (starters.Count > 0)
+            {
+                EnemyBuild.AddSpell(
+                    starters[Random.Range(0, starters.Count)]);
+
+                return;
+            }
+        }
+
         SpellCategory category =
-            reward == RewardCategory.Any
+            rewardCategory == RewardCategory.Any
             ? GetRandomSpellCategory()
-            : RewardToSpellCategory(reward);
+            : GetRewardSpellCategory(rewardCategory);
 
         List<Spell> rewards =
             GetRandomSpells(
@@ -180,9 +221,7 @@ public class RunManager : MonoBehaviour
                 1);
 
         if (rewards.Count > 0)
-        {
             EnemyBuild.AddSpell(rewards[0]);
-        }
     }
 
     private void GenerateEnemyAccessoryReward()

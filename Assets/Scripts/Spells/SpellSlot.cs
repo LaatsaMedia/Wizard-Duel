@@ -4,6 +4,7 @@ using UnityEngine;
 public class SpellSlot
 {
     public Spell spell;
+    public Spell Spell => spell;
 
     [HideInInspector]
     public float cooldownRemaining;
