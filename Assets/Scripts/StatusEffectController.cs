@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class StatusEffectController : MonoBehaviour
 {
+    [SerializeField] private Health health;
+
     [Header("UI")]
     [SerializeField] private Transform effectContainer;
     [SerializeField] private StatusEffectUI effectPrefab;
 
     public Transform visualEffectContainer;
+
+    [Header("Burn")]
+    private Coroutine burnRoutine;
+    private float burnDamagePerSecond;
+    private float burnRemainingDuration;
 
     private readonly Dictionary<StatusEffectType, Coroutine> activeEffects = new();
     private readonly Dictionary<StatusEffectType, StatusEffectUI> activeUI = new();
@@ -105,5 +112,40 @@ public class StatusEffectController : MonoBehaviour
 
         RemoveEffect(StatusEffectType.Frozen);
         return true;
+    }
+
+    public void ApplyBurn(
+        float damagePerSecond,
+        float duration)
+    {
+        // Stronger burns replace weaker ones.
+        if (damagePerSecond > burnDamagePerSecond)
+        {
+            burnDamagePerSecond = damagePerSecond;
+        }
+
+        // Always refresh duration.
+        burnRemainingDuration = duration;
+
+        if (burnRoutine == null)
+        {
+            burnRoutine = StartCoroutine(BurnRoutine());
+        }
+    }
+
+    private IEnumerator BurnRoutine()
+    {
+        while (burnRemainingDuration > 0f)
+        {
+            yield return new WaitForSeconds(0.5f);
+
+            health.TakeDamage(burnDamagePerSecond * 0.5f);
+
+            burnRemainingDuration -= 0.5f;
+        }
+
+        burnDamagePerSecond = 0f;
+        burnRemainingDuration = 0f;
+        burnRoutine = null;
     }
 }

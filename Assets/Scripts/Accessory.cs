@@ -7,18 +7,6 @@ public enum AccessoryMastery
     Epic
 }
 
-public enum AccessoryEffect
-{
-    ManaRegen,
-    MaxMana,
-    MaxHealth,
-    MoveSpeed,
-    SpellDamage,
-    CooldownRecovery,
-    DoubleJump,
-    FreezeOnIceShard
-}
-
 [CreateAssetMenu(menuName = "Accessories/Accessory")]
 public class Accessory : ScriptableObject
 {
@@ -29,7 +17,18 @@ public class Accessory : ScriptableObject
     public Sprite icon;
     public string description;
 
-    [Header("Effects")]
-    [SerializeField] private AccessoryModifier[] modifiers;
-    public AccessoryModifier[] Modifiers => modifiers;
+    [Header("Passive")]
+    [SerializeField] private PassiveModifier[] passiveModifiers;
+    public PassiveModifier[] PassiveModifiers => passiveModifiers;
+
+    [Header("On Hit")]
+    [SerializeField] private OnHitModifier[] onHitModifiers;
+    public OnHitModifier[] OnHitModifiers => onHitModifiers;
+
+    [Header("Special")]
+    [SerializeField] private AccessoryEffect[] specialEffects;
+    public AccessoryEffect[] SpecialEffects => specialEffects;
+
+    [SerializeField] private GameObject prefab;
+    public GameObject Prefab => prefab;
 }

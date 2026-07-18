@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class FireballProjectile : MonoBehaviour
+public class FireballProjectile : SpellBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float speed = 12f;
@@ -21,6 +21,10 @@ public class FireballProjectile : MonoBehaviour
     [Header("SFX")]
     [SerializeField] private AudioSource travelSFX;
 
+    [Header("Rotation")]
+    [SerializeField] private float projectileRotationOffset = 0f;
+    [SerializeField] private float explosionRotationOffset = 0f;
+
     private Rigidbody2D rb;
 
     private void Awake()
@@ -38,21 +42,44 @@ public class FireballProjectile : MonoBehaviour
         Destroy(gameObject, lifetime);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    private void FixedUpdate()
     {
-        Explode();
+        if (rb.linearVelocity.sqrMagnitude > 0.01f)
+        {
+            float angle = Mathf.Atan2(
+                rb.linearVelocity.y,
+                rb.linearVelocity.x) * Mathf.Rad2Deg;
+
+            rb.rotation = angle + projectileRotationOffset;
+        }
     }
 
-    private void Explode()
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        Vector2 impactPoint = other.ClosestPoint(transform.position);
+        Vector2 impactDirection = (impactPoint - (Vector2)transform.position).normalized;
+
+        // Fallback if ClosestPoint == projectile position.
+        if (impactDirection.sqrMagnitude < 0.0001f)
+            impactDirection = rb.linearVelocity.normalized;
+
+        Explode(impactDirection);
+    }
+
+    private void Explode(Vector2 impactDirection)
     {
         Vector2 center = explosionCenter.position;
 
         if (explosionPrefab != null)
         {
+            float angle = Mathf.Atan2(
+                impactDirection.y,
+                impactDirection.x) * Mathf.Rad2Deg;
+
             Instantiate(
                 explosionPrefab,
                 center,
-                Quaternion.identity);
+                Quaternion.Euler(0f, 0f, angle + explosionRotationOffset));
         }
 
         Collider2D[] hits = Physics2D.OverlapCircleAll(
@@ -64,31 +91,28 @@ public class FireballProjectile : MonoBehaviour
         {
             Vector2 closestPoint = hit.ClosestPoint(center);
 
-            float distance =
-                Vector2.Distance(center, closestPoint);
+            float distance = Vector2.Distance(center, closestPoint);
 
             float t = Mathf.Clamp01(distance / explosionRadius);
 
-            float damage =
-                Mathf.Lerp(maxDamage, 0f, t);
-
-            float knockback =
-                Mathf.Lerp(maxKnockback, 0f, t);
+            float damage = Mathf.Lerp(maxDamage, 0f, t);
+            float knockback = Mathf.Lerp(maxKnockback, 0f, t);
 
             if (hit.TryGetComponent(out Health health))
             {
-                health.TakeDamage(damage);
+                SpellEffects.DealDamage(
+                    caster,
+                    Spell,
+                    health,
+                    damage);
             }
 
             if (hit.TryGetComponent(out KnockbackReceiver knockbackReceiver))
             {
                 Vector2 direction = closestPoint - center;
 
-                // Direct hit.
                 if (direction.sqrMagnitude < 0.0001f)
-                {
-                    direction = transform.right;
-                }
+                    direction = impactDirection;
 
                 direction.Normalize();
 

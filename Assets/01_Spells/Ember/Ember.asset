@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 0
   mastery: 0
+  element: 1
   spellName: Ember
   icon: {fileID: 21300000, guid: 9ff60da6918db0e4bbf9b8e191ed00c3, type: 3}
   description: This is placeholder for description

@@ -13,9 +13,9 @@ public class BlinkSpell : SpellBehaviour
 
     private Camera mainCamera;
 
-    public override void Initialize(GameObject caster, float castDirection)
+    public override void Initialize(GameObject caster, Spell spell, float castDirection)
     {
-        base.Initialize(caster, castDirection);
+        base.Initialize(caster, spell, castDirection);
 
         mainCamera = Camera.main;
 

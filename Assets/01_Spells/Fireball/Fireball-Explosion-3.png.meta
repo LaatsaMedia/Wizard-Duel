@@ -1,0 +1,455 @@
+fileFormatVersion: 2
+guid: de4cb7eca87d4674da3abdabc3c8e313
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8834613328925101957
+    second: Fireball-Explosion-3_0
+  - first:
+      213: 8818278789276174892
+    second: Fireball-Explosion-3_1
+  - first:
+      213: -1329942639528074676
+    second: Fireball-Explosion-3_2
+  - first:
+      213: -4238569354104964518
+    second: Fireball-Explosion-3_3
+  - first:
+      213: -7268957165184540303
+    second: Fireball-Explosion-3_4
+  - first:
+      213: 6080846694508906513
+    second: Fireball-Explosion-3_5
+  - first:
+      213: 5908950964602893918
+    second: Fireball-Explosion-3_6
+  - first:
+      213: 814178550173822146
+    second: Fireball-Explosion-3_7
+  - first:
+      213: 6781889515528049328
+    second: Fireball-Explosion-3_8
+  - first:
+      213: 1732735650263423385
+    second: Fireball-Explosion-3_9
+  - first:
+      213: 386993540145069204
+    second: Fireball-Explosion-3_10
+  - first:
+      213: -7741182256545612772
+    second: Fireball-Explosion-3_11
+  - first:
+      213: -5376014769934022905
+    second: Fireball-Explosion-3_12
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_0
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 1529
+        width: 63
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b70fc713cf5256580800000000000000
+      internalID: -8834613328925101957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_1
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 1409
+        width: 168
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c2a0b2d66d1d06a70800000000000000
+      internalID: 8818278789276174892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_2
+      rect:
+        serializedVersion: 2
+        x: 576
+        y: 1184
+        width: 108
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c42a84737381b8de0800000000000000
+      internalID: -1329942639528074676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_3
+      rect:
+        serializedVersion: 2
+        x: 861
+        y: 1154
+        width: 123
+        height: 92
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5a77bc11a39d25c0800000000000000
+      internalID: -4238569354104964518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_4
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 944
+        width: 228
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 17125a988f97f1b90800000000000000
+      internalID: -7268957165184540303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_5
+      rect:
+        serializedVersion: 2
+        x: 1131
+        y: 1109
+        width: 213
+        height: 257
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 118cfc7d9d1836450800000000000000
+      internalID: 6080846694508906513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_6
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 869
+        width: 108
+        height: 47
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e567b58689fc00250800000000000000
+      internalID: 5908950964602893918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_7
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 719
+        width: 288
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2cc6ad2e31b8c4b00800000000000000
+      internalID: 814178550173822146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_8
+      rect:
+        serializedVersion: 2
+        x: 876
+        y: 599
+        width: 93
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b2def6159c1e1e50800000000000000
+      internalID: 6781889515528049328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_9
+      rect:
+        serializedVersion: 2
+        x: 1161
+        y: 479
+        width: 183
+        height: 332
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9995b9bb4e9eb0810800000000000000
+      internalID: 1732735650263423385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_10
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 509
+        width: 108
+        height: 62
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 49cb7ba0390ee5500800000000000000
+      internalID: 386993540145069204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_11
+      rect:
+        serializedVersion: 2
+        x: 1071
+        y: 449
+        width: 78
+        height: 107
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1cba0190cbc19490800000000000000
+      internalID: -7741182256545612772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Fireball-Explosion-3_12
+      rect:
+        serializedVersion: 2
+        x: 906
+        y: 284
+        width: 93
+        height: 137
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 70744d2dc0f8465b0800000000000000
+      internalID: -5376014769934022905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Fireball-Explosion-3_0: -8834613328925101957
+      Fireball-Explosion-3_1: 8818278789276174892
+      Fireball-Explosion-3_10: 386993540145069204
+      Fireball-Explosion-3_11: -7741182256545612772
+      Fireball-Explosion-3_12: -5376014769934022905
+      Fireball-Explosion-3_2: -1329942639528074676
+      Fireball-Explosion-3_3: -4238569354104964518
+      Fireball-Explosion-3_4: -7268957165184540303
+      Fireball-Explosion-3_5: 6080846694508906513
+      Fireball-Explosion-3_6: 5908950964602893918
+      Fireball-Explosion-3_7: 814178550173822146
+      Fireball-Explosion-3_8: 6781889515528049328
+      Fireball-Explosion-3_9: 1732735650263423385
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

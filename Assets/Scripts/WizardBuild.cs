@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class WizardBuild
@@ -146,7 +147,7 @@ public class WizardBuild
             accessory6 == accessory;
     }
 
-    public bool HasAccessoryEffect(AccessoryEffect effect)
+    public bool HasSpecialEffect(AccessoryEffect effect)
     {
         Accessory[] accessories =
         {
@@ -163,14 +164,72 @@ public class WizardBuild
             if (accessory == null)
                 continue;
 
-            foreach (AccessoryModifier modifier in accessory.Modifiers)
+            foreach (AccessoryEffect specialEffect in accessory.SpecialEffects)
             {
-                if (modifier.Effect == effect)
+                if (specialEffect == effect)
                     return true;
             }
         }
 
         return false;
+    }
+
+    public List<OnHitModifier> GetOnHitModifiersForSpell(
+    Spell spell)
+    {
+        List<OnHitModifier> modifiers = new();
+
+        Accessory[] accessories =
+        {
+            accessory1,
+            accessory2,
+            accessory3,
+            accessory4,
+            accessory5,
+            accessory6
+        };
+
+        foreach (Accessory accessory in accessories)
+        {
+            if (accessory == null)
+                continue;
+
+            foreach (OnHitModifier modifier in accessory.OnHitModifiers)
+            {
+                if (modifier.Element == spell.Element)
+                {
+                    modifiers.Add(modifier);
+                }
+            }
+        }
+
+        return modifiers;
+    }
+
+    public List<PassiveModifier> GetPassiveModifiers()
+    {
+        List<PassiveModifier> modifiers = new();
+
+        Accessory[] accessories =
+        {
+            accessory1,
+            accessory2,
+            accessory3,
+            accessory4,
+            accessory5,
+            accessory6
+        };
+
+        foreach (Accessory accessory in accessories)
+        {
+            if (accessory == null)
+                continue;
+
+            modifiers.AddRange(
+                accessory.PassiveModifiers);
+        }
+
+        return modifiers;
     }
 
     public WizardBuild Clone()

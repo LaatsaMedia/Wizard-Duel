@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 0
   mastery: 0
+  element: 2
   spellName: Ice Shard
   icon: {fileID: 21300000, guid: c18640c6a9d07b049811621542f3e5ab, type: 3}
   description: This is placeholder for description

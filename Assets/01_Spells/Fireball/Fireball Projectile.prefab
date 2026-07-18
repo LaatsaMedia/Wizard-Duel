@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 3710220029882165603}
   - component: {fileID: 5089164306737913663}
   - component: {fileID: -789724531023291963}
+  - component: {fileID: 9119499310662076007}
   m_Layer: 12
   m_Name: Fireball Projectile
   m_TagString: Projectile
@@ -62,6 +63,8 @@ MonoBehaviour:
   knockbackDuration: 0.1
   explosionPrefab: {fileID: 2109060197960510497, guid: bd5d689c49fc97146a4f46179ce570f4, type: 3}
   travelSFX: {fileID: -789724531023291963}
+  projectileRotationOffset: 0
+  explosionRotationOffset: 0
 --- !u!58 &3710220029882165603
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -222,6 +225,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9119499310662076007
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3843658216037615004}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 284c1985b74bbca468eb6ac0e485301b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpriteFrameAnimation
+  frames:
+  - {fileID: 21300000, guid: 591eba3ce8192d2439326887ecd1543d, type: 3}
+  - {fileID: 21300000, guid: 758e6a322e1f9e54cb32189dbf1d7de6, type: 3}
+  - {fileID: 21300000, guid: 87f4bf06ba299a14b88ce2f86b47c4ea, type: 3}
+  animationDuration: 0.35
+  playOnAwake: 1
+  spriteRenderer: {fileID: 4234198010691252723}
 --- !u!1 &4399237937661497545
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,7 +302,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.25, y: 0.25, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 865624309923738921}
@@ -334,8 +356,8 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.7264151, g: 0.40176395, b: 0.09251513, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 591eba3ce8192d2439326887ecd1543d, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

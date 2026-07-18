@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class VineRootArea : MonoBehaviour
+public class VineRootArea : SpellBehaviour
 {
     [Header("Animation")]
     [SerializeField] private SpriteRenderer spriteRenderer;
@@ -60,7 +60,11 @@ public class VineRootArea : MonoBehaviour
     {
         if (other.TryGetComponent(out Health health))
         {
-            health.TakeDamage(damage);
+            SpellEffects.DealDamage(
+            caster,
+            Spell,
+            health,
+            damage);
         }
 
         if (other.TryGetComponent(out StatusEffectController statusEffects))

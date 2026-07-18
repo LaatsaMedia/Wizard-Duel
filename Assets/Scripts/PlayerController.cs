@@ -30,6 +30,8 @@ public class PlayerController : MonoBehaviour
     private bool canDoubleJump;
     private bool usedDoubleJump;
 
+    public float HorizontalInput => horizontal;
+
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();

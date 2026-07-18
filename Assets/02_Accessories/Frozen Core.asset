@@ -16,6 +16,6 @@ MonoBehaviour:
   accessoryName: Frozen Core
   icon: {fileID: 21300000, guid: 4567a45a31b2de64c9f4eab677b07ef0, type: 3}
   description: Hitting Opponent 4 Times With Ice Shard Freezez Them.
-  modifiers:
-  - effect: 7
-    value: 0
+  passiveModifiers: []
+  onHitModifiers: []
+  specialEffects: 01000000

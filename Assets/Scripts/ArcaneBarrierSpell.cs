@@ -14,9 +14,9 @@ public class ArcaneBarrierSpell : SpellBehaviour
         transform.localRotation = Quaternion.identity;
     }
 
-    public override void Initialize(GameObject caster, float castDirection)
+    public override void Initialize(GameObject caster, Spell spell, float castDirection)
     {
-        base.Initialize(caster, castDirection);
+        base.Initialize(caster, spell, castDirection);
 
         transform.SetParent(caster.transform);
         transform.localPosition = Vector3.zero;

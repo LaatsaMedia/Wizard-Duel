@@ -1,6 +1,16 @@
 using UnityEngine;
 using UnityEngine.InputSystem.Interactions;
 
+public enum AccessoryModifierType
+{
+    Burn,
+    Slow,
+
+    DamageMultiplier,
+    ManaCostMultiplier,
+    CooldownMultiplier
+}
+
 public class SpellCaster : MonoBehaviour
 {
     private StatusEffectController statusEffects;
@@ -134,6 +144,7 @@ public class SpellCaster : MonoBehaviour
         {
             spellBehaviour.Initialize(
                 gameObject,
+                ultimateSlot.spell,
                 direction);
         }
 
@@ -194,11 +205,14 @@ public class SpellCaster : MonoBehaviour
 
         if (spellObject.TryGetComponent(out SpellBehaviour spellBehaviour))
         {
-            spellBehaviour.Initialize(gameObject, direction);
+            spellBehaviour.Initialize(
+                gameObject,
+                slot.spell,
+                direction);
 
             if (spellObject.TryGetComponent(out IceShardProjectile iceShard))
             {
-                if (build.HasAccessoryEffect(AccessoryEffect.FreezeOnIceShard))
+                if (build.HasSpecialEffect(AccessoryEffect.FreezeOnIceShard))
                 {
                     iceShard.EnableFreeze(
                         4,
@@ -217,33 +231,33 @@ public class SpellCaster : MonoBehaviour
     }
 
     private Vector3 GetGroundSpawnPosition(float direction)
-{
-    float x = spellSpawn.position.x + groundCastDistance * direction;
-
-    Vector3 rayOrigin = new Vector3(
-        x,
-        100f,
-        0f);
-
-    Debug.DrawRay(
-        rayOrigin,
-        Vector2.down * 200f,
-        Color.red,
-        5f);
-
-    RaycastHit2D hit = Physics2D.Raycast(
-        rayOrigin,
-        Vector2.down,
-        200f,
-        groundLayer);
-
-    if (hit)
     {
-        return new Vector3(
-            hit.point.x,
-            hit.point.y + groundOffset,
+        float x = spellSpawn.position.x + groundCastDistance * direction;
+
+        Vector3 rayOrigin = new Vector3(
+            x,
+            100f,
             0f);
+
+        Debug.DrawRay(
+            rayOrigin,
+            Vector2.down * 200f,
+            Color.red,
+            5f);
+
+        RaycastHit2D hit = Physics2D.Raycast(
+            rayOrigin,
+            Vector2.down,
+            200f,
+            groundLayer);
+
+        if (hit)
+        {
+            return new Vector3(
+                hit.point.x,
+                hit.point.y + groundOffset,
+                0f);
+        }
+        return spellSpawn.position;
     }
-    return spellSpawn.position;
-}
 }

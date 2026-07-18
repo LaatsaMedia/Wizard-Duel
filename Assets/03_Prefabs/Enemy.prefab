@@ -570,6 +570,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b6b56cf2a652e44b8b194d26269bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectController
+  health: {fileID: 4743581632803472184}
   effectContainer: {fileID: 4828902853646434325}
   effectPrefab: {fileID: 8604519565278123247, guid: 818dfc853a609784bb2dd53fbe743a63, type: 3}
   visualEffectContainer: {fileID: 5260911858359742782}

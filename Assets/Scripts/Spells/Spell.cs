@@ -6,7 +6,7 @@ public enum SpellCategory
     Defensive,
     Utility,
     Disable,
-    None
+    Ultimate
 }
 
 public enum SpellMastery
@@ -17,6 +17,18 @@ public enum SpellMastery
     Archmage
 }
 
+public enum SpellElement
+{
+    Neutral,
+
+    Fire,
+    Water,
+    Earth,
+    Air,
+
+    Arcane
+}
+
 [CreateAssetMenu(menuName = "Spells/Spell")]
 public class Spell : ScriptableObject
 {
@@ -25,7 +37,11 @@ public class Spell : ScriptableObject
 
     [SerializeField] private SpellMastery mastery;
     public SpellMastery Mastery => mastery;
-    
+
+    [SerializeField]
+    private SpellElement element = SpellElement.Neutral;
+    public SpellElement Element => element;
+
     public string spellName;
     public Sprite icon;
     public string description = "This is placeholder for description";

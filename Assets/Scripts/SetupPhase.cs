@@ -7,6 +7,8 @@ public class SetupPhase : MonoBehaviour
 {
     public static SetupPhase Instance { get; private set; }
 
+    [SerializeField] private GameObject selectedDarkness;
+
     [SerializeField] private RewardCard rewardCardPrefab;
     [SerializeField] private Transform rewardContainer;
 
@@ -20,6 +22,9 @@ public class SetupPhase : MonoBehaviour
     private bool IsRewardSelected => selectedCard != null;
     private bool IsBuildSlotSelected => selectedBuildSlot.HasValue;
 
+    private readonly List<Spell> lastShownSpells = new();
+    private readonly List<Accessory> lastShownAccessories = new();
+
     private void Awake()
     {
         Instance = this;
@@ -29,11 +34,13 @@ public class SetupPhase : MonoBehaviour
     {
         GenerateRewards();
         UpdatePrimaryButton();
+        UpdateSelectedDarkness();
     }
 
     private void GenerateRewards()
     {
         rerollButton.interactable = true;
+
         switch (RunManager.Instance.CurrentRewardCategory)
         {
             case RewardCategory.Offensive:
@@ -44,55 +51,17 @@ public class SetupPhase : MonoBehaviour
                 GenerateSpellRewards();
                 break;
 
+            case RewardCategory.Ultimate:
+                GenerateUltimateRewards();
+                break;
+
             case RewardCategory.Accessory:
                 GenerateAccessoryRewards();
                 break;
         }
     }
 
-    private void GenerateSpellRewards()
-    {
-        List<Spell> generatedSpells = new();
-
-        int normalSpellCount = 3;
-
-        if (RunManager.Instance.ShouldGenerateUltimateReward())
-        {
-            normalSpellCount = 2;
-            GenerateUltimateReward(generatedSpells);
-        }
-
-        for (int i = 0; i < normalSpellCount; i++)
-        {
-            SpellCategory category =
-                RunManager.Instance.CurrentRewardCategory == RewardCategory.Any
-                ? RunManager.Instance.GetRandomSpellCategory()
-                : RunManager.Instance.GetRewardSpellCategory(
-                    RunManager.Instance.CurrentRewardCategory);
-
-            List<Spell> rewards =
-                RunManager.Instance.GetRandomSpells(
-                    category,
-                    RunManager.Instance.PlayerBuild,
-                    1,
-                    generatedSpells);
-
-            if (rewards.Count == 0)
-                continue;
-
-            Spell spell = rewards[0];
-
-            generatedSpells.Add(spell);
-
-            RewardCard card = Instantiate(
-                rewardCardPrefab,
-                rewardContainer);
-
-            card.Setup(spell);
-        }
-    }
-
-    private void GenerateUltimateReward(List<Spell> generatedSpells)
+    private void GenerateUltimateRewards()
     {
         Spell spell =
             RunManager.Instance.GetRandomUltimateSpell(
@@ -101,7 +70,88 @@ public class SetupPhase : MonoBehaviour
         if (spell == null)
             return;
 
-        generatedSpells.Add(spell);
+        RewardCard card = Instantiate(
+            rewardCardPrefab,
+            rewardContainer);
+
+        card.Setup(spell);
+    }
+
+    private void GenerateSpellRewards()
+{
+    // Only prevent rewards from the previous roll.
+    List<Spell> excludedSpells = new(lastShownSpells);
+
+    // Forget the previous rewards.
+    lastShownSpells.Clear();
+
+    // Roll the reward tier ONCE for this reward screen.
+    SpellMastery rewardTier =
+        RunManager.Instance.GetRewardMastery();
+
+    int normalSpellCount = 3;
+
+    if (RunManager.Instance.ShouldGenerateUltimateReward())
+    {
+        normalSpellCount = 2;
+        GenerateUltimateReward(excludedSpells);
+    }
+
+    int generated = 0;
+    int attempts = 0;
+
+    while (generated < normalSpellCount && attempts < 20)
+    {
+        attempts++;
+
+        SpellCategory category =
+            RunManager.Instance.CurrentRewardCategory == RewardCategory.Any
+            ? RunManager.Instance.GetRandomSpellCategory()
+            : RunManager.Instance.GetRewardSpellCategory(
+                RunManager.Instance.CurrentRewardCategory);
+
+        List<Spell> rewards =
+            RunManager.Instance.GetRandomSpells(
+                category,
+                RunManager.Instance.PlayerBuild,
+                1,
+                rewardTier,
+                excludedSpells);
+
+        if (rewards.Count == 0)
+            continue;
+
+        Spell spell = rewards[0];
+
+        excludedSpells.Add(spell);
+        lastShownSpells.Add(spell);
+
+        RewardCard card = Instantiate(
+            rewardCardPrefab,
+            rewardContainer);
+
+        card.Setup(spell);
+
+        generated++;
+    }
+}
+
+    private void GenerateUltimateReward(List<Spell> excludedSpells)
+    {
+        List<Spell> ultimates =
+            RunManager.Instance.GetUltimateSpells(
+                RunManager.Instance.PlayerBuild);
+
+        ultimates.RemoveAll(excludedSpells.Contains);
+
+        if (ultimates.Count == 0)
+            return;
+
+        Spell spell = ultimates[
+            Random.Range(0, ultimates.Count)];
+
+        excludedSpells.Add(spell);
+        lastShownSpells.Add(spell);
 
         RewardCard card = Instantiate(
             rewardCardPrefab,
@@ -115,10 +165,15 @@ public class SetupPhase : MonoBehaviour
         List<Accessory> rewards =
             RunManager.Instance.GetRandomAccessories(
                 RunManager.Instance.PlayerBuild,
-                3);
+                3,
+                lastShownAccessories);
+
+        lastShownAccessories.Clear();
 
         foreach (Accessory accessory in rewards)
         {
+            lastShownAccessories.Add(accessory);
+
             RewardCard card = Instantiate(
                 rewardCardPrefab,
                 rewardContainer);
@@ -139,6 +194,7 @@ public class SetupPhase : MonoBehaviour
 
         GenerateRewards();
         UpdatePrimaryButton();
+        UpdateSelectedDarkness();
     }
 
     public void SelectCard(RewardCard card)
@@ -151,6 +207,7 @@ public class SetupPhase : MonoBehaviour
             SpellbookUI.Instance.SetSelectable(false);
 
             UpdatePrimaryButton();
+            UpdateSelectedDarkness();
             return;
         }
 
@@ -166,6 +223,19 @@ public class SetupPhase : MonoBehaviour
         SpellbookUI.Instance.SetSelectable(true);
 
         UpdatePrimaryButton();
+        UpdateSelectedDarkness();
+    }
+
+    private void UpdateSelectedDarkness()
+    {
+        if (selectedDarkness == null)
+            return;
+
+        bool show =
+            IsRewardSelected &&
+            selectedCard.Spell != null;
+
+        selectedDarkness.SetActive(show);
     }
 
     public void SelectBuildSlot(BuildSlot slot)

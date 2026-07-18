@@ -60,7 +60,11 @@ public class WebShotProjectile : SpellBehaviour
                 return;
             }
 
-            health.TakeDamage(damage);
+            SpellEffects.DealDamage(
+                caster,
+                Spell,
+                health,
+                damage);
         }
 
         if (other.TryGetComponent(out StatusEffectController statusEffects))

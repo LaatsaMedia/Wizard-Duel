@@ -15,9 +15,9 @@ public class ArcaneFocus : SpellBehaviour
     [SerializeField] private float fireInterval = 0.05f;
     [SerializeField] private float spread = 0.2f;
 
-    public override void Initialize(GameObject caster, float direction)
+    public override void Initialize(GameObject caster, Spell spell, float direction)
     {
-        base.Initialize(caster, direction);
+        base.Initialize(caster, spell, direction);
 
         spellSpawn = caster
             .GetComponent<SpellCaster>()
@@ -82,9 +82,12 @@ public class ArcaneFocus : SpellBehaviour
             spawnPosition,
             projectileSpawn.rotation);
 
-        if (projectile.TryGetComponent(out SpellBehaviour spell))
+        if (projectile.TryGetComponent(out SpellBehaviour spellBehaviour))
         {
-            spell.Initialize(caster, castDirection);
+            spellBehaviour.Initialize(
+                caster,
+                Spell,
+                castDirection);
         }
     }
 }

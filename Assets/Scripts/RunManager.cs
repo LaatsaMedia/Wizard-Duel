@@ -22,6 +22,14 @@ public class RunManager : MonoBehaviour
     public int CurrentRewardIndex => currentRewardIndex;
     public int CurrentStage => currentRewardIndex + 1;
 
+    [Header("Enemy Ultimate")]
+    [SerializeField]
+    private int enemyUltimateUnlockStage = 5;
+
+    [SerializeField]
+    [Range(0f, 1f)]
+    private float enemyUltimateChance = 0.5f;
+
     public RewardCategory CurrentRewardCategory => rewardProgression.rewardOrder[currentRewardIndex];
 
     private const string SetupScene = "Setup";
@@ -151,6 +159,14 @@ public class RunManager : MonoBehaviour
                 GenerateEnemyReward(reward);
             }
         }
+
+        // Chance for the enemy to receive a random ultimate.
+        if (CurrentStage >= enemyUltimateUnlockStage &&
+            EnemyBuild.ultimateSpell == null &&
+            Random.value < enemyUltimateChance)
+        {
+            GenerateEnemyUltimateReward();
+        }
     }
 
     private void GenerateEnemyStarterSpell()
@@ -263,7 +279,7 @@ public class RunManager : MonoBehaviour
         };
     }
 
-    private SpellMastery GetRewardMastery()
+    public SpellMastery GetRewardMastery()
     {
         if (unlockAllSpellMasteries)
             return SpellMastery.Master;
@@ -373,56 +389,73 @@ public class RunManager : MonoBehaviour
     }
 
     public List<Spell> GetRandomSpells(
+    SpellCategory category,
+    WizardBuild build,
+    int amount,
+    List<Spell> excludedSpells = null)
+    {
+        return GetRandomSpells(
+            category,
+            build,
+            amount,
+            GetRewardMastery(),
+            excludedSpells);
+    }
+
+    public List<Spell> GetRandomSpells(
         SpellCategory category,
         WizardBuild build,
         int amount,
+        SpellMastery mastery,
         List<Spell> excludedSpells = null)
     {
-        SpellMastery mastery = GetRewardMastery();
+        List<Spell> available = new();
 
-        List<Spell> available;
+        SpellMastery currentMastery = mastery;
 
-        do
+        while (currentMastery >= SpellMastery.Apprentice)
         {
-            available = GetSpells(
-                category,
-                mastery);
+            List<Spell> spells =
+                GetSpells(category, currentMastery);
 
-            available.RemoveAll(build.HasSpell);
+            spells.RemoveAll(build.HasSpell);
 
             if (excludedSpells != null)
-            {
-                available.RemoveAll(excludedSpells.Contains);
-            }
+                spells.RemoveAll(excludedSpells.Contains);
 
-            if (available.Count > 0)
-                break;
+            available.AddRange(spells);
 
-            mastery--;
+            currentMastery--;
         }
-        while (mastery >= SpellMastery.Apprentice);
 
-        List<Spell> selected = new();
-
-        while (selected.Count < amount &&
-            available.Count > 0)
+        // Randomize the pool.
+        for (int i = 0; i < available.Count; i++)
         {
-            int index = Random.Range(0, available.Count);
+            int j = Random.Range(i, available.Count);
 
-            selected.Add(available[index]);
-            available.RemoveAt(index);
+            (available[i], available[j]) =
+                (available[j], available[i]);
         }
 
-        return selected;
+        if (available.Count > amount)
+            available.RemoveRange(amount, available.Count - amount);
+
+        return available;
     }
 
     public List<Accessory> GetRandomAccessories(
         WizardBuild build,
-        int amount)
+        int amount,
+        List<Accessory> excludedAccessories = null)
     {
         List<Accessory> available = GetAccessories();
 
         available.RemoveAll(build.HasAccessory);
+
+        if (excludedAccessories != null)
+        {
+            available.RemoveAll(excludedAccessories.Contains);
+        }
 
         List<Accessory> selected = new();
 

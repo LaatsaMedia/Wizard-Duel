@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class EmberProjectile : MonoBehaviour
+public class EmberProjectile : SpellBehaviour
 {
     [Header("Movement")]
     [SerializeField] private float speed = 25f;
@@ -39,7 +39,11 @@ public class EmberProjectile : MonoBehaviour
     {
         if (other.TryGetComponent(out Health health))
         {
-            health.TakeDamage(damage);
+            SpellEffects.DealDamage(
+                caster,
+                Spell,
+                health,
+                damage);
         }
 
         if (impactPrefab != null)

@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 0
   mastery: 0
+  element: 1
   spellName: Fireball
-  icon: {fileID: 21300000, guid: cc7d056842d2a7c4490919117feff6e6, type: 3}
+  icon: {fileID: 21300000, guid: 2267fa8e8581d2146b98bf8fe08b7486, type: 3}
   description: This is placeholder for description
   cooldown: 1.2
   manaCost: 4

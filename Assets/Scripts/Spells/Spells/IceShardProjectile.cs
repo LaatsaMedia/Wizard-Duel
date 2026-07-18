@@ -55,7 +55,11 @@ public class IceShardProjectile : SpellBehaviour
 
         if (other.TryGetComponent(out Health health))
         {
-            health.TakeDamage(damage);
+            SpellEffects.DealDamage(
+                caster,
+                Spell,
+                health,
+                damage);
         }
 
         if (appliesFreeze &&

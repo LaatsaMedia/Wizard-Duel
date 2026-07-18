@@ -53,7 +53,11 @@ public class BubblePrisonProjectile : SpellBehaviour
 
             if (damage > 0f)
             {
-                health.TakeDamage(damage);
+                SpellEffects.DealDamage(
+                    caster,
+                    Spell,
+                    health,
+                    damage);
             }
         }
 

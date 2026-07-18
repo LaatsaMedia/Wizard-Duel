@@ -15,9 +15,9 @@ public class ArcaneBolt : SpellBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public override void Initialize(GameObject caster, float direction)
+    public override void Initialize(GameObject caster, Spell spell, float direction)
     {
-        base.Initialize(caster, direction);
+        base.Initialize(caster, spell, direction);
 
         rb.linearVelocity = transform.right * speed;
 

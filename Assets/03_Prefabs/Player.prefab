@@ -382,6 +382,7 @@ MonoBehaviour:
     accessory4: {fileID: 0}
     accessory5: {fileID: 0}
     accessory6: {fileID: 0}
+  ultimateCharge: {fileID: 0}
   primarySpell:
     spell: {fileID: 0}
     cooldownRemaining: 0
@@ -427,6 +428,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1b6b56cf2a652e44b8b194d26269bae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectController
+  health: {fileID: 2063784275102308561}
   effectContainer: {fileID: 1130135287920833209}
   effectPrefab: {fileID: 8604519565278123247, guid: 818dfc853a609784bb2dd53fbe743a63, type: 3}
   visualEffectContainer: {fileID: 1293321349013222610}

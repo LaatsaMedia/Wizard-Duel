@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1804276909028344694}
   - component: {fileID: 8085503395546293303}
   - component: {fileID: 1198400610630511312}
-  m_Layer: 12
+  m_Layer: 13
   m_Name: Astral Bolt
   m_TagString: Projectile
   m_Icon: {fileID: 0}

@@ -24,9 +24,9 @@ public class FlameBurst : SpellBehaviour
 
     private readonly HashSet<Health> hitTargets = new();
 
-    public override void Initialize(GameObject caster, float castDirection)
+    public override void Initialize(GameObject caster, Spell spell, float castDirection)
     {
-        base.Initialize(caster, castDirection);
+        base.Initialize(caster, spell, castDirection);
 
         casterHealth = caster.GetComponent<Health>();
 
@@ -85,7 +85,11 @@ public class FlameBurst : SpellBehaviour
 
         hitTargets.Add(health);
 
-        health.TakeDamage(damage);
+        SpellEffects.DealDamage(
+            caster,
+            Spell,
+            health,
+            damage);
 
         if (other.TryGetComponent(out KnockbackReceiver receiver))
         {
