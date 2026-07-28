@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: b2ad600a9401b1d4787fba803f4f4b40
+guid: 2ac045a04394106419f018e1c0209939
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 2232298646727707433
-    second: Blink-Departure_0
+      213: 8319001633863549942
+    second: Wind Slash_0
+  - first:
+      213: 1599602869626740338
+    second: Wind Slash_1
+  - first:
+      213: -3736247336925652669
+    second: Wind Slash_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -100,13 +106,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Blink-Departure_0
+      name: Wind Slash_0
       rect:
         serializedVersion: 2
-        x: 21
+        x: 18
         y: 0
-        width: 87
-        height: 127
+        width: 28
+        height: 64
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +121,52 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 92b4acebac7bafe10800000000000000
-      internalID: 2232298646727707433
+      spriteID: 6f3c458f8e7037370800000000000000
+      internalID: 8319001633863549942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Slash_1
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 46
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27e1cc9b55ee23610800000000000000
+      internalID: 1599602869626740338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wind Slash_2
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 11
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3491c81b7de262cc0800000000000000
+      internalID: -3736247336925652669
       vertices: []
       indices: 
       edges: []
@@ -135,7 +185,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Blink-Departure_0: 2232298646727707433
+      Wind Slash_0: 8319001633863549942
+      Wind Slash_1: 1599602869626740338
+      Wind Slash_2: -3736247336925652669
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

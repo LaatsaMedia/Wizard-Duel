@@ -16,7 +16,7 @@ MonoBehaviour:
   mastery: 0
   element: 0
   spellName: Astral Bolt
-  icon: {fileID: 21300000, guid: e602cbf705047844bbcb0eea00bce3ac, type: 3}
+  icon: {fileID: 21300000, guid: 479acdedc5cfb2f4fa6146b1e4b6a253, type: 3}
   description: This is placeholder for description
   cooldown: 2
   manaCost: 3

@@ -34,6 +34,7 @@ public class BuildApplier : MonoBehaviour
 
                 case PassiveModifierType.MaxMana:
                     mana.maxMana += modifier.Value;
+                    mana.UpdateMana();
                     break;
 
                 case PassiveModifierType.MaxHealth:
@@ -42,7 +43,13 @@ public class BuildApplier : MonoBehaviour
                     break;
 
                 case PassiveModifierType.MoveSpeed:
-                    // TODO
+
+                    if (playerController != null)
+                        playerController.moveSpeed += modifier.Value;
+
+                    if (enemyController != null)
+                        enemyController.moveSpeed += modifier.Value;
+
                     break;
 
                 case PassiveModifierType.SpellDamage:
@@ -51,6 +58,19 @@ public class BuildApplier : MonoBehaviour
 
                 case PassiveModifierType.CooldownRecovery:
                     // TODO
+                    break;
+
+                case PassiveModifierType.WizardSize:
+                    transform.localScale *= modifier.Value;
+                    break;
+
+                case PassiveModifierType.JumpHeight:
+                    if (playerController != null)
+                        playerController.jumpForce += modifier.Value;
+
+                    if (enemyController != null)
+                        enemyController.jumpForce += modifier.Value;
+
                     break;
             }
         }

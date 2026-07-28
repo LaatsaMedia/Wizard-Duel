@@ -93,12 +93,16 @@ public class LightningStrikeSpell : SpellBehaviour
 
         foreach (Collider2D hit in lightningHits)
         {
-            if (hit.TryGetComponent(out Health health))
-                SpellEffects.DealDamage(
-                caster,
-                Spell,
-                health,
-                lightningDamage);
+            if (hit.TryGetComponent(out Health health)){
+                if (RegisterHit(health))
+                {
+                    SpellEffects.DealDamage(
+                        caster,
+                        Spell,
+                        health,
+                        lightningDamage);
+                }
+            }
         }
 
         // Explosion
@@ -114,12 +118,16 @@ public class LightningStrikeSpell : SpellBehaviour
 
             float damage = Mathf.Lerp(maxExplosionDamage, 0f, t);
 
-            if (hit.TryGetComponent(out Health health))
-                SpellEffects.DealDamage(
-                caster,
-                Spell,
-                health,
-                damage);
+            if (hit.TryGetComponent(out Health health)){
+                if (RegisterHit(health))
+                {
+                    SpellEffects.DealDamage(
+                        caster,
+                        Spell,
+                        health,
+                        damage);
+                }
+            }
         }
 
         ScreenShake.Instance.Shake(0.5f, 0.3f);

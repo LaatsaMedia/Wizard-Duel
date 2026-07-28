@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 738a3e32d29419e4fb22ab5ffdad0f36, type: 3}
+  m_Name: Drain
+  m_EditorClassIdentifier: Assembly-CSharp::Accessory
+  mastery: 0
+  accessoryName: Drain
+  icon: {fileID: 21300000, guid: 4978b6a03da198e439cc959a07528afe, type: 3}
+  description: Burn enemy mana by 1
+  passiveModifiers: []
+  onHitModifiers:
+  - element: 6
+    modifier: 22
+    value: 5
+    duration: 0
+  specialEffects: 
+  prefab: {fileID: 0}

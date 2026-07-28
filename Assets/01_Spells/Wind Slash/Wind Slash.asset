@@ -16,14 +16,14 @@ MonoBehaviour:
   mastery: 0
   element: 4
   spellName: Wind Slash
-  icon: {fileID: 21300000, guid: 4567a45a31b2de64c9f4eab677b07ef0, type: 3}
+  icon: {fileID: 21300000, guid: 2ac045a04394106419f018e1c0209939, type: 3}
   description: This is placeholder for description
   cooldown: 1.5
   manaCost: 4
   castSFX: {fileID: 0}
   spellPrefab: {fileID: 5588604925645694017, guid: e4f5b6bb8b7b23242a2829555b26603e, type: 3}
-  aggression: 0
-  preferredRange: 8
+  aggression: 1
+  preferredRange: 6
   minimumCastRange: 0
   maximumCastRange: 8
   baseCastPriority: 50

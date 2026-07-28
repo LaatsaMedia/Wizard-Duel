@@ -146,11 +146,14 @@ public class AstralBoltProjectile : SpellBehaviour
 
         if (other.TryGetComponent(out Health health))
         {
-            SpellEffects.DealDamage(
-                caster,
-                Spell,
-                health,
-                damage);
+            if (RegisterHit(health))
+            {
+                SpellEffects.DealDamage(
+                    caster,
+                    Spell,
+                    health,
+                    damage);
+            }
         }
 
         if (impactPrefab != null)

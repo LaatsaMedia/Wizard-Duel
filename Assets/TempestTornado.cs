@@ -3,6 +3,16 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D))]
 public class TempestTornado : SpellBehaviour
 {
+    [Header("Damage")]
+    [SerializeField] private float minimumDamagePerSecond = 5f;
+    [SerializeField] private float maximumDamagePerSecond = 25f;
+    [SerializeField] private float onHitValue = 0.1f;
+
+    [SerializeField] private float damageTickInterval = 0.25f;
+    [SerializeField] private Collider2D damageCollider;
+
+    private float nextDamageTick;
+
     [Header("Movement")]
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float lifetime = 8f;
@@ -50,6 +60,7 @@ public class TempestTornado : SpellBehaviour
 
     private float direction;
     private float age;
+
 
     public float CurrentScalePercent { get; private set; }
 
@@ -106,33 +117,33 @@ public class TempestTornado : SpellBehaviour
                 Vector3.one * currentScale;
         }
 
-       // Move horizontally.
-        Vector2 nextPosition =
-            rb.position +
-            Vector2.right *
-            direction *
-            moveSpeed *
-            Time.fixedDeltaTime;
+// Move horizontally.
+Vector2 nextPosition =
+    rb.position +
+    Vector2.right *
+    direction *
+    moveSpeed *
+    Time.fixedDeltaTime;
 
-        // Ground follow.
-        RaycastHit2D hit =
-            Physics2D.Raycast(
-                groundCheck.position,
-                Vector2.down,
-                groundCastDistance,
-                groundLayer);
+// Ground follow.
+RaycastHit2D hit =
+    Physics2D.Raycast(
+        groundCheck.position,
+        Vector2.down,
+        groundCastDistance,
+        groundLayer);
 
-        if (hit.collider != null)
-        {
-            float difference =
-                hit.point.y +
-                groundOffset -
-                groundCheck.position.y;
+if (hit.collider != null)
+{
+    float difference =
+        hit.point.y +
+        groundOffset -
+        groundCheck.position.y;
 
-            nextPosition.y += difference;
-        }
+    nextPosition.y += difference;
+}
 
-        rb.MovePosition(nextPosition);
+rb.MovePosition(nextPosition);
 
         // Pull.
         float currentRadius =
@@ -147,9 +158,17 @@ public class TempestTornado : SpellBehaviour
                 maximumPullForce,
                 growth);
 
+        float currentDamagePerSecond =
+    Mathf.Lerp(
+        minimumDamagePerSecond,
+        maximumDamagePerSecond,
+        growth);
+
         ApplyPull(
             currentRadius,
             currentPullForce);
+
+        ApplyDamage(currentDamagePerSecond);
 
         Animate();
     }
@@ -218,6 +237,46 @@ public class TempestTornado : SpellBehaviour
                 maximumPullForce *
                 strength,
                 ForceMode2D.Force);
+        }
+    }
+
+    private void ApplyDamage(float damagePerSecond)
+    {
+        if (damageCollider == null)
+            return;
+
+        if (Time.time < nextDamageTick)
+            return;
+
+        nextDamageTick =
+            Time.time + damageTickInterval;
+
+        float damage =
+            damagePerSecond *
+            damageTickInterval;
+
+        ContactFilter2D filter = new ContactFilter2D();
+        filter.SetLayerMask(affectedLayers);
+        filter.useLayerMask = true;
+
+        Collider2D[] results = new Collider2D[32];
+
+        int count =
+            damageCollider.Overlap(filter, results);
+
+        for (int i = 0; i < count; i++)
+        {
+            Collider2D collider = results[i];
+
+            if (!collider.TryGetComponent(out Health health))
+                continue;
+
+            SpellEffects.DealDamage(
+                caster,
+                Spell,
+                health,
+                damage,
+                onHitValue);
         }
     }
 

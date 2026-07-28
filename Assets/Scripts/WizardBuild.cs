@@ -196,7 +196,8 @@ public class WizardBuild
 
             foreach (OnHitModifier modifier in accessory.OnHitModifiers)
             {
-                if (modifier.Element == spell.Element)
+                if (modifier.Element == SpellElement.Any ||
+                    modifier.Element == spell.Element)
                 {
                     modifiers.Add(modifier);
                 }

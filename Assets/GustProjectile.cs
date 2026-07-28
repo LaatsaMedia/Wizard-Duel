@@ -65,11 +65,14 @@ public class GustProjectile : SpellBehaviour
         // Hit a player/enemy.
         if (other.TryGetComponent(out Health health))
         {
-            SpellEffects.DealDamage(
-                caster,
-                Spell,
-                health,
-                damage);
+            if (RegisterHit(health))
+            {
+                SpellEffects.DealDamage(
+                    caster,
+                    Spell,
+                    health,
+                    damage);
+            }
 
             if (other.TryGetComponent(
                 out KnockbackReceiver knockback))

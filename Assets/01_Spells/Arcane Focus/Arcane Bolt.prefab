@@ -168,6 +168,8 @@ MonoBehaviour:
   speed: 25
   damage: 4
   lifetime: 3
+  onHitValue: 0.2
+  impactPrefab: {fileID: 0}
 --- !u!58 &3293712961985707460
 CircleCollider2D:
   m_ObjectHideFlags: 0

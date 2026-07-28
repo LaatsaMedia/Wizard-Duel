@@ -7,8 +7,8 @@ public class EnemyController : MonoBehaviour
     private KnockbackReceiver knockback;
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 6f;
-    [SerializeField] private float jumpForce = 10f;
+    public float moveSpeed = 6f;
+    public float jumpForce = 10f;
     private MovementController movement;
 
     [Header("Movement Variety")]
@@ -33,6 +33,8 @@ public class EnemyController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform aimPivot;
+    [SerializeField] private Transform visualRoot;
+    [SerializeField] private GameObject arm;
     private Transform target;
 
     [Header("AI")]
@@ -358,21 +360,29 @@ public class EnemyController : MonoBehaviour
 
     private void RotateAimPivot()
     {
-        Vector2 direction =
-            target.position -
-            aimPivot.position;
+        Vector2 direction = target.position - aimPivot.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        float angle =
-            Mathf.Atan2(
-                direction.y,
-                direction.x) *
-            Mathf.Rad2Deg;
+        bool facingLeft = direction.x < 0f;
 
-        aimPivot.rotation =
-            Quaternion.Euler(
-                0f,
-                0f,
-                angle);
+        // Flip body
+        visualRoot.localScale = new Vector3(
+            facingLeft ? -1f : 1f,
+            1f,
+            1f);
+
+        // Aim at player
+        aimPivot.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        // Flip arm exactly like the player
+        if (facingLeft)
+        {
+            arm.transform.localEulerAngles = new Vector3(0f, 180f, 180f);
+        }
+        else
+        {
+            arm.transform.localEulerAngles = Vector3.zero;
+        }
     }
 
     private bool IsGrounded()

@@ -1,5 +1,7 @@
 using UnityEngine;
 
+//BUILDAPPLIER.CS
+
 public enum PassiveModifierType
 {
     MaxHealth,
@@ -7,7 +9,9 @@ public enum PassiveModifierType
     ManaRegen,
     MoveSpeed,
     SpellDamage,
-    CooldownRecovery
+    CooldownRecovery,
+    WizardSize,
+    JumpHeight
 }
 
 [System.Serializable]

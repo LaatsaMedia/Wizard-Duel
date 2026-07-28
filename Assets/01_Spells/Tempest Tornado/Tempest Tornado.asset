@@ -14,8 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 4
   mastery: 3
+  element: 0
   spellName: Tempest Tornado
-  icon: {fileID: 21300000, guid: b49b880419256734d921621a2f5a97a5, type: 3}
+  icon: {fileID: 21300000, guid: 0dbd0a76ebbb55940a70678e373e7d5b, type: 3}
   description: This is placeholder for description
   cooldown: 0
   manaCost: 6

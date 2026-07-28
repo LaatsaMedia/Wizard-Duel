@@ -16,7 +16,7 @@ MonoBehaviour:
   mastery: 0
   element: 2
   spellName: Water Burst
-  icon: {fileID: 21300000, guid: b704a412bd8bfea44bafe3d5d3c83645, type: 3}
+  icon: {fileID: 21300000, guid: b49b880419256734d921621a2f5a97a5, type: 3}
   description: This is placeholder for description
   cooldown: 4
   manaCost: 4

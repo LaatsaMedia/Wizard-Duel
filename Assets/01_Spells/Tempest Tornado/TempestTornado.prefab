@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 235540521876786810}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -115,7 +115,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1792282486872950154}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -0.85, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -4970,7 +4970,8 @@ GameObject:
   - component: {fileID: 2647327342950909197}
   - component: {fileID: 8611794976910507124}
   - component: {fileID: 3485756803477660339}
-  - component: {fileID: 4804653353378154297}
+  - component: {fileID: 4709708648939980693}
+  - component: {fileID: 7007904196970086194}
   m_Layer: 0
   m_Name: TempestTornado
   m_TagString: Projectile
@@ -5003,7 +5004,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6625533122994970779}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -5021,7 +5022,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &3485756803477660339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5034,6 +5035,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73a4a4d413c702c4ea9e4eddf5e7c414, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TempestTornado
+  minimumDamagePerSecond: 0
+  maximumDamagePerSecond: 5
+  onHitValue: 0.1
+  damageTickInterval: 0.25
+  damageCollider: {fileID: 7007904196970086194}
   moveSpeed: 1
   lifetime: 10
   startScale: 0.5
@@ -5042,7 +5048,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 256
-  groundCastDistance: 5
+  groundCastDistance: 100
   groundOffset: 0.2
   growthCurve:
     serializedVersion: 2
@@ -5050,18 +5056,18 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
@@ -5071,25 +5077,18 @@ MonoBehaviour:
   affectedLayers:
     serializedVersion: 2
     m_Bits: 1024
-  minimumPullRadius: 2
-  maximumPullRadius: 20
-  minimumPullForce: 20
-  maximumPullForce: 200
-  minimumOrbitForce: 30
-  maximumOrbitForce: 200
-  orbitRadiusPercent: 0.6
-  orbitCorrectionForce: 10
-  minimumLiftForce: 8
-  maximumLiftForce: 8
-  scalableObjects:
-  - {fileID: 324933895023146495}
+  minimumPullRadius: 1.5
+  maximumPullRadius: 35
+  minimumPullForce: 25
+  maximumPullForce: 120
+  scalableObjects: []
   spriteRenderer: {fileID: 7183481792212948595}
   animationFrames:
   - {fileID: 21300000, guid: 0dbd0a76ebbb55940a70678e373e7d5b, type: 3}
   - {fileID: 21300000, guid: b760ca49e2f9b004d8cff58639ad872a, type: 3}
   animationInterval: 0.2
---- !u!61 &4804653353378154297
-BoxCollider2D:
+--- !u!58 &4709708648939980693
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -5123,6 +5122,42 @@ BoxCollider2D:
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
+  m_Radius: 1
+--- !u!60 &7007904196970086194
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6625533122994970779}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_CompositeOperation: 0
+  m_CompositeOrder: 0
+  m_Offset: {x: 0.05, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -5132,5 +5167,10 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 1, y: 2}
-  m_EdgeRadius: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.7, y: 1}
+      - {x: -0.7, y: 1}
+      - {x: -0.2, y: -1}
+      - {x: 0.2, y: -1}
+  m_UseDelaunayMesh: 1

@@ -98,7 +98,9 @@ public class FireballProjectile : SpellBehaviour
             float damage = Mathf.Lerp(maxDamage, 0f, t);
             float knockback = Mathf.Lerp(maxKnockback, 0f, t);
 
-            if (hit.TryGetComponent(out Health health))
+        if (hit.TryGetComponent(out Health health))
+        {
+            if (RegisterHit(health))
             {
                 SpellEffects.DealDamage(
                     caster,
@@ -106,6 +108,7 @@ public class FireballProjectile : SpellBehaviour
                     health,
                     damage);
             }
+        }
 
             if (hit.TryGetComponent(out KnockbackReceiver knockbackReceiver))
             {

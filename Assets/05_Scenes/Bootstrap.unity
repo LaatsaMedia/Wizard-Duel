@@ -402,11 +402,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1802595906391783680, guid: 09109bb3b8678df4dbac3013ba09a728, type: 3}
       propertyPath: m_LocalScale.x
-      value: 1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1802595906391783680, guid: 09109bb3b8678df4dbac3013ba09a728, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 1.25
       objectReference: {fileID: 0}
     - target: {fileID: 1802595906391783680, guid: 09109bb3b8678df4dbac3013ba09a728, type: 3}
       propertyPath: m_LocalPosition.x
@@ -414,7 +414,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1802595906391783680, guid: 09109bb3b8678df4dbac3013ba09a728, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.84
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1802595906391783680, guid: 09109bb3b8678df4dbac3013ba09a728, type: 3}
       propertyPath: m_LocalPosition.z
@@ -731,71 +731,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1869366938}
   m_CullTransparentMesh: 1
---- !u!1001 &1973608524
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.1898537
-      objectReference: {fileID: 0}
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.4429235
-      objectReference: {fileID: 0}
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 865624309923738921, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3843658216037615004, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_Name
-      value: Fireball Projectile
-      objectReference: {fileID: 0}
-    - target: {fileID: 8331599535148088521, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.4
-      objectReference: {fileID: 0}
-    - target: {fileID: 8331599535148088521, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.4
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}
 --- !u!1 &2005517386
 GameObject:
   m_ObjectHideFlags: 0
@@ -859,4 +794,3 @@ SceneRoots:
   - {fileID: 303464222}
   - {fileID: 964682712}
   - {fileID: 1704432539}
-  - {fileID: 1973608524}

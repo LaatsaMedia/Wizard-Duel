@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Gust
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 3
-  mastery: 2
+  mastery: 0
   element: 4
   spellName: Gust
-  icon: {fileID: 21300000, guid: 5870762a54d3ef54b8a2e45daeb2b010, type: 3}
+  icon: {fileID: 21300000, guid: 1fd80847ef6e235408bfaf19f0c83b9d, type: 3}
   description: This is placeholder for description
   cooldown: 4
   manaCost: 3

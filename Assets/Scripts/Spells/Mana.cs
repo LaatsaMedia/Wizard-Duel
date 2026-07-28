@@ -26,6 +26,11 @@ public class Mana : MonoBehaviour
         }
     }
 
+    public void UpdateMana()
+    {
+        currentMana = maxMana;
+    }
+
     public bool TrySpendMana(float amount)
     {
         if (currentMana < amount)
@@ -47,5 +52,15 @@ public class Mana : MonoBehaviour
         yield return new WaitForSeconds(duration);
 
         canRegenMana = true;
+    }
+
+    public void BurnMana(float amount)
+    {
+        currentMana = Mathf.Max(0, currentMana - amount);
+    }
+
+    public void RestoreMana(float amount)
+    {
+        currentMana = Mathf.Min(maxMana, currentMana + amount);
     }
 }

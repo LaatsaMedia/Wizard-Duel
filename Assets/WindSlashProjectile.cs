@@ -68,11 +68,14 @@ public class WindSlashProjectile : SpellBehaviour
             if (!hitTargets.Add(health))
                 return;
 
-            SpellEffects.DealDamage(
-                caster,
-                Spell,
-                health,
-                damage);
+            if (RegisterHit(health))
+            {
+                SpellEffects.DealDamage(
+                    caster,
+                    Spell,
+                    health,
+                    damage);
+            }
 
             if (other.TryGetComponent(out KnockbackReceiver knockback))
             {

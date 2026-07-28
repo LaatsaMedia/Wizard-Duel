@@ -7,6 +7,10 @@ public class ArcaneBolt : SpellBehaviour
     [SerializeField] private float speed = 25f;
     [SerializeField] private float damage = 3f;
     [SerializeField] private float lifetime = 3f;
+    [SerializeField] private float onHitValue = 0.1f;
+
+    [Header("VFX")]
+    [SerializeField] private GameObject impactPrefab;
 
     private Rigidbody2D rb;
 
@@ -15,10 +19,8 @@ public class ArcaneBolt : SpellBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
-    public override void Initialize(GameObject caster, Spell spell, float direction)
+    private void Start()
     {
-        base.Initialize(caster, spell, direction);
-
         rb.linearVelocity = transform.right * speed;
 
         Destroy(gameObject, lifetime);
@@ -31,7 +33,15 @@ public class ArcaneBolt : SpellBehaviour
 
         if (other.TryGetComponent(out Health health))
         {
-            health.TakeDamage(damage);
+            if (RegisterHit(health))
+            {
+                SpellEffects.DealDamage(
+                    caster,
+                    Spell,
+                    health,
+                    damage,
+                    onHitValue); // 10% effectiveness
+            }
         }
 
         OnDestroyed();
@@ -39,7 +49,13 @@ public class ArcaneBolt : SpellBehaviour
 
     private void OnDestroyed()
     {
-        // VFX
+        if (impactPrefab != null)
+        {
+            Instantiate(
+                impactPrefab,
+                transform.position,
+                Quaternion.identity);
+        }
 
         Destroy(gameObject);
     }

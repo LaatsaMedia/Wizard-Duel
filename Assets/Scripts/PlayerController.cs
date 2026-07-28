@@ -8,8 +8,8 @@ public class PlayerController : MonoBehaviour
     private KnockbackReceiver knockback;
 
     [Header("Movement")]
-    [SerializeField] private float moveSpeed = 6f;
-    [SerializeField] private float jumpForce = 10f;
+    public float moveSpeed = 6f;
+    public float jumpForce = 10f;
     private MovementController movement;
 
     [Header("Ground Check")]
@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
 
     [Header("References")]
     [SerializeField] private Transform aimPivot;
+    [SerializeField] private Transform visualRoot;
+    [SerializeField] private GameObject arm;
 
     private Rigidbody2D rb;
     private Camera cam;
@@ -112,13 +114,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void RotateAimPivot()
-    {
-        Vector2 direction = mousePosition - (Vector2)aimPivot.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+private void RotateAimPivot()
+{
+    Vector2 direction = mousePosition - (Vector2)aimPivot.position;
+    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
 
-        aimPivot.rotation = Quaternion.Euler(0f, 0f, angle);
+    bool facingLeft = direction.x < 0f;
+
+    // Flip body
+    visualRoot.localScale = new Vector3(
+        facingLeft ? -1f : 1f,
+        1f,
+        1f);
+
+    // Rotate arm towards mouse
+    aimPivot.rotation = Quaternion.Euler(0f, 0f, angle);
+
+    // Flip the arm when facing left
+    if (facingLeft)
+    {
+        arm.transform.localEulerAngles = new Vector3(0f, 180f, 180f);
     }
+    else
+    {
+        arm.transform.localEulerAngles = Vector3.zero;
+    }
+}
 
     private bool IsGrounded()
     {

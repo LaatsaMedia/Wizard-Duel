@@ -10,14 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 738a3e32d29419e4fb22ab5ffdad0f36, type: 3}
-  m_Name: Mana Ring
+  m_Name: Warrior's Band
   m_EditorClassIdentifier: Assembly-CSharp::Accessory
   mastery: 0
-  accessoryName: Mana Ring
-  icon: {fileID: 21300000, guid: a6e538c21c0f64a42838f53970fa90a8, type: 3}
-  description: Faster Mana Regeneration.
-  passiveModifiers:
-  - modifier: 2
-    value: 2
-  onHitModifiers: []
+  accessoryName: Warrior's Band
+  icon: {fileID: 21300000, guid: e7e1462947eb7044bbc56d46f420bd41, type: 3}
+  description: All spells deal 4 extra damage
+  passiveModifiers: []
+  onHitModifiers:
+  - element: 6
+    modifier: 1
+    value: 4
+    duration: 0
   specialEffects: 
+  prefab: {fileID: 0}

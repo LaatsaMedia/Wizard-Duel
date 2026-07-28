@@ -26,7 +26,9 @@ public enum SpellElement
     Earth,
     Air,
 
-    Arcane
+    Arcane,
+
+    Any
 }
 
 [CreateAssetMenu(menuName = "Spells/Spell")]

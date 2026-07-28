@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class SpellBehaviour : MonoBehaviour
@@ -5,6 +6,8 @@ public abstract class SpellBehaviour : MonoBehaviour
     protected GameObject caster;
     protected Spell spell;
     protected float castDirection;
+
+    private readonly HashSet<Health> hitTargets = new();
 
     public GameObject Caster => caster;
     public Spell Spell => spell;
@@ -20,6 +23,16 @@ public abstract class SpellBehaviour : MonoBehaviour
         this.caster = caster;
         this.spell = spell;
         this.castDirection = castDirection;
+    }
+
+    protected bool RegisterHit(Health target)
+    {
+        return hitTargets.Add(target);
+    }
+
+    protected void ClearHitTargets()
+    {
+        hitTargets.Clear();
     }
 
     public virtual bool Recast()
