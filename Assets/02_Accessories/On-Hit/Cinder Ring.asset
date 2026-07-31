@@ -18,8 +18,8 @@ MonoBehaviour:
   description: Fire spells ignite enemies, dealing 5 damage per second for 2 seconds.
   passiveModifiers: []
   onHitModifiers:
-  - element: 6
-    modifier: 5
+  - element: 1
+    modifier: 7
     value: 5
     duration: 2
   specialEffects: 
