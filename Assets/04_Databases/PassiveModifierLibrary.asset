@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37587bcd8d777ad46abd136401438dfe, type: 3}
+  m_Name: PassiveModifierLibrary
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveModifierLibrary
+  modifiers:
+  - modifier: 0
+    definition: {fileID: 11400000, guid: 86267974e42bda045a87caf06085d2c1, type: 2}
+  - modifier: 1
+    definition: {fileID: 11400000, guid: dff3fe4bc8bcc7447bfbf8e8f9e86863, type: 2}
+  - modifier: 7
+    definition: {fileID: 11400000, guid: fbb49ca16093e5148bc025a6edb43ec0, type: 2}
+  - modifier: 3
+    definition: {fileID: 11400000, guid: bd9e7d5061f0bfb4784be0b4f850820b, type: 2}
+  - modifier: 6
+    definition: {fileID: 11400000, guid: 77625549a080b7648bba3552a005687c, type: 2}

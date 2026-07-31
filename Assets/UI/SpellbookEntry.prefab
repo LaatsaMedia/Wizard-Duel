@@ -439,6 +439,7 @@ GameObject:
   - component: {fileID: 7206018074140707105}
   - component: {fileID: 5259110319215340808}
   - component: {fileID: 5247355320326859622}
+  - component: {fileID: 8547376001019086565}
   m_Layer: 5
   m_Name: SpellbookEntry
   m_TagString: Untagged
@@ -539,6 +540,18 @@ MonoBehaviour:
   - mastery: 3
     frameSprite: {fileID: 21300000, guid: 1674cbfe9f958854bb7cacb525a0ea5c, type: 3}
     textColor: {r: 0.8490566, g: 0.73332393, b: 0.06007475, a: 1}
+--- !u!114 &8547376001019086565
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7119945767752338216}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db83a592c0f9d6041abb32f840e9ebd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverInspectable
 --- !u!1 &7161815399043398458
 GameObject:
   m_ObjectHideFlags: 0

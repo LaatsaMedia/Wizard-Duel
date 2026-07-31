@@ -3,12 +3,12 @@ using UnityEngine.UI;
 
 public class CurrentAccessoriesUI : MonoBehaviour
 {
-    [SerializeField] private Image accessory1;
-    [SerializeField] private Image accessory2;
-    [SerializeField] private Image accessory3;
-    [SerializeField] private Image accessory4;
-    [SerializeField] private Image accessory5;
-    [SerializeField] private Image accessory6;
+    [SerializeField] private AccessorySlot accessory1;
+    [SerializeField] private AccessorySlot accessory2;
+    [SerializeField] private AccessorySlot accessory3;
+    [SerializeField] private AccessorySlot accessory4;
+    [SerializeField] private AccessorySlot accessory5;
+    [SerializeField] private AccessorySlot accessory6;
 
     [SerializeField] private Sprite emptySlotSprite;
 
@@ -21,12 +21,12 @@ public class CurrentAccessoriesUI : MonoBehaviour
     {
         WizardBuild build = RunManager.Instance.PlayerBuild;
 
-        SetAccessory(accessory1, build.accessory1);
-        SetAccessory(accessory2, build.accessory2);
-        SetAccessory(accessory3, build.accessory3);
-        SetAccessory(accessory4, build.accessory4);
-        SetAccessory(accessory5, build.accessory5);
-        SetAccessory(accessory6, build.accessory6);
+        accessory1.Setup(build.accessory1);
+        accessory2.Setup(build.accessory2);
+        accessory3.Setup(build.accessory3);
+        accessory4.Setup(build.accessory4);
+        accessory5.Setup(build.accessory5);
+        accessory6.Setup(build.accessory6);
     }
 
     private void SetAccessory(Image image, Accessory accessory)

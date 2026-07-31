@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class RewardCard : MonoBehaviour
+public class RewardCard : MonoBehaviour, IInspectionProvider
 {
     [Header("UI")]
     [SerializeField] private Image cardImage;
@@ -27,6 +27,8 @@ public class RewardCard : MonoBehaviour
     private Accessory accessory;
     public Accessory Accessory => accessory;
 
+    public bool CanInspect => spell != null || accessory != null;
+
     private void Awake()
     {
         originalScale = transform.localScale;
@@ -35,6 +37,7 @@ public class RewardCard : MonoBehaviour
     public void Setup(Spell spell)
     {
         this.spell = spell;
+        accessory = null;
 
         icon.sprite = spell.icon;
         title.text = spell.spellName;
@@ -53,6 +56,7 @@ public class RewardCard : MonoBehaviour
     public void Setup(Accessory accessory)
     {
         this.accessory = accessory;
+        spell = null;
 
         icon.sprite = accessory.icon;
         title.text = accessory.accessoryName;
@@ -100,5 +104,16 @@ public class RewardCard : MonoBehaviour
         transform.localScale = selected
             ? originalScale * 1.1f
             : originalScale;
+    }
+
+    public InspectionData GetInspectionData()
+    {
+        if (spell != null)
+            return SpellInspectionBuilder.Build(spell);
+
+        if (accessory != null)
+            return AccessoryInspectionBuilder.Build(accessory);
+
+        return new InspectionData();
     }
 }

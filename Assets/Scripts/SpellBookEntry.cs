@@ -2,7 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpellBookEntry : MonoBehaviour
+public class SpellBookEntry : MonoBehaviour, IInspectionProvider
 {
     [Header("Slot")]
     [SerializeField] private BuildSlot slot;
@@ -22,10 +22,17 @@ public class SpellBookEntry : MonoBehaviour
     private bool selectable;
     private bool selected;
 
+    // NEW
+    private Spell spell;
+    public bool CanInspect => spell != null;
+
     public BuildSlot Slot => slot;
 
     public void Setup(Spell spell)
     {
+        // NEW
+        this.spell = spell;
+
         if (spell == null)
         {
             spellName.text = emptyText;
@@ -74,5 +81,11 @@ public class SpellBookEntry : MonoBehaviour
             return;
 
         SetupPhase.Instance.SelectBuildSlot(slot);
+    }
+
+    // NEW
+    public InspectionData GetInspectionData()
+    {
+        return SpellInspectionBuilder.Build(spell);
     }
 }
