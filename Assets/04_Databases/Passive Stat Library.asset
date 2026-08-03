@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9169da515fe6a2a41a9d2855fb6f76a8, type: 3}
+  m_Name: Passive Stat Library
+  m_EditorClassIdentifier: Assembly-CSharp::PassiveStatLibrary
+  definitions:
+  - {fileID: 11400000, guid: 2e1e78c826050a54ab2bfe505a592b47, type: 2}
+  - {fileID: 11400000, guid: 7e6996ea4cac72b479042db5505e2a42, type: 2}
+  - {fileID: 11400000, guid: 33b708aa561f1484e8d85c98f6ca163e, type: 2}
+  - {fileID: 11400000, guid: f7747d6cbde2d7445b9b910147e45236, type: 2}

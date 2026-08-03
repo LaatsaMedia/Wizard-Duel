@@ -2,6 +2,7 @@ using UnityEngine;
 
 public enum ModifierDisplayType
 {
+    Value,
     Flat,
     Percentage,
     Multiplier

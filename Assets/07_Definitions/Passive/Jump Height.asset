@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Jump Height
   m_EditorClassIdentifier: Assembly-CSharp::ModifierDefinition
   icon: {fileID: 21300000, guid: c18640c6a9d07b049811621542f3e5ab, type: 3}
-  isPercentage: 0
+  displayType: 1

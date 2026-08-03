@@ -59,6 +59,7 @@ public static class AccessoryInspectionBuilder
             inspection.Value = modifier.Value;
             inspection.Duration = 0f;
             inspection.DisplayType = definition.DisplayType;
+            inspection.IsBaseStat = false;
 
             data.Modifiers.Add(inspection);
         }
@@ -83,6 +84,7 @@ public static class AccessoryInspectionBuilder
             inspection.Value = modifier.Value;
             inspection.Duration = modifier.Duration;
             inspection.DisplayType = definition.DisplayType;
+            inspection.IsBaseStat = false;
 
             data.Modifiers.Add(inspection);
         }

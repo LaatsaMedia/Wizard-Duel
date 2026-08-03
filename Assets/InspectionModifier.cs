@@ -9,4 +9,5 @@ public class InspectionModifier
     public float Duration { get; set; }
 
     public ModifierDisplayType DisplayType { get; set; }
+    public bool IsBaseStat;
 }

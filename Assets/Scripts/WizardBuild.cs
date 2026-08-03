@@ -264,4 +264,19 @@ public class WizardBuild
         if (ultimateSpell == spell)
             ultimateSpell = null;
     }
+
+    public IEnumerable<Spell> GetEquippedSpells()
+    {
+        if (primarySpell != null)
+            yield return primarySpell;
+
+        if (secondarySpell != null)
+            yield return secondarySpell;
+
+        if (thirdSpell != null)
+            yield return thirdSpell;
+
+        if (ultimateSpell != null)
+            yield return ultimateSpell;
+    }
 }

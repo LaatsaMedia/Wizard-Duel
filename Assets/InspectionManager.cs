@@ -11,6 +11,9 @@ public class InspectionManager : MonoBehaviour
     [SerializeField] private StatusEffectLibrary statusEffectLibrary;
     public StatusEffectLibrary StatusEffectLibrary => statusEffectLibrary;
 
+    [SerializeField] private PassiveStatLibrary passiveStatLibrary;
+    public PassiveStatLibrary PassiveStatLibrary => passiveStatLibrary;
+
     [Space]
 
     [SerializeField] private Sprite damageIcon;

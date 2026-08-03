@@ -62,7 +62,8 @@ public class InformationPanel : MonoBehaviour
 
         foreach (InspectionModifier modifier in data.Modifiers)
         {
-            Instantiate(modifierPrefab, modifierParent).Setup(modifier);
+            Instantiate(modifierPrefab, modifierParent)
+                .Setup(modifier);
         }
 
         foreach (InspectionNote note in data.Notes)

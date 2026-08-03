@@ -11,9 +11,6 @@ public class InformationPanelScroller : MonoBehaviour
         if(!InspectionManager.Instance.IsInspecting)
             return;
 
-        Debug.Log("SGSD");
-        Debug.Log(Input.mouseScrollDelta.y);
-
         if (!scrollRect.gameObject.activeInHierarchy)
             return;
 

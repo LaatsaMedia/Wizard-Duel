@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Life Steal
   m_EditorClassIdentifier: Assembly-CSharp::ModifierDefinition
   icon: {fileID: 21300000, guid: 0c68a9d94ba46d746b3b6d7f9edd581c, type: 3}
-  displayType: 1
+  displayType: 2

@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Flat Damage
   m_EditorClassIdentifier: Assembly-CSharp::ModifierDefinition
   icon: {fileID: 21300000, guid: cc7d056842d2a7c4490919117feff6e6, type: 3}
-  isPercentage: 0
+  displayType: 1

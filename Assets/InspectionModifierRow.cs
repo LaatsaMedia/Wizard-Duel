@@ -15,12 +15,26 @@ public class InspectionModifierRow : MonoBehaviour
 
         switch (modifier.DisplayType)
         {
+            case ModifierDisplayType.Value:
+            {
+                valueText = modifier.Value.ToString("0.##");
+                break;
+            }
+
             case ModifierDisplayType.Flat:
             {
-                string sign = modifier.Value > 0f ? "+" :
-                              modifier.Value < 0f ? "-" : "";
+                if (modifier.IsBaseStat)
+                {
+                    valueText = modifier.Value.ToString("0.##");
+                }
+                else
+                {
+                    string sign = modifier.Value > 0f ? "+" :
+                                  modifier.Value < 0f ? "-" : "";
 
-                valueText = $"{sign}{Mathf.Abs(modifier.Value):F0}";
+                    valueText = $"{sign}{Mathf.Abs(modifier.Value):0.##}";
+                }
+
                 break;
             }
 
@@ -29,7 +43,7 @@ public class InspectionModifierRow : MonoBehaviour
                 string sign = modifier.Value > 0f ? "+" :
                               modifier.Value < 0f ? "-" : "";
 
-                valueText = $"{sign}{Mathf.Abs(modifier.Value):F0}%";
+                valueText = $"{sign}{Mathf.Abs(modifier.Value):0.##}%";
                 break;
             }
 
@@ -40,14 +54,14 @@ public class InspectionModifierRow : MonoBehaviour
                 string sign = percent > 0f ? "+" :
                               percent < 0f ? "-" : "";
 
-                valueText = $"{sign}{Mathf.Abs(percent):F0}%";
+                valueText = $"{sign}{Mathf.Abs(percent):0.##}%";
                 break;
             }
         }
 
         if (modifier.Duration > 0f)
         {
-            valueText += $"/{modifier.Duration:F0}s";
+            valueText += $"/{modifier.Duration:0.##}s";
         }
 
         value.text = valueText;
