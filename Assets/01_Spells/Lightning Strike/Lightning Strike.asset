@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 0
   mastery: 2
+  element: 0
   spellName: Lightning Strike
   icon: {fileID: 21300000, guid: 0ba2ac0912aec9645b8f7dc42fb5b955, type: 3}
   description: This is placeholder for description
+  primaryStat: 1
+  primaryValue: 40
+  disableEffect: 0
+  disableDuration: 0
+  note: 
   cooldown: 8
   manaCost: 8
   castSFX: {fileID: 8300000, guid: f7a761385744eb74792f08f87457615b, type: 3}

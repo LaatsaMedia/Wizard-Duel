@@ -17,6 +17,10 @@ public class Accessory : ScriptableObject
     public Sprite icon;
     public string description;
 
+    [Header("Inspection")]
+    [TextArea]
+    public string note;
+
     [Header("Passive")]
     [SerializeField] private PassiveModifier[] passiveModifiers;
     public PassiveModifier[] PassiveModifiers => passiveModifiers;

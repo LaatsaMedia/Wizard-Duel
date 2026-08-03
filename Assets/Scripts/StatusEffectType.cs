@@ -1,5 +1,7 @@
 public enum StatusEffectType
 {
+    None,
+    
     Root,
     Burning,
     Poison,

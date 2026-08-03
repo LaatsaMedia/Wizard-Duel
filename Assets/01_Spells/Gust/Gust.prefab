@@ -47,12 +47,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3640305e193e2ab48a79b9091ffe16c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GustProjectile
-  speed: 20
+  speed: 26
   lifetime: 2
-  damage: 5
-  horizontalKnockback: 12
-  verticalKnockback: 18
-  knockbackDuration: 0.45
+  damage: 8
+  horizontalKnockback: 14
+  verticalKnockback: 22
+  knockbackDuration: 0.5
   wallLayer:
     serializedVersion: 2
     m_Bits: 512
@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 3389742515524846871}
   - component: {fileID: 5726718673040847682}
   m_Layer: 0
-  m_Name: Square
+  m_Name: Sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

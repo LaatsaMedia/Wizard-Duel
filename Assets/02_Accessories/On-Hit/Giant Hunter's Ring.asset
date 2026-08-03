@@ -16,6 +16,7 @@ MonoBehaviour:
   accessoryName: Giant Hunter's Ring
   icon: {fileID: 21300000, guid: 0c68a9d94ba46d746b3b6d7f9edd581c, type: 3}
   description: Deal bonus damage equal to 5% of the target's maximum health.
+  note: 
   passiveModifiers: []
   onHitModifiers:
   - element: 6

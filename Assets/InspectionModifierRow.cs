@@ -11,23 +11,38 @@ public class InspectionModifierRow : MonoBehaviour
     {
         icon.sprite = modifier.Icon;
 
-        string valueText;
+        string valueText = "";
 
-        if (modifier.IsPercentage)
+        switch (modifier.DisplayType)
         {
-            float percent = (modifier.Value - 1f) * 100f;
+            case ModifierDisplayType.Flat:
+            {
+                string sign = modifier.Value > 0f ? "+" :
+                              modifier.Value < 0f ? "-" : "";
 
-            string sign = percent > 0f ? "+" :
-                          percent < 0f ? "-" : "";
+                valueText = $"{sign}{Mathf.Abs(modifier.Value):F0}";
+                break;
+            }
 
-            valueText = $"{sign}{Mathf.Abs(percent):F0}%";
-        }
-        else
-        {
-            string sign = modifier.Value > 0f ? "+" :
-                          modifier.Value < 0f ? "-" : "";
+            case ModifierDisplayType.Percentage:
+            {
+                string sign = modifier.Value > 0f ? "+" :
+                              modifier.Value < 0f ? "-" : "";
 
-            valueText = $"{sign}{Mathf.Abs(modifier.Value):F0}";
+                valueText = $"{sign}{Mathf.Abs(modifier.Value):F0}%";
+                break;
+            }
+
+            case ModifierDisplayType.Multiplier:
+            {
+                float percent = (modifier.Value - 1f) * 100f;
+
+                string sign = percent > 0f ? "+" :
+                              percent < 0f ? "-" : "";
+
+                valueText = $"{sign}{Mathf.Abs(percent):F0}%";
+                break;
+            }
         }
 
         if (modifier.Duration > 0f)

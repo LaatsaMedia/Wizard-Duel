@@ -31,6 +31,15 @@ public enum SpellElement
     Any
 }
 
+public enum SpellPrimaryStat
+{
+    None,
+    Damage,
+    Heal,
+    Shield,
+    Summon
+}
+
 [CreateAssetMenu(menuName = "Spells/Spell")]
 public class Spell : ScriptableObject
 {
@@ -47,6 +56,22 @@ public class Spell : ScriptableObject
     public string spellName;
     public Sprite icon;
     public string description = "This is placeholder for description";
+
+    [Header("Inspection")]
+    [SerializeField] private SpellPrimaryStat primaryStat;
+    public SpellPrimaryStat PrimaryStat => primaryStat;
+
+    [SerializeField] private float primaryValue;
+    public float PrimaryValue => primaryValue;
+
+[SerializeField] private StatusEffectType disableEffect = StatusEffectType.None;
+public StatusEffectType DisableEffect => disableEffect;
+
+[SerializeField] private float disableDuration;
+public float DisableDuration => disableDuration;
+
+    [TextArea]
+    public string note;
 
     [Header("Stats")]
     public float cooldown;

@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 3
   mastery: 2
+  element: 2
   spellName: Bubble Prison
   icon: {fileID: 21300000, guid: 03d350609c3f42d45b0438b8c689d432, type: 3}
   description: This is placeholder for description
+  primaryStat: 1
+  primaryValue: 10
+  disableEffect: 6
+  disableDuration: 1.5
+  note: 
   cooldown: 6
   manaCost: 6
   castSFX: {fileID: 0}

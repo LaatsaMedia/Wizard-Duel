@@ -48,7 +48,7 @@ MonoBehaviour:
   warningDuration: 0.65
   lightningHitbox: {x: 2.5, y: 20}
   lightningDamage: 15
-  explosionRadius: 3.5
+  explosionRadius: 4
   maxExplosionDamage: 40
   warningPrefab: {fileID: 1024068451120794690, guid: 5984bbb42a5fcbb49a695846385d69bd, type: 3}
   lightningPrefab: {fileID: 6910324313743591905, guid: ea1c23fcca16a9741b29dfbea33e36f9, type: 3}

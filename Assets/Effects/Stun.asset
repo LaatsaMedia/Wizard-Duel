@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221febbae11f0d94794084c6863f72be, type: 3}
   m_Name: Stun
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffect
-  type: 5
+  type: 6
   displayName: Stunned
   icon: {fileID: 21300000, guid: bdf2d419649d89b4a828f02eb8148220, type: 3}
   worldEffectPrefab: {fileID: 0}

@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 1
   mastery: 0
+  element: 3
   spellName: Stone Wall
   icon: {fileID: 21300000, guid: 733f696fb29eace49bdac4d2d5a14371, type: 3}
   description: This is placeholder for description
+  primaryStat: 1
+  primaryValue: 12
+  disableEffect: 0
+  disableDuration: 0
+  note: 
   cooldown: 10
   manaCost: 4
   castSFX: {fileID: 0}

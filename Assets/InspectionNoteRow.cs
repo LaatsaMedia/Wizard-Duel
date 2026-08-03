@@ -10,24 +10,9 @@ public class InspectionNoteRow : MonoBehaviour
     public void Setup(InspectionNote note)
     {
         icon.sprite = note.Icon;
+
+        icon.gameObject.SetActive(note.Icon != null);
+
         valueText.text = note.Text;
-    }
-
-    public void Setup(InspectionModifier modifier)
-    {
-        icon.sprite = modifier.Icon;
-
-        if (modifier.Duration > 0)
-        {
-            valueText.text = modifier.IsPercentage
-                ? $"{modifier.Value}% / {modifier.Duration}"
-                : $"{modifier.Value} / {modifier.Duration}";
-        }
-        else
-        {
-            valueText.text = modifier.IsPercentage
-                ? $"{modifier.Value}%"
-                : modifier.Value.ToString();
-        }
     }
 }

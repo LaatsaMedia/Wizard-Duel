@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e67d1b35df0e2d6428d9f769e77fbfb2, type: 3}
-  m_Name: MaxHealth
+  m_Name: Life Steal
   m_EditorClassIdentifier: Assembly-CSharp::ModifierDefinition
-  icon: {fileID: 21300000, guid: c23a2bc7de35c0b40b3e60beb5f03b58, type: 3}
-  isPercentage: 0
+  icon: {fileID: 21300000, guid: 0c68a9d94ba46d746b3b6d7f9edd581c, type: 3}
+  displayType: 1

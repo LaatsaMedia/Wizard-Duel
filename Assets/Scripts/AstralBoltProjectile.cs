@@ -79,6 +79,23 @@ public class AstralBoltProjectile : SpellBehaviour
     {
         if (followingCaster)
         {
+            if (caster == null)
+            {
+                followingCaster = false;
+                launched = true;
+
+                if (target != null)
+                    targetPosition = target.position;
+
+                Vector2 direction = target != null
+                    ? ((Vector2)targetPosition - rb.position).normalized
+                    : transform.right;
+
+                rb.linearVelocity = direction * speed;
+
+                return;
+            }
+
             rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
 

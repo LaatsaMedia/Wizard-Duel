@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 2
   mastery: 0
+  element: 5
   spellName: Arcane Barrier
   icon: {fileID: 21300000, guid: 3ec78b6859beaa743891f36871e5dedc, type: 3}
   description: This is placeholder for description
+  primaryStat: 3
+  primaryValue: 30
+  disableEffect: 0
+  disableDuration: 0
+  note: 
   cooldown: 6
   manaCost: 4
   castSFX: {fileID: 0}

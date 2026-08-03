@@ -16,6 +16,7 @@ MonoBehaviour:
   accessoryName: Giant's Ring
   icon: {fileID: 21300000, guid: 2ac045a04394106419f018e1c0209939, type: 3}
   description: Become Giant!
+  note: ISDIOGPJSDIOG
   passiveModifiers:
   - modifier: 0
     value: 80

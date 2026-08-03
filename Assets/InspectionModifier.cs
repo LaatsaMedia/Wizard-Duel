@@ -8,5 +8,5 @@ public class InspectionModifier
 
     public float Duration { get; set; }
 
-    public bool IsPercentage { get; set; }
+    public ModifierDisplayType DisplayType { get; set; }
 }

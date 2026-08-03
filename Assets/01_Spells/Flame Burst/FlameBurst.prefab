@@ -4940,9 +4940,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79eba56486f78b9499ef0dd00ec93f28, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FlameBurst
-  damage: 12
-  enemyKnockbackForce: 24
-  enemyKnockbackDuration: 0.3
+  damage: 15
+  enemyKnockbackForce: 28
+  enemyKnockbackDuration: 0.4
   upwardKnockback: 0.45
   selfKnockbackForce: 12
   selfKnockbackDuration: 0.15

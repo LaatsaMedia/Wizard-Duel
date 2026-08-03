@@ -13,5 +13,19 @@ MonoBehaviour:
   m_Name: OnHitModifierLibrary
   m_EditorClassIdentifier: Assembly-CSharp::OnHitModifierLibrary
   modifiers:
+  - modifier: 0
+    definition: {fileID: 11400000, guid: 657e5d24810deac49b9c98472d276d25, type: 2}
+  - modifier: 1
+    definition: {fileID: 11400000, guid: 968450f91f15f984b9601e8040c2b9e5, type: 2}
+  - modifier: 2
+    definition: {fileID: 11400000, guid: b6225a332c2464a428d7144e63c085f1, type: 2}
+  - modifier: 3
+    definition: {fileID: 11400000, guid: 6f14582e0cf8be145bde52fb3e00919a, type: 2}
+  - modifier: 4
+    definition: {fileID: 11400000, guid: 37b7aae13781bed4d93c7bdb51882e47, type: 2}
   - modifier: 7
     definition: {fileID: 11400000, guid: fba06cb432217dd44b86b4de3857a237, type: 2}
+  - modifier: 17
+    definition: {fileID: 11400000, guid: a65c70c59892527449ea883daeb72b0e, type: 2}
+  - modifier: 22
+    definition: {fileID: 11400000, guid: 37ba1344304a064429f7ff8ce13020b8, type: 2}

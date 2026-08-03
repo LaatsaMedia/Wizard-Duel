@@ -74,13 +74,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc90b8f5b938904cb96d109dcc72b8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::AstralBoltProjectile
-  speed: 32
+  speed: 28
   upwardSpeed: 10
   upwardTime: 0.5
-  lifetime: 6
+  lifetime: 2.5
   followOffset: {x: 0, y: 3}
-  followSmoothness: 15
-  homingStrength: 90
+  followSmoothness: 10
+  homingStrength: 130
   detectionRadius: 50
   damage: 12
   impactPrefab: {fileID: 0}

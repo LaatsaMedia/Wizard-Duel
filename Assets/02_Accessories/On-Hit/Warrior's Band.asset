@@ -15,12 +15,13 @@ MonoBehaviour:
   mastery: 0
   accessoryName: Warrior's Band
   icon: {fileID: 21300000, guid: e7e1462947eb7044bbc56d46f420bd41, type: 3}
-  description: All spells deal 4 extra damage
+  description: All spells deal 3 extra damage
+  note: 
   passiveModifiers: []
   onHitModifiers:
   - element: 6
     modifier: 1
-    value: 4
+    value: 3
     duration: 0
   specialEffects: 
   prefab: {fileID: 0}

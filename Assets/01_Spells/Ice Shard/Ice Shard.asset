@@ -18,7 +18,12 @@ MonoBehaviour:
   spellName: Ice Shard
   icon: {fileID: 21300000, guid: c18640c6a9d07b049811621542f3e5ab, type: 3}
   description: This is placeholder for description
-  cooldown: 0.4
+  primaryStat: 1
+  primaryValue: 10
+  disableEffect: 0
+  disableDuration: 0
+  note: 
+  cooldown: 0.6
   manaCost: 2
   castSFX: {fileID: 8300000, guid: ffa2740460128a744afda6ff807e03ff, type: 3}
   spellPrefab: {fileID: 6877544238277097164, guid: d16820fc0dac44d49aa99032aec60347, type: 3}

@@ -15,12 +15,13 @@ MonoBehaviour:
   mastery: 0
   accessoryName: Drain
   icon: {fileID: 21300000, guid: 4978b6a03da198e439cc959a07528afe, type: 3}
-  description: Burn enemy mana by 1
+  description: Water Spells Drain Enemy Mana By 1
+  note: 
   passiveModifiers: []
   onHitModifiers:
-  - element: 6
+  - element: 2
     modifier: 22
-    value: 5
+    value: 1
     duration: 0
   specialEffects: 
   prefab: {fileID: 0}

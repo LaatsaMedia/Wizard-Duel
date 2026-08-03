@@ -18,7 +18,12 @@ MonoBehaviour:
   spellName: Fireball
   icon: {fileID: 21300000, guid: 2267fa8e8581d2146b98bf8fe08b7486, type: 3}
   description: This is placeholder for description
-  cooldown: 1.2
+  primaryStat: 1
+  primaryValue: 20
+  disableEffect: 0
+  disableDuration: 0
+  note: 
+  cooldown: 1.5
   manaCost: 4
   castSFX: {fileID: 8300000, guid: 33b0e57b273f8424b94d8686cdc0ddc3, type: 3}
   spellPrefab: {fileID: 3843658216037615004, guid: ac49d1292b14f4348bdead90c5ebca56, type: 3}

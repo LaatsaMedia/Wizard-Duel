@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 221febbae11f0d94794084c6863f72be, type: 3}
   m_Name: Frozen
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffect
-  type: 3
+  type: 4
   displayName: Frozen
   icon: {fileID: 21300000, guid: c18640c6a9d07b049811621542f3e5ab, type: 3}
   worldEffectPrefab: {fileID: 4768187171698335343, guid: a525893834bd67549a8e862f68af8add, type: 3}

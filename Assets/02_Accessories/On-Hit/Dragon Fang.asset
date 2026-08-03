@@ -15,14 +15,15 @@ MonoBehaviour:
   mastery: 1
   accessoryName: Dragon Fang
   icon: {fileID: 21300000, guid: 3677816a873ac1743825fec1eefb2793, type: 3}
-  description: Fire Spells Deal Extra 5 Damage. Reduce Health By 20
+  description: Fire Spells Deal Extra 6 Damage. Reduce Health By 20
+  note: 
   passiveModifiers:
   - modifier: 0
     value: -20
   onHitModifiers:
   - element: 1
     modifier: 1
-    value: 5
+    value: 6
     duration: 0
   specialEffects: 
   prefab: {fileID: 0}

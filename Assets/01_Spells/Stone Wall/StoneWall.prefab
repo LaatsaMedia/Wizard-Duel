@@ -49,8 +49,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StoneWall
   damage: 12
-  horizontalKnockback: 1
-  verticalKnockback: 10
+  horizontalKnockback: 2
+  verticalKnockback: 14
   knockbackDuration: 0.2
   hitPoint: {fileID: 7267758021135024621}
   hitSize: {x: 2, y: 2.5}

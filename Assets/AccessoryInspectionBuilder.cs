@@ -29,7 +29,13 @@ public static class AccessoryInspectionBuilder
 
         AddPassiveModifiers(data, accessory);
         AddOnHitModifiers(data, accessory);
-        AddSpecialEffects(data, accessory);
+        
+        if (!string.IsNullOrWhiteSpace(accessory.note))
+        {
+            data.Notes.Add(new InspectionNote(
+                null,
+                accessory.note));
+        }
 
         return data;
     }
@@ -52,7 +58,7 @@ public static class AccessoryInspectionBuilder
             inspection.Icon = definition.Icon;
             inspection.Value = modifier.Value;
             inspection.Duration = 0f;
-            inspection.IsPercentage = definition.IsPercentage;
+            inspection.DisplayType = definition.DisplayType;
 
             data.Modifiers.Add(inspection);
         }
@@ -76,14 +82,9 @@ public static class AccessoryInspectionBuilder
             inspection.Icon = definition.Icon;
             inspection.Value = modifier.Value;
             inspection.Duration = modifier.Duration;
-            inspection.IsPercentage = definition.IsPercentage;
+            inspection.DisplayType = definition.DisplayType;
 
             data.Modifiers.Add(inspection);
         }
-    }
-
-    private static void AddSpecialEffects(InspectionData data, Accessory accessory)
-    {
-        // Coming later.
     }
 }

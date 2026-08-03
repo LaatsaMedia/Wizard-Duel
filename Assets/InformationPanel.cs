@@ -16,16 +16,19 @@ public class InformationPanel : MonoBehaviour
 
     [Header("Content")]
     [SerializeField] private Transform tagParent;
+    [SerializeField] private Transform statParent;
     [SerializeField] private Transform modifierParent;
     [SerializeField] private Transform noteParent;
 
     [Header("Sections")]
     [SerializeField] private GameObject tagSection;
+    [SerializeField] private GameObject statSection;
     [SerializeField] private GameObject modifierSection;
     [SerializeField] private GameObject noteSection;
 
     [Header("Prefabs")]
     [SerializeField] private InspectionTagRow tagPrefab;
+    [SerializeField] private InspectionStatRow statPrefab;
     [SerializeField] private InspectionModifierRow modifierPrefab;
     [SerializeField] private InspectionNoteRow notePrefab;
 
@@ -38,6 +41,7 @@ public class InformationPanel : MonoBehaviour
         panelScroll.verticalNormalizedPosition = 1f;
 
         tagSection.SetActive(data.Tags.Count > 0);
+        statSection.SetActive(data.Stats.Count > 0);
         modifierSection.SetActive(data.Modifiers.Count > 0);
         noteSection.SetActive(data.Notes.Count > 0);
 
@@ -49,6 +53,11 @@ public class InformationPanel : MonoBehaviour
         foreach (InspectionTag tag in data.Tags)
         {
             Instantiate(tagPrefab, tagParent).Setup(tag);
+        }
+        
+        foreach (InspectionStat stat in data.Stats)
+        {
+            Instantiate(statPrefab, statParent).Setup(stat);
         }
 
         foreach (InspectionModifier modifier in data.Modifiers)
@@ -70,10 +79,12 @@ public class InformationPanel : MonoBehaviour
         descriptionText.text = "";
 
         ClearChildren(tagParent);
+        ClearChildren(statParent);
         ClearChildren(modifierParent);
         ClearChildren(noteParent);
 
         tagSection.SetActive(false);
+        statSection.SetActive(false);
         modifierSection.SetActive(false);
         noteSection.SetActive(false);
 

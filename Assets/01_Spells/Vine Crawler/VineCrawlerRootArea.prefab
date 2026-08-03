@@ -4999,7 +4999,7 @@ MonoBehaviour:
   hitbox: {fileID: 8085744690070936163}
   hitFrame: 2
   rootEffect: {fileID: 11400000, guid: 669453edf9c972e4daaf9b726d54b9a6, type: 2}
-  rootDuration: 2.5
+  rootDuration: 2.25
   damage: 15
 --- !u!82 &-6237989483945550990
 AudioSource:

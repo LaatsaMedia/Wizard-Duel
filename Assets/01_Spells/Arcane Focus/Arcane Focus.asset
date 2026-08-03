@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 0
   mastery: 1
+  element: 5
   spellName: Arcane Focus
   icon: {fileID: 21300000, guid: 4978b6a03da198e439cc959a07528afe, type: 3}
   description: This is placeholder for description
+  primaryStat: 1
+  primaryValue: 40
+  disableEffect: 0
+  disableDuration: 0
+  note: 
   cooldown: 9
   manaCost: 6
   castSFX: {fileID: 0}

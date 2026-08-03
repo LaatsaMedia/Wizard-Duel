@@ -14,9 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   category: 3
   mastery: 1
+  element: 3
   spellName: Vine Crawler
   icon: {fileID: 21300000, guid: dabb7b63db0b5c24f8624c2861a1694f, type: 3}
   description: This is placeholder for description
+  primaryStat: 1
+  primaryValue: 15
+  disableEffect: 1
+  disableDuration: 2.25
+  note: 
   cooldown: 7
   manaCost: 7
   castSFX: {fileID: 0}
