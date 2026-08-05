@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34445ebea772c51438069255528492d5, type: 3}
   m_Name: Arcane Focus
   m_EditorClassIdentifier: Assembly-CSharp::Spell
+  originPack: {fileID: 11400000, guid: 84026f35f55b9da479dd1e3fac4a6ab6, type: 2}
   category: 0
   mastery: 1
   element: 5

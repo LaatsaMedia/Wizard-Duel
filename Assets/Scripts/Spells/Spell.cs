@@ -43,6 +43,9 @@ public enum SpellPrimaryStat
 [CreateAssetMenu(menuName = "Spells/Spell")]
 public class Spell : ScriptableObject
 {
+    [SerializeField] private PackDefinition originPack;
+    public PackDefinition OriginPack => originPack;
+    
     [SerializeField] private SpellCategory category;
     public SpellCategory Category => category;
 

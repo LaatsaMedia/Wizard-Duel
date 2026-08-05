@@ -669,6 +669,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 997377f832215fe4ab12184dcdd90fda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RunManager
+  packDatabase: {fileID: 11400000, guid: 2900c0f7f7ac4074f815068c2d5ddb5a, type: 2}
+  currentPack: {fileID: 11400000, guid: 8b737e7b121890b4cb80b0e33cfce927, type: 2}
   maxRounds: 111
   maxLives: 111
   unlockAllSpellMasteries: 1

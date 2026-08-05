@@ -12,10 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738a3e32d29419e4fb22ab5ffdad0f36, type: 3}
   m_Name: Starfall
   m_EditorClassIdentifier: Assembly-CSharp::Accessory
+  originPack: {fileID: 11400000, guid: 8b737e7b121890b4cb80b0e33cfce927, type: 2}
   mastery: 2
   accessoryName: Starfall
   icon: {fileID: 21300000, guid: a02442859371ff1468670d3c78170848, type: 3}
   description: Stars Falling From The Sky
+  note: 
   passiveModifiers: []
   onHitModifiers: []
   specialEffects: 02000000

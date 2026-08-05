@@ -5,6 +5,8 @@ public class MainMenuUI : MonoBehaviour
 {
     [Header("Panels")]
     [SerializeField] private GameObject mainMenuPanel;
+    [SerializeField] private GameObject gameModePanel;
+    [SerializeField] private GameObject packSelectionPanel;
     [SerializeField] private GameObject settingsPanel;
 
     [Header("Settings")]
@@ -12,7 +14,7 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] private GameObject controlsPanel;
 
     [Header("Scenes")]
-    [SerializeField] private string gameScene = "Setup";
+    [SerializeField] private string gameScene = "Bootstrap";
 
     private void Start()
     {
@@ -23,12 +25,15 @@ public class MainMenuUI : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene(gameScene);
+        ShowGameModes();
     }
 
     public void OpenSettings()
     {
         mainMenuPanel.SetActive(false);
+        gameModePanel.SetActive(false);
+        packSelectionPanel.SetActive(false);
+
         settingsPanel.SetActive(true);
 
         ShowAudio();
@@ -42,7 +47,47 @@ public class MainMenuUI : MonoBehaviour
     private void ShowMainMenu()
     {
         mainMenuPanel.SetActive(true);
+
+        gameModePanel.SetActive(false);
+        packSelectionPanel.SetActive(false);
+
         settingsPanel.SetActive(false);
+    }
+
+    #endregion
+
+    #region Game Modes
+
+    public void ShowGameModes()
+    {
+        mainMenuPanel.SetActive(false);
+
+        gameModePanel.SetActive(true);
+        packSelectionPanel.SetActive(false);
+
+        settingsPanel.SetActive(false);
+    }
+
+    public void ShowPackSelection()
+    {
+        gameModePanel.SetActive(false);
+        packSelectionPanel.SetActive(true);
+    }
+
+    public void BackToMainMenu()
+    {
+        ShowMainMenu();
+    }
+
+    public void BackToGameModes()
+    {
+        gameModePanel.SetActive(true);
+        packSelectionPanel.SetActive(false);
+    }
+
+    public void StartGame()
+    {
+        SceneManager.LoadScene(gameScene);
     }
 
     #endregion

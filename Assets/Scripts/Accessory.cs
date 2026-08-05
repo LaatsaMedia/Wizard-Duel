@@ -10,6 +10,9 @@ public enum AccessoryMastery
 [CreateAssetMenu(menuName = "Accessories/Accessory")]
 public class Accessory : ScriptableObject
 {
+    [SerializeField] private PackDefinition originPack;
+    public PackDefinition OriginPack => originPack;
+
     [SerializeField] private AccessoryMastery mastery;
     public AccessoryMastery Mastery => mastery;
 

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738a3e32d29419e4fb22ab5ffdad0f36, type: 3}
   m_Name: Dragon Fang
   m_EditorClassIdentifier: Assembly-CSharp::Accessory
+  originPack: {fileID: 11400000, guid: 8b737e7b121890b4cb80b0e33cfce927, type: 2}
   mastery: 1
   accessoryName: Dragon Fang
   icon: {fileID: 21300000, guid: 3677816a873ac1743825fec1eefb2793, type: 3}
@@ -19,6 +20,7 @@ MonoBehaviour:
   note: 
   passiveModifiers:
   - modifier: 0
+    element: 0
     value: -20
   onHitModifiers:
   - element: 1

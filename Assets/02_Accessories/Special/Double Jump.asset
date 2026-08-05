@@ -12,10 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 738a3e32d29419e4fb22ab5ffdad0f36, type: 3}
   m_Name: Double Jump
   m_EditorClassIdentifier: Assembly-CSharp::Accessory
+  originPack: {fileID: 11400000, guid: 8b737e7b121890b4cb80b0e33cfce927, type: 2}
   mastery: 1
   accessoryName: Double Jump
   icon: {fileID: 21300000, guid: c9d47646b5aa9de42ad094a09e790d1a, type: 3}
   description: Enable Double Jump
+  note: 
   passiveModifiers: []
   onHitModifiers: []
   specialEffects: 00000000
+  prefab: {fileID: 0}
