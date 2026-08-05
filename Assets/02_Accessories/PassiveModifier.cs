@@ -23,6 +23,11 @@ public class PassiveModifier
     public PassiveModifierType Modifier => modifier;
 
     [SerializeField]
+    private SpellElement element;
+
+    public SpellElement Element => element;
+
+    [SerializeField]
     private float value;
 
     public float Value => value;

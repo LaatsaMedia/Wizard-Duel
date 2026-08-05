@@ -32,6 +32,11 @@ public class InformationPanel : MonoBehaviour
     [SerializeField] private InspectionModifierRow modifierPrefab;
     [SerializeField] private InspectionNoteRow notePrefab;
 
+    private void Awake()
+    {
+        Clear();
+    }
+
     public void Display(InspectionData data)
     {
         Clear();
@@ -40,21 +45,28 @@ public class InformationPanel : MonoBehaviour
 
         panelScroll.verticalNormalizedPosition = 1f;
 
-        tagSection.SetActive(data.Tags.Count > 0);
-        statSection.SetActive(data.Stats.Count > 0);
-        modifierSection.SetActive(data.Modifiers.Count > 0);
-        noteSection.SetActive(data.Notes.Count > 0);
+        // General
+        icon.gameObject.SetActive(data.Icon != null);
+        titleText.gameObject.SetActive(!string.IsNullOrWhiteSpace(data.Title));
+        subtitleText.gameObject.SetActive(!string.IsNullOrWhiteSpace(data.Subtitle));
+        descriptionText.gameObject.SetActive(!string.IsNullOrWhiteSpace(data.Description));
 
         icon.sprite = data.Icon;
         titleText.text = data.Title;
         subtitleText.text = data.Subtitle;
         descriptionText.text = data.Description;
 
+        // Sections
+        tagSection.SetActive(data.Tags.Count > 0);
+        statSection.SetActive(data.Stats.Count > 0);
+        modifierSection.SetActive(data.Modifiers.Count > 0);
+        noteSection.SetActive(data.Notes.Count > 0);
+
         foreach (InspectionTag tag in data.Tags)
         {
             Instantiate(tagPrefab, tagParent).Setup(tag);
         }
-        
+
         foreach (InspectionStat stat in data.Stats)
         {
             Instantiate(statPrefab, statParent).Setup(stat);
@@ -74,6 +86,20 @@ public class InformationPanel : MonoBehaviour
 
     public void Clear()
     {
+        // Hide everything
+        content.SetActive(false);
+
+        icon.gameObject.SetActive(false);
+        titleText.gameObject.SetActive(false);
+        subtitleText.gameObject.SetActive(false);
+        descriptionText.gameObject.SetActive(false);
+
+        tagSection.SetActive(false);
+        statSection.SetActive(false);
+        modifierSection.SetActive(false);
+        noteSection.SetActive(false);
+
+        // Clear values
         icon.sprite = null;
         titleText.text = "";
         subtitleText.text = "";
@@ -83,18 +109,13 @@ public class InformationPanel : MonoBehaviour
         ClearChildren(statParent);
         ClearChildren(modifierParent);
         ClearChildren(noteParent);
-
-        tagSection.SetActive(false);
-        statSection.SetActive(false);
-        modifierSection.SetActive(false);
-        noteSection.SetActive(false);
-
-        content.SetActive(false);
     }
 
     private void ClearChildren(Transform parent)
     {
         foreach (Transform child in parent)
+        {
             Destroy(child.gameObject);
+        }
     }
 }

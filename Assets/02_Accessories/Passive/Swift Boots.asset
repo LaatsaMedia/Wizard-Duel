@@ -19,6 +19,7 @@ MonoBehaviour:
   note: 
   passiveModifiers:
   - modifier: 3
+    element: 6
     value: -2
   onHitModifiers: []
   specialEffects: 

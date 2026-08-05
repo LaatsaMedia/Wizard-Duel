@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Stun
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectDefinition
   effect: 6
-  icon: {fileID: 21300000, guid: b7ead11bc72339b47b1b6aae5046b17b, type: 3}
+  icon: {fileID: 21300000, guid: e0ca6006a33cfdc4ebd7bbdd769670f3, type: 3}

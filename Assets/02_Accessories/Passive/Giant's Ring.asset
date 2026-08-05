@@ -19,12 +19,16 @@ MonoBehaviour:
   note: ISDIOGPJSDIOG
   passiveModifiers:
   - modifier: 0
+    element: 6
     value: 80
   - modifier: 6
+    element: 6
     value: 1.6
   - modifier: 3
+    element: 6
     value: -2
   - modifier: 7
+    element: 6
     value: 2
   onHitModifiers: []
   specialEffects: 

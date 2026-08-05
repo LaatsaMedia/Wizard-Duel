@@ -16,8 +16,11 @@ MonoBehaviour:
   accessoryName: Ruby Pendant
   icon: {fileID: 21300000, guid: 173d275330af82c478090d600619f67e, type: 3}
   description: Max Health
+  note: 
   passiveModifiers:
   - modifier: 0
+    element: 6
     value: 20
   onHitModifiers: []
   specialEffects: 
+  prefab: {fileID: 0}

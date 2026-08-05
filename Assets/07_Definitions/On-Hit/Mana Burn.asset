@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67d1b35df0e2d6428d9f769e77fbfb2, type: 3}
   m_Name: Mana Burn
   m_EditorClassIdentifier: Assembly-CSharp::ModifierDefinition
-  icon: {fileID: 21300000, guid: cc7d056842d2a7c4490919117feff6e6, type: 3}
+  icon: {fileID: 21300000, guid: 362a3048a2441fc47a265da6d09f189e, type: 3}
   displayType: 1

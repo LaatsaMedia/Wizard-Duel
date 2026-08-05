@@ -104,11 +104,17 @@ public static class SpellEffects
         return finalDamage;
     }
 
-    private static void ApplyStatusModifiers(
-        Health target,
-        List<OnHitModifier> modifiers,
-        float onHitMultiplier)
-    {
+private static void ApplyStatusModifiers(
+    Health target,
+    List<OnHitModifier> modifiers,
+    float onHitMultiplier)
+{
+    if (!target.TryGetComponent(out StatusEffectController statusEffects))
+        return;
+
+    float totalBurnDamage = 0f;
+    float burnDuration = 0f;
+
     foreach (OnHitModifier modifier in modifiers)
     {
         float value = modifier.Value * onHitMultiplier;
@@ -116,33 +122,35 @@ public static class SpellEffects
         switch (modifier.Modifier)
         {
             case OnHitModifierType.Burn:
-
-                if (target.TryGetComponent(
-                    out StatusEffectController statusEffects))
-                {
-                    statusEffects.ApplyBurn(
-                        value,
-                        modifier.Duration);
-                }
-
+                totalBurnDamage += value;
+                burnDuration = Mathf.Max(
+                    burnDuration,
+                    modifier.Duration);
                 break;
 
             case OnHitModifierType.Slow:
+                // TODO:
+                // statusEffects.ApplySlow(
+                //     value,
+                //     modifier.Duration);
 
-                if (target.TryGetComponent(
-                    out StatusEffectController slowStatus))
-                {
-                    // TODO:
-                    // slowStatus.ApplySlow(
-                    //     value,
-                    //     modifier.Duration);
-
-                    Debug.Log(
-                        $"Slow {value}% for {modifier.Duration} sec.");
-                }
-
+                Debug.Log(
+                    $"Slow {value}% for {modifier.Duration} sec.");
                 break;
+
+            // Future status effects:
+            // case OnHitModifierType.Poison:
+            //     ...
+            //     break;
         }
+    }
+
+    // Apply the combined burn once.
+    if (totalBurnDamage > 0f)
+    {
+        statusEffects.ApplyBurn(
+            totalBurnDamage,
+            burnDuration);
     }
 }
 

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67d1b35df0e2d6428d9f769e77fbfb2, type: 3}
   m_Name: Jump Height
   m_EditorClassIdentifier: Assembly-CSharp::ModifierDefinition
-  icon: {fileID: 21300000, guid: c18640c6a9d07b049811621542f3e5ab, type: 3}
+  icon: {fileID: 21300000, guid: 85747b46b0cded441b7afea43a0acb20, type: 3}
   displayType: 1

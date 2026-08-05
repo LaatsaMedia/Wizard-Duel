@@ -114,17 +114,9 @@ public class StatusEffectController : MonoBehaviour
         return true;
     }
 
-    public void ApplyBurn(
-        float damagePerSecond,
-        float duration)
+    public void ApplyBurn(float damagePerSecond, float duration)
     {
-        // Stronger burns replace weaker ones.
-        if (damagePerSecond > burnDamagePerSecond)
-        {
-            burnDamagePerSecond = damagePerSecond;
-        }
-
-        // Always refresh duration.
+        burnDamagePerSecond = damagePerSecond;
         burnRemainingDuration = duration;
 
         if (burnRoutine == null)

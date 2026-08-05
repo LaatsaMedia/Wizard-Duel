@@ -81,13 +81,14 @@ public static class WizardStatsBuilder
                 if (definition == null)
                     continue;
 
-                result.Add(new InspectionModifier
+                AddOrMerge(result, new InspectionModifier
                 {
                     Icon = definition.Icon,
                     Value = modifier.Value,
                     Duration = 0f,
                     DisplayType = definition.DisplayType,
-                    IsBaseStat = false
+                    IsBaseStat = false,
+                    MergeKey = $"{modifier.Modifier}_{modifier.Element}"
                 });
             }
 
@@ -100,16 +101,33 @@ public static class WizardStatsBuilder
                 if (definition == null)
                     continue;
 
-                result.Add(new InspectionModifier
+                AddOrMerge(result, new InspectionModifier
                 {
                     Icon = definition.Icon,
                     Value = modifier.Value,
                     Duration = modifier.Duration,
                     DisplayType = definition.DisplayType,
-                    IsBaseStat = false
+                    IsBaseStat = false,
+                    MergeKey = $"{modifier.Modifier}_{modifier.Element}"
                 });
             }
         }
+    }
+
+    private static void AddOrMerge(
+        List<InspectionModifier> list,
+        InspectionModifier modifier)
+    {
+        InspectionModifier existing =
+            list.Find(x => x.MergeKey == modifier.MergeKey);
+
+        if (existing != null)
+        {
+            existing.Value += modifier.Value;
+            return;
+        }
+
+        list.Add(modifier);
     }
 
     private static void AddBaseStat(

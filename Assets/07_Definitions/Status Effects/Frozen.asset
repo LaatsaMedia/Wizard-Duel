@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Frozen
   m_EditorClassIdentifier: Assembly-CSharp::StatusEffectDefinition
   effect: 4
-  icon: {fileID: 21300000, guid: b7ead11bc72339b47b1b6aae5046b17b, type: 3}
+  icon: {fileID: 21300000, guid: 641217cf782c227408e230ac1bd3261a, type: 3}
