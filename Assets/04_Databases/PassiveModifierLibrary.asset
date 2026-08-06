@@ -25,3 +25,5 @@ MonoBehaviour:
     definition: {fileID: 11400000, guid: 77625549a080b7648bba3552a005687c, type: 2}
   - modifier: 2
     definition: {fileID: 11400000, guid: 14726f97cdb994b459743e12a0414d8f, type: 2}
+  - modifier: 8
+    definition: {fileID: 11400000, guid: 500902190fa07ea48a8e083d353f209c, type: 2}

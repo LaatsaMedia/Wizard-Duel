@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34445ebea772c51438069255528492d5, type: 3}
+  m_Name: Bubble Prison
+  m_EditorClassIdentifier: Assembly-CSharp::Spell
+  originPack: {fileID: 11400000, guid: 8b737e7b121890b4cb80b0e33cfce927, type: 2}
+  category: 3
+  mastery: 2
+  element: 2
+  spellName: Bubble Prison
+  icon: {fileID: 21300000, guid: 03d350609c3f42d45b0438b8c689d432, type: 3}
+  description: This is placeholder for description
+  primaryStat: 1
+  primaryValue: 10
+  disableEffect: 6
+  disableDuration: 1.5
+  note: 
+  cooldown: 6
+  manaCost: 6
+  castSFX: {fileID: 0}
+  spellPrefab: {fileID: 4713809336614238679, guid: b7945416b8e66b842af005db69ffef6b, type: 3}
+  aggression: 2
+  preferredRange: 8
+  minimumCastRange: 0
+  maximumCastRange: 15
+  baseCastPriority: 80
+  maximumCastHealth: 1
+  idealCastHealth: 0.4

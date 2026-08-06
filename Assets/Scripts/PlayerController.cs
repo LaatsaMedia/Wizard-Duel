@@ -32,6 +32,15 @@ public class PlayerController : MonoBehaviour
     private bool canDoubleJump;
     private bool usedDoubleJump;
 
+    [SerializeField]
+    private AnimationCurve levitationCurve =
+        AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+    [SerializeField] private float levitationDuration = 3f;
+    [SerializeField] private float maxLevitationHeight = 1.5f;
+    private bool isLevitating;
+    private float levitationTimer;
+    private float levitationStartHeight;
+
     public float HorizontalInput => horizontal;
 
     private void Awake()
@@ -82,7 +91,7 @@ public class PlayerController : MonoBehaviour
     {
         if (knockback != null && knockback.IsKnockedBack)
             return;
-            
+
         if (statusEffects.IsRooted ||
             statusEffects.IsFrozen ||
             statusEffects.IsStunned)
@@ -94,6 +103,29 @@ public class PlayerController : MonoBehaviour
         if (IsGrounded())
         {
             usedDoubleJump = false;
+        }
+
+        if (isLevitating)
+        {
+            levitationTimer += Time.fixedDeltaTime;
+
+            float progress =
+                Mathf.Clamp01(
+                    levitationTimer / levitationDuration);
+
+            float targetHeight =
+                levitationStartHeight +
+                levitationCurve.Evaluate(progress) *
+                maxLevitationHeight;
+
+            float verticalSpeed =
+                targetHeight - transform.position.y;
+
+            rb.linearVelocity = new Vector2(
+                horizontal * moveSpeed * movement.MovementMultiplier,
+                verticalSpeed);
+
+            return;
         }
 
         rb.linearVelocity = new Vector2(
@@ -114,32 +146,32 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-private void RotateAimPivot()
-{
-    Vector2 direction = mousePosition - (Vector2)aimPivot.position;
-    float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-    bool facingLeft = direction.x < 0f;
-
-    // Flip body
-    visualRoot.localScale = new Vector3(
-        facingLeft ? -1f : 1f,
-        1f,
-        1f);
-
-    // Rotate arm towards mouse
-    aimPivot.rotation = Quaternion.Euler(0f, 0f, angle);
-
-    // Flip the arm when facing left
-    if (facingLeft)
+    private void RotateAimPivot()
     {
-        arm.transform.localEulerAngles = new Vector3(0f, 180f, 180f);
+        Vector2 direction = mousePosition - (Vector2)aimPivot.position;
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        bool facingLeft = direction.x < 0f;
+
+        // Flip body
+        visualRoot.localScale = new Vector3(
+            facingLeft ? -1f : 1f,
+            1f,
+            1f);
+
+        // Rotate arm towards mouse
+        aimPivot.rotation = Quaternion.Euler(0f, 0f, angle);
+
+        // Flip the arm when facing left
+        if (facingLeft)
+        {
+            arm.transform.localEulerAngles = new Vector3(0f, 180f, 180f);
+        }
+        else
+        {
+            arm.transform.localEulerAngles = Vector3.zero;
+        }
     }
-    else
-    {
-        arm.transform.localEulerAngles = Vector3.zero;
-    }
-}
 
     private bool IsGrounded()
     {
@@ -167,6 +199,30 @@ private void RotateAimPivot()
         canDoubleJump = true;
     }
     
+
+    #endregion
+
+    #region LEVITATION
+
+    public void StartLevitation(
+        AnimationCurve curve,
+        float height,
+        float duration)
+    {
+        isLevitating = true;
+
+        levitationCurve = curve;
+        maxLevitationHeight = height;
+        levitationDuration = duration;
+
+        levitationTimer = 0f;
+        levitationStartHeight = transform.position.y;
+    }
+
+    public void StopLevitation()
+    {
+        isLevitating = false;
+    }
 
     #endregion
 }

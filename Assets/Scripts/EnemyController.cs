@@ -55,6 +55,15 @@ public class EnemyController : MonoBehaviour
     private bool canDoubleJump;
     private bool usedDoubleJump;
 
+    [SerializeField]
+    private AnimationCurve levitationCurve =
+        AnimationCurve.EaseInOut(0f, 0f, 1f, 1f);
+    [SerializeField] private float levitationDuration = 3f;
+    [SerializeField] private float maxLevitationHeight = 1.5f;
+    private bool isLevitating;
+    private float levitationTimer;
+    private float levitationStartHeight;
+
     private Rigidbody2D rb;
 
     private void Awake()
@@ -135,6 +144,31 @@ public class EnemyController : MonoBehaviour
             rb.linearVelocity = new Vector2(
                 0f,
                 rb.linearVelocity.y);
+
+            return;
+        }
+
+        if (isLevitating)
+        {
+            levitationTimer += Time.fixedDeltaTime;
+
+            float progress =
+                Mathf.Clamp01(
+                    levitationTimer / levitationDuration);
+
+            float targetHeight =
+                levitationStartHeight +
+                levitationCurve.Evaluate(progress) *
+                maxLevitationHeight;
+
+            float verticalSpeed =
+                targetHeight - transform.position.y;
+
+            rb.linearVelocity = new Vector2(
+                desiredHorizontal *
+                moveSpeed *
+                movement.MovementMultiplier,
+                verticalSpeed);
 
             return;
         }
@@ -414,6 +448,30 @@ public class EnemyController : MonoBehaviour
     public void EnableDoubleJump()
     {
         canDoubleJump = true;
+    }
+
+    #endregion
+
+    #region LEVITATION
+
+    public void StartLevitation(
+        AnimationCurve curve,
+        float height,
+        float duration)
+    {
+        isLevitating = true;
+
+        levitationCurve = curve;
+        maxLevitationHeight = height;
+        levitationDuration = duration;
+
+        levitationTimer = 0f;
+        levitationStartHeight = transform.position.y;
+    }
+
+    public void StopLevitation()
+    {
+        isLevitating = false;
     }
 
     #endregion

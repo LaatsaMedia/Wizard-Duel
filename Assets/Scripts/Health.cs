@@ -53,6 +53,11 @@ public class Health : MonoBehaviour
 
         currentHealth -= damage;
 
+        if (TryGetComponent(out UltimateCharge ultimate))
+        {
+            ultimate.AddChargeFromDamageTaken(damage);
+        }
+
         if (TryGetComponent(out HitController hitController))
         {
             hitController.PlayHitFeedback();

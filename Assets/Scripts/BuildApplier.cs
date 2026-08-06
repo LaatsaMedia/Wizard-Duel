@@ -7,6 +7,7 @@ public class BuildApplier : MonoBehaviour
     private Mana mana;
     private PlayerController playerController;
     private EnemyController enemyController;
+    private UltimateCharge ultimateCharge;
 
     private void Awake()
     {
@@ -14,6 +15,7 @@ public class BuildApplier : MonoBehaviour
         mana = GetComponent<Mana>();
         playerController = GetComponent<PlayerController>();
         enemyController = GetComponent<EnemyController>();
+        ultimateCharge = GetComponent<UltimateCharge>();
     }
 
     public void ApplyBuild(WizardBuild build)
@@ -71,6 +73,10 @@ public class BuildApplier : MonoBehaviour
                     if (enemyController != null)
                         enemyController.jumpForce += modifier.Value;
 
+                    break;
+                
+                case PassiveModifierType.UltimateCharge:
+                    ultimateCharge.ChargeGainMultiplier *= modifier.Value;
                     break;
             }
         }

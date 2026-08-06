@@ -37,6 +37,8 @@ public class SpellCaster : MonoBehaviour
     [SerializeField] private float groundOffset = 0.05f;
     [SerializeField] private float groundCastDistance = 30f;
 
+    private float ignoreCooldownTimer;
+
     private void Awake()
     {
         mana = GetComponent<Mana>();
@@ -62,6 +64,7 @@ public class SpellCaster : MonoBehaviour
         primarySpell.activeRecastSpell = null;
         secondarySpell.activeRecastSpell = null;
         thirdSpell.activeRecastSpell = null;
+        ultimateSlot.activeRecastSpell = null;
     }
 
     private void Update()
@@ -69,6 +72,11 @@ public class SpellCaster : MonoBehaviour
         TickCooldown(primarySpell);
         TickCooldown(secondarySpell);
         TickCooldown(thirdSpell);
+
+        if (ignoreCooldownTimer > 0f)
+        {
+            ignoreCooldownTimer -= Time.deltaTime;
+        }
 
         if (Input.GetKeyDown(KeyCode.M))
         {
@@ -102,14 +110,23 @@ public class SpellCaster : MonoBehaviour
         if (!MatchManager.RoundActive)
             return;
 
-        if (!ultimateCharge.IsReady)
-            return;
-
         if (statusEffects.IsFrozen ||
             statusEffects.IsStunned)
             return;
 
         if (ultimateSlot.spell == null)
+            return;
+
+        // Recast active ultimate.
+        if (ultimateSlot.activeRecastSpell != null)
+        {
+            if (ultimateSlot.activeRecastSpell.Recast())
+            {
+                return;
+            }
+        }
+
+        if (!ultimateCharge.IsReady)
             return;
 
         if (CastUltimateSpell())
@@ -146,6 +163,12 @@ public class SpellCaster : MonoBehaviour
                 gameObject,
                 ultimateSlot.spell,
                 direction);
+
+            if (spellBehaviour.SupportsRecast)
+            {
+                ultimateSlot.activeRecastSpell =
+                    spellBehaviour;
+            }
         }
 
         return true;
@@ -176,8 +199,11 @@ public class SpellCaster : MonoBehaviour
             }
         }
 
-        if (slot.cooldownRemaining > 0f)
+        if (ignoreCooldownTimer <= 0f &&
+            slot.cooldownRemaining > 0f)
+        {
             return;
+        }
 
         if (!mana.TrySpendMana(slot.spell.manaCost))
             return;
@@ -259,5 +285,10 @@ public class SpellCaster : MonoBehaviour
                 0f);
         }
         return spellSpawn.position;
+    }
+
+    public void IgnoreCooldowns(float duration)
+    {
+        ignoreCooldownTimer = duration;
     }
 }

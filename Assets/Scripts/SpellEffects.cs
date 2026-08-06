@@ -39,6 +39,12 @@ public static class SpellEffects
 
         target.TakeDamage(finalDamage);
 
+        if (caster != target.gameObject &&
+            caster.TryGetComponent(out UltimateCharge ultimateCharge))
+        {
+            ultimateCharge.AddChargeFromDamageDealt(finalDamage);
+        }
+
         ApplyResourceModifiers(
             caster,
             target,
