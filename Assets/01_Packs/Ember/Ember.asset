@@ -25,7 +25,7 @@ MonoBehaviour:
   disableDuration: 0
   note: 
   cooldown: 0.4
-  manaCost: 1
+  manaCost: 4
   castSFX: {fileID: 0}
   spellPrefab: {fileID: 2945629892677654377, guid: 7790afc5dffd4f447ba207f07216a3d2, type: 3}
   aggression: -2

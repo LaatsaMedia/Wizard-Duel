@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Ultimate Charge
   m_EditorClassIdentifier: Assembly-CSharp::ModifierDefinition
   icon: {fileID: 21300000, guid: b09cef8cc51a6f9498c0d754aea11572, type: 3}
-  displayType: 3
+  displayType: 1

@@ -16,45 +16,30 @@ public class InspectionModifierRow : MonoBehaviour
         switch (modifier.DisplayType)
         {
             case ModifierDisplayType.Value:
-            {
                 valueText = modifier.Value.ToString("0.##");
                 break;
-            }
 
             case ModifierDisplayType.Flat:
             {
-                if (modifier.IsBaseStat)
-                {
-                    valueText = modifier.Value.ToString("0.##");
-                }
-                else
-                {
-                    string sign = modifier.Value > 0f ? "+" :
-                                  modifier.Value < 0f ? "-" : "";
+                string sign =
+                    modifier.Value > 0f ? "+" :
+                    modifier.Value < 0f ? "-" : "";
 
-                    valueText = $"{sign}{Mathf.Abs(modifier.Value):0.##}";
-                }
+                valueText =
+                    $"{sign}{Mathf.Abs(modifier.Value):0.##}";
 
                 break;
             }
 
             case ModifierDisplayType.Percentage:
             {
-                string sign = modifier.Value > 0f ? "+" :
-                              modifier.Value < 0f ? "-" : "";
+                string sign =
+                    modifier.Value > 0f ? "+" :
+                    modifier.Value < 0f ? "-" : "";
 
-                valueText = $"{sign}{Mathf.Abs(modifier.Value):0.##}%";
-                break;
-            }
+                valueText =
+                    $"{sign}{Mathf.Abs(modifier.Value):0.##}%";
 
-            case ModifierDisplayType.Multiplier:
-            {
-                float percent = (modifier.Value - 1f) * 100f;
-
-                string sign = percent > 0f ? "+" :
-                              percent < 0f ? "-" : "";
-
-                valueText = $"{sign}{Mathf.Abs(percent):0.##}%";
                 break;
             }
         }

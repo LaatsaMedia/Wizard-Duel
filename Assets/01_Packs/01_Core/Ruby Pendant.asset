@@ -16,12 +16,12 @@ MonoBehaviour:
   mastery: 0
   accessoryName: Ruby Pendant
   icon: {fileID: 21300000, guid: 173d275330af82c478090d600619f67e, type: 3}
-  description: Max Health
+  description: Increase Health Regen By 3
   note: 
   passiveModifiers:
-  - modifier: 0
+  - modifier: 9
     element: 6
-    value: 20
+    value: 3
   onHitModifiers: []
   specialEffects: 
   prefab: {fileID: 0}

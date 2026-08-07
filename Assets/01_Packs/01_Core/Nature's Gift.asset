@@ -10,19 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 738a3e32d29419e4fb22ab5ffdad0f36, type: 3}
-  m_Name: Giant Hunter's Ring
+  m_Name: Nature's Gift
   m_EditorClassIdentifier: Assembly-CSharp::Accessory
   originPack: {fileID: 11400000, guid: 8b737e7b121890b4cb80b0e33cfce927, type: 2}
-  mastery: 1
-  accessoryName: Giant Hunter's Ring
-  icon: {fileID: 21300000, guid: 0c68a9d94ba46d746b3b6d7f9edd581c, type: 3}
-  description: Deal bonus damage equal to 5% of the target's maximum health.
-  note: 
+  mastery: 2
+  accessoryName: Nature's Gift
+  icon: {fileID: 21300000, guid: 315880ae278a3614386ec195b803d614, type: 3}
+  description: Every 5th Spell Costs No Mana
+  note: Nature has blessed you with magic.
   passiveModifiers: []
-  onHitModifiers:
-  - element: 6
-    modifier: 4
-    value: 3
-    duration: 0
-  specialEffects: 
+  onHitModifiers: []
+  specialEffects: 03000000
   prefab: {fileID: 0}

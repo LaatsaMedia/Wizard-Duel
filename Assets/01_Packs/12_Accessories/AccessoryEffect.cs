@@ -3,5 +3,6 @@ public enum AccessoryEffect
     DoubleJump,
 
     FreezeOnIceShard,
-    FallingStars
+    FallingStars,
+    NaturesGift,
 }

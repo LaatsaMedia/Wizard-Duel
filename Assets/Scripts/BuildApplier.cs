@@ -8,6 +8,7 @@ public class BuildApplier : MonoBehaviour
     private PlayerController playerController;
     private EnemyController enemyController;
     private UltimateCharge ultimateCharge;
+    private SpellCaster spellCaster;
 
     private void Awake()
     {
@@ -16,6 +17,7 @@ public class BuildApplier : MonoBehaviour
         playerController = GetComponent<PlayerController>();
         enemyController = GetComponent<EnemyController>();
         ultimateCharge = GetComponent<UltimateCharge>();
+        spellCaster = GetComponent<SpellCaster>();
     }
 
     public void ApplyBuild(WizardBuild build)
@@ -26,6 +28,23 @@ public class BuildApplier : MonoBehaviour
 
     private void ApplyPassiveModifiers(WizardBuild build)
     {
+        // Modifier Convention:
+        //
+        // Flat modifiers:
+        //  Value is applied directly.
+        //  Example: 20 = +20 Max Health.
+        //
+        // Percentage modifiers:
+        //  Value is stored as a percentage.
+        //  Example: 15 = +15%.
+        //  Never store 1.15.
+        //
+        // Current percentage modifiers:
+        // - SpellDamage
+        // - CooldownRecovery
+        // - WizardSize
+        // - UltimateCharge
+
         foreach (PassiveModifier modifier in build.GetPassiveModifiers())
         {
             switch (modifier.Modifier)
@@ -59,11 +78,12 @@ public class BuildApplier : MonoBehaviour
                     break;
 
                 case PassiveModifierType.CooldownRecovery:
-                    // TODO
+                    spellCaster.CooldownRecovery += modifier.Value;
                     break;
 
                 case PassiveModifierType.WizardSize:
-                    transform.localScale *= modifier.Value;
+                    transform.localScale *=
+                        1f + modifier.Value / 100f;
                     break;
 
                 case PassiveModifierType.JumpHeight:
@@ -76,7 +96,20 @@ public class BuildApplier : MonoBehaviour
                     break;
                 
                 case PassiveModifierType.UltimateCharge:
-                    ultimateCharge.ChargeGainMultiplier *= modifier.Value;
+                    ultimateCharge.ChargeGainMultiplier *=
+                        1f + modifier.Value / 100f;
+                    break;
+                
+                case PassiveModifierType.HealthRegen:
+                    health.healthRegeneration += modifier.Value;
+                    break;
+
+                case PassiveModifierType.DamageTakeManaRestore:
+                    health.onHitManaRestore += modifier.Value;
+                    break;
+
+                case PassiveModifierType.DamageTakeManaRestorePercent:
+                    health.onHitManaRestore += modifier.Value;
                     break;
             }
         }
@@ -111,7 +144,7 @@ public class BuildApplier : MonoBehaviour
                         if (enemyController != null)
                             enemyController.EnableDoubleJump();
 
-                        break;
+                    break;
 
                     case AccessoryEffect.FallingStars:
 
@@ -123,7 +156,13 @@ public class BuildApplier : MonoBehaviour
                             starfall.Initialize(accessory.Prefab);
                         }
 
-                        break;
+                    break;
+
+                    case AccessoryEffect.NaturesGift:
+
+                    spellCaster.EnableNaturesGift();
+
+                    break;
                 }
             }
         }

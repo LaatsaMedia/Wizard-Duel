@@ -21,7 +21,7 @@ MonoBehaviour:
   passiveModifiers:
   - modifier: 8
     element: 6
-    value: 1.15
+    value: 15
   onHitModifiers: []
   specialEffects: 
   prefab: {fileID: 0}

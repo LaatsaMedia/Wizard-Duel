@@ -13,6 +13,10 @@ public enum PassiveModifierType
     WizardSize,
     JumpHeight,
     UltimateCharge,
+    HealthRegen,
+    HealthRegenPercent,
+    DamageTakeManaRestore,
+    DamageTakeManaRestorePercent,
 }
 
 [System.Serializable]

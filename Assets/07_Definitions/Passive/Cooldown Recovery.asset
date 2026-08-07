@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e67d1b35df0e2d6428d9f769e77fbfb2, type: 3}
-  m_Name: Movement Speed
+  m_Name: Cooldown Recovery
   m_EditorClassIdentifier: Assembly-CSharp::ModifierDefinition
-  icon: {fileID: 21300000, guid: 6de77814040f1224abbceed859a43bed, type: 3}
-  displayType: 1
+  icon: {fileID: 21300000, guid: 33c7ee3e09152554481689baad310b91, type: 3}
+  displayType: 2

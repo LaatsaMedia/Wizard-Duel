@@ -19,6 +19,13 @@ public class SpellCaster : MonoBehaviour
     public UltimateCharge ultimateCharge;
     public WizardBuild Build => build;
 
+    [SerializeField] private float cooldownRecovery = 0f;
+    public float CooldownRecovery
+    {
+        get => cooldownRecovery;
+        set => cooldownRecovery = value;
+    }
+
     [Header("Spell Slots")]
     [SerializeField] private SpellSlot primarySpell;
     [SerializeField] private SpellSlot secondarySpell;
@@ -176,8 +183,17 @@ public class SpellCaster : MonoBehaviour
 
     private void TickCooldown(SpellSlot slot)
     {
-        if (slot.cooldownRemaining > 0f)
-            slot.cooldownRemaining -= Time.deltaTime;
+        if (slot.cooldownRemaining <= 0f)
+            return;
+
+        float recoveryMultiplier =
+            1f + cooldownRecovery / 100f;
+
+        slot.cooldownRemaining -=
+            Time.deltaTime * recoveryMultiplier;
+
+        slot.cooldownRemaining =
+            Mathf.Max(slot.cooldownRemaining, 0f);
     }
 
     private void Cast(SpellSlot slot)
@@ -205,8 +221,11 @@ public class SpellCaster : MonoBehaviour
             return;
         }
 
-        if (!mana.TrySpendMana(slot.spell.manaCost))
+        if (ShouldConsumeMana() &&
+            !mana.TrySpendMana(slot.spell.manaCost))
+        {
             return;
+        }
 
         if (slot.spell.castSFX != null)
         {
@@ -291,4 +310,38 @@ public class SpellCaster : MonoBehaviour
     {
         ignoreCooldownTimer = duration;
     }
+
+    #region NATURESGIFT
+
+    private int naturesGiftCounter;
+    private bool naturesGiftEnabled;
+
+    public int NaturesGiftCounter => naturesGiftCounter;
+
+    public bool NaturesGiftReady =>
+        naturesGiftEnabled &&
+        naturesGiftCounter == 4;
+
+    public void EnableNaturesGift()
+    {
+        naturesGiftEnabled = true;
+    }
+
+    private bool ShouldConsumeMana()
+    {
+        if (!naturesGiftEnabled)
+            return true;
+
+        naturesGiftCounter++;
+
+        if (naturesGiftCounter >= 5)
+        {
+            naturesGiftCounter = 0;
+            return false;
+        }
+
+        return true;
+    }
+
+    #endregion
 }

@@ -4,8 +4,7 @@ public enum ModifierDisplayType
 {
     Value,
     Flat,
-    Percentage,
-    Multiplier
+    Percentage
 }
 
 [CreateAssetMenu(menuName = "Inspection/Modifier Definition")]

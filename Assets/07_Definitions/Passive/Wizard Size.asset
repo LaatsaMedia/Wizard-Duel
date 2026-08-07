@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Wizard Size
   m_EditorClassIdentifier: Assembly-CSharp::ModifierDefinition
   icon: {fileID: 21300000, guid: 4d63c215bd61f924f8829a2593c85d62, type: 3}
-  displayType: 3
+  displayType: 2
