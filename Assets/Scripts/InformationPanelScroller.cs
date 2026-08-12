@@ -8,7 +8,10 @@ public class InformationPanelScroller : MonoBehaviour
 
     private void Update()
     {
-        if(!InspectionManager.Instance.IsInspecting)
+        if (InspectionManager.Instance == null)
+            return;
+
+        if (!InspectionManager.Instance.IsInspecting)
             return;
 
         if (!scrollRect.gameObject.activeInHierarchy)
@@ -23,6 +26,7 @@ public class InformationPanelScroller : MonoBehaviour
             wheel * scrollSpeed;
 
         scrollRect.verticalNormalizedPosition =
-            Mathf.Clamp01(scrollRect.verticalNormalizedPosition);
+            Mathf.Clamp01(
+                scrollRect.verticalNormalizedPosition);
     }
 }

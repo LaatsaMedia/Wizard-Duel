@@ -16,11 +16,17 @@ public class HoverInspectable : MonoBehaviour, IPointerEnterHandler, IPointerExi
         if (provider == null)
             return;
 
+        if (InspectionManager.Instance == null)
+            return;
+
         InspectionManager.Instance.Show(provider);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        if (InspectionManager.Instance == null)
+            return;
+
         InspectionManager.Instance.Hide();
     }
 }

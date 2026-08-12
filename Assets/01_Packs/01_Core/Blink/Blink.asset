@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Spell
   originPack: {fileID: 11400000, guid: 8b737e7b121890b4cb80b0e33cfce927, type: 2}
   category: 2
-  mastery: 1
+  mastery: 2
   element: 0
   spellName: Blink
   icon: {fileID: 21300000, guid: a8ebf353874f911468b6f364cba21a69, type: 3}
