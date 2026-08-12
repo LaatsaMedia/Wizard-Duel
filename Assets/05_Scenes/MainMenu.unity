@@ -23817,6 +23817,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1858540741}
   - component: {fileID: 1858540740}
+  - component: {fileID: 1858540742}
   m_Layer: 0
   m_Name: CustomPackManager
   m_TagString: Untagged
@@ -23857,6 +23858,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1858540742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858540739}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 89d773e94f7addb40a66cfa8e2499c85, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CustomPackSaveSystem
+  spellDatabase: {fileID: 11400000, guid: 57724347d35c3d3408230ea84f397d08, type: 2}
+  accessoryDatabase: {fileID: 11400000, guid: 0d280a0602db7b244ae410741ac3e57b, type: 2}
 --- !u!1 &1864640917
 GameObject:
   m_ObjectHideFlags: 0

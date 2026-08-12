@@ -32,7 +32,40 @@ public class CustomPackManager : MonoBehaviour
         Instance = this;
     }
 
+    private void Start()
+    {
+        LoadSavedPacks();
+    }
+
+    private void LoadSavedPacks()
+    {
+        if (CustomPackSaveSystem.Instance == null)
+            return;
+
+        List<CustomPackData> loadedPacks =
+            CustomPackSaveSystem.Instance.LoadPacks();
+
+        foreach (CustomPackData pack in loadedPacks)
+        {
+            AddPackWithoutSaving(pack);
+        }
+    }
+
     public void AddPack(CustomPackData pack)
+    {
+        if (pack == null)
+            return;
+
+        if (!customPacks.Contains(pack))
+        {
+            customPacks.Add(pack);
+            CreateEntry(pack);
+        }
+
+        Save();
+    }
+
+    private void AddPackWithoutSaving(CustomPackData pack)
     {
         if (pack == null)
             return;
@@ -43,6 +76,14 @@ public class CustomPackManager : MonoBehaviour
         customPacks.Add(pack);
 
         CreateEntry(pack);
+    }
+
+    private void Save()
+    {
+        if (CustomPackSaveSystem.Instance == null)
+            return;
+
+        CustomPackSaveSystem.Instance.SavePacks(customPacks);
     }
 
     private void CreateEntry(CustomPackData pack)

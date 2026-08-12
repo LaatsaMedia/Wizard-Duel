@@ -9,6 +9,7 @@ public class RunManager : MonoBehaviour
     [SerializeField] private PackDatabase packDatabase;
 
     [SerializeField] private PackDefinition currentPack;
+    private CustomPackData currentCustomPack;
     public PackDefinition CurrentPack => currentPack;
 
     [SerializeField] private int maxRounds = 10;
@@ -105,8 +106,34 @@ public class RunManager : MonoBehaviour
             if (accessory == null)
                 continue;
 
-            if (pack != null &&
-                accessory.OriginPack != pack)
+            if (currentCustomPack != null)
+            {
+                if (!currentCustomPack.accessories.Contains(accessory))
+                    continue;
+            }
+            else if (pack != null &&
+                    accessory.OriginPack != pack)
+            {
+                continue;
+            }
+
+            accessories.Add(accessory);
+        }
+
+        return accessories;
+    }
+
+    public List<Accessory> GetAccessories(
+    CustomPackData customPack)
+    {
+        List<Accessory> accessories = new();
+
+        if (customPack == null)
+            return accessories;
+
+        foreach (Accessory accessory in customPack.accessories)
+        {
+            if (accessory == null)
                 continue;
 
             accessories.Add(accessory);
@@ -142,6 +169,11 @@ public class RunManager : MonoBehaviour
         if (GameSettings.SelectedPack != null)
         {
             currentPack = GameSettings.SelectedPack;
+        }
+
+        if (GameSettings.SelectedCustomPack != null)
+        {
+            currentCustomPack = GameSettings.SelectedCustomPack;
         }
 
         LoadPreparation();
@@ -197,6 +229,10 @@ public class RunManager : MonoBehaviour
         EnemyBuild = new WizardBuild();
         PackDefinition enemyPack = GetEnemyPack();
 
+        bool enemyUsesCustomPack =
+            GameSettings.OpponentPackMode == OpponentPackMode.SameAsPlayer &&
+            currentCustomPack != null;
+
         for (int i = 0; i <= CurrentRewardIndex; i++)
         {
             RewardCategory reward = rewardProgression.rewardOrder[i];
@@ -205,11 +241,11 @@ public class RunManager : MonoBehaviour
             if (i == 0 &&
                 reward != RewardCategory.Offensive)
             {
-                GenerateEnemyStarterSpell(enemyPack);
+                GenerateEnemyStarterSpell(enemyPack, enemyUsesCustomPack);
             }
             else
             {
-                GenerateEnemyReward(enemyPack, reward);
+                GenerateEnemyReward(enemyPack, reward, enemyUsesCustomPack);
             }
         }
 
@@ -218,17 +254,30 @@ public class RunManager : MonoBehaviour
             EnemyBuild.ultimateSpell == null &&
             Random.value < enemyUltimateChance)
         {
-            GenerateEnemyUltimateReward(enemyPack);
+            GenerateEnemyUltimateReward(enemyPack, enemyUsesCustomPack);
         }
     }
 
     private void GenerateEnemyStarterSpell(
-        PackDefinition pack)
+        PackDefinition pack,
+        bool useCustomPack)
     {
-        List<Spell> spells = GetSpells(
-            pack,
-            SpellCategory.Offensive,
-            SpellMastery.Apprentice);
+        List<Spell> spells;
+
+        if (useCustomPack)
+        {
+            spells = GetSpells(
+                currentCustomPack,
+                SpellCategory.Offensive,
+                SpellMastery.Apprentice);
+        }
+        else
+        {
+            spells = GetSpells(
+                pack,
+                SpellCategory.Offensive,
+                SpellMastery.Apprentice);
+        }
 
         if (spells.Count == 0)
             return;
@@ -241,7 +290,8 @@ public class RunManager : MonoBehaviour
 
     private void GenerateEnemyReward(
         PackDefinition pack,
-        RewardCategory reward)
+        RewardCategory reward,
+        bool useCustomPack)
     {
         switch (reward)
         {
@@ -250,30 +300,43 @@ public class RunManager : MonoBehaviour
             case RewardCategory.Disable:
             case RewardCategory.Defensive:
             case RewardCategory.Any:
-                GenerateEnemySpellReward(pack, reward);
+                GenerateEnemySpellReward(pack, reward, useCustomPack);
                 break;
 
             case RewardCategory.Accessory:
-                GenerateEnemyAccessoryReward(pack);
+                GenerateEnemyAccessoryReward(pack, useCustomPack);
                 break;
 
             case RewardCategory.Ultimate:
-                GenerateEnemyUltimateReward(pack);
+                GenerateEnemyUltimateReward(pack, useCustomPack);
                 break;
         }
     }
 
     private void GenerateEnemySpellReward(
         PackDefinition pack,
-        RewardCategory rewardCategory)
+        RewardCategory rewardCategory,
+        bool useCustomPack)
     {
         // First spell is always a random Apprentice Offensive spell.
         if (EnemyBuild.SpellCount == 0)
         {
-        List<Spell> starters = GetSpells(
-            pack,
-            SpellCategory.Offensive,
-            SpellMastery.Apprentice);
+        List<Spell> starters;
+
+            if (useCustomPack)
+            {
+                starters = GetSpells(
+                    currentCustomPack,
+                    SpellCategory.Offensive,
+                    SpellMastery.Apprentice);
+            }
+            else
+            {
+                starters = GetSpells(
+                    pack,
+                    SpellCategory.Offensive,
+                    SpellMastery.Apprentice);
+            }
 
             if (starters.Count > 0)
             {
@@ -289,25 +352,49 @@ public class RunManager : MonoBehaviour
             ? GetRandomSpellCategory()
             : GetRewardSpellCategory(rewardCategory);
 
-        List<Spell> rewards =
-            GetRandomSpells(
+        List<Spell> rewards;
+
+        if (useCustomPack)
+        {
+            rewards = GetRandomSpells(
+                currentCustomPack,
+                category,
+                EnemyBuild,
+                1,
+                GetRewardMastery());
+        }
+        else
+        {
+            rewards = GetRandomSpells(
                 pack,
                 category,
                 EnemyBuild,
                 1,
                 GetRewardMastery());
+        }
 
         if (rewards.Count > 0)
             EnemyBuild.AddSpell(rewards[0]);
     }
 
-    private void GenerateEnemyAccessoryReward(PackDefinition pack)
+    private void GenerateEnemyAccessoryReward(PackDefinition pack, bool useCustomPack)
     {
-        List<Accessory> rewards =
-            GetRandomAccessories(
+        List<Accessory> rewards;
+
+        if (useCustomPack)
+        {
+            rewards = GetRandomAccessories(
+                currentCustomPack,
+                EnemyBuild,
+                1);
+        }
+        else
+        {
+            rewards = GetRandomAccessories(
                 pack,
                 EnemyBuild,
                 1);
+        }
 
         if (rewards.Count > 0)
         {
@@ -315,12 +402,30 @@ public class RunManager : MonoBehaviour
         }
     }
 
-    private void GenerateEnemyUltimateReward(PackDefinition pack)
+    private void GenerateEnemyUltimateReward(PackDefinition pack, bool useCustomPack)
     {
-        Spell spell =
-            GetRandomUltimateSpell(
-                pack,
-                EnemyBuild);
+        Spell spell;
+
+        if (useCustomPack)
+        {
+            List<Spell> spells =
+                GetUltimateSpells(
+                    currentCustomPack,
+                    EnemyBuild);
+
+            if (spells.Count == 0)
+                return;
+
+            spell = spells[
+                Random.Range(0, spells.Count)];
+        }
+        else
+        {
+            spell =
+                GetRandomUltimateSpell(
+                    pack,
+                    EnemyBuild);
+        }
 
         if (spell != null)
         {
@@ -424,9 +529,49 @@ public class RunManager : MonoBehaviour
         return spells;
     }
 
-    public Spell GetRandomUltimateSpell(
+    public List<Spell> GetUltimateSpells(
+    CustomPackData customPack,
     WizardBuild build)
     {
+        List<Spell> spells = new();
+
+        if (customPack == null)
+            return spells;
+
+        foreach (Spell spell in customPack.spells)
+        {
+            if (spell == null)
+                continue;
+
+            if (spell.Mastery != SpellMastery.Archmage)
+                continue;
+
+            if (spell == build.ultimateSpell)
+                continue;
+
+            spells.Add(spell);
+        }
+
+        return spells;
+    }
+
+    public Spell GetRandomUltimateSpell(
+        WizardBuild build)
+    {
+        if (currentCustomPack != null)
+        {
+            List<Spell> spells =
+                GetUltimateSpells(
+                    currentCustomPack,
+                    build);
+
+            if (spells.Count == 0)
+                return null;
+
+            return spells[
+                Random.Range(0, spells.Count)];
+        }
+
         return GetRandomUltimateSpell(
             CurrentPack,
             build);
@@ -462,6 +607,31 @@ public class RunManager : MonoBehaviour
 
             if (pack != null &&
                 spell.OriginPack != pack)
+                continue;
+
+            if (spell.Category == category &&
+                spell.Mastery == mastery)
+            {
+                spells.Add(spell);
+            }
+        }
+
+        return spells;
+    }
+
+    public List<Spell> GetSpells(
+    CustomPackData customPack,
+    SpellCategory category,
+    SpellMastery mastery)
+    {
+        List<Spell> spells = new();
+
+        if (customPack == null)
+            return spells;
+
+        foreach (Spell spell in customPack.spells)
+        {
+            if (spell == null)
                 continue;
 
             if (spell.Category == category &&
@@ -519,8 +689,22 @@ public class RunManager : MonoBehaviour
 
         while (currentMastery >= SpellMastery.Apprentice)
         {
-            List<Spell> spells =
-                GetSpells(pack, category, currentMastery);
+            List<Spell> spells;
+
+            if (currentCustomPack != null)
+            {
+                spells = GetSpells(
+                    currentCustomPack,
+                    category,
+                    currentMastery);
+            }
+            else
+            {
+                spells = GetSpells(
+                    pack,
+                    category,
+                    currentMastery);
+            }
 
             spells.RemoveAll(build.HasSpell);
 
@@ -545,6 +729,52 @@ public class RunManager : MonoBehaviour
         return available;
     }
 
+    public List<Spell> GetRandomSpells(
+    CustomPackData customPack,
+    SpellCategory category,
+    WizardBuild build,
+    int amount,
+    SpellMastery mastery,
+    List<Spell> excludedSpells = null)
+    {
+        List<Spell> available = new();
+
+        SpellMastery currentMastery = mastery;
+
+        while (currentMastery >= SpellMastery.Apprentice)
+        {
+            List<Spell> spells =
+                GetSpells(
+                    customPack,
+                    category,
+                    currentMastery);
+
+            spells.RemoveAll(build.HasSpell);
+
+            if (excludedSpells != null)
+                spells.RemoveAll(excludedSpells.Contains);
+
+            available.AddRange(spells);
+
+            currentMastery--;
+        }
+
+        for (int i = 0; i < available.Count; i++)
+        {
+            int j = Random.Range(i, available.Count);
+
+            (available[i], available[j]) =
+                (available[j], available[i]);
+        }
+
+        if (available.Count > amount)
+            available.RemoveRange(
+                amount,
+                available.Count - amount);
+
+        return available;
+    }
+
     public List<Accessory> GetRandomAccessories(
     WizardBuild build,
     int amount,
@@ -563,7 +793,16 @@ public class RunManager : MonoBehaviour
         int amount,
         List<Accessory> excludedAccessories = null)
     {
-        List<Accessory> available = GetAccessories(pack);
+        List<Accessory> available;
+
+        if (currentCustomPack != null)
+        {
+            available = GetAccessories(currentCustomPack);
+        }
+        else
+        {
+            available = GetAccessories(pack);
+        }
 
         available.RemoveAll(build.HasAccessory);
 
@@ -575,6 +814,35 @@ public class RunManager : MonoBehaviour
         while (selected.Count < amount && available.Count > 0)
         {
             int index = Random.Range(0, available.Count);
+
+            selected.Add(available[index]);
+            available.RemoveAt(index);
+        }
+
+        return selected;
+    }
+
+    public List<Accessory> GetRandomAccessories(
+    CustomPackData customPack,
+    WizardBuild build,
+    int amount,
+    List<Accessory> excludedAccessories = null)
+    {
+        List<Accessory> available =
+            GetAccessories(customPack);
+
+        available.RemoveAll(build.HasAccessory);
+
+        if (excludedAccessories != null)
+            available.RemoveAll(excludedAccessories.Contains);
+
+        List<Accessory> selected = new();
+
+        while (selected.Count < amount &&
+            available.Count > 0)
+        {
+            int index =
+                Random.Range(0, available.Count);
 
             selected.Add(available[index]);
             available.RemoveAt(index);
