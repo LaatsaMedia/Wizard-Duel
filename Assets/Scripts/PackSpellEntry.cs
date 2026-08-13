@@ -12,6 +12,11 @@ public class PackSpellEntry : MonoBehaviour, IInspectionProvider
     [SerializeField] private Button button;
 
     private CustomSpellSelectionPanel selectionPanel;
+    private CustomPackEditor customPackEditor;
+    public void SetCustomPackEditor(CustomPackEditor customPackEditor)
+    {
+        this.customPackEditor = customPackEditor;
+    }
 
     public bool CanInspect => spell != null;
 
@@ -50,5 +55,8 @@ public class PackSpellEntry : MonoBehaviour, IInspectionProvider
             return;
 
         selectionPanel.SelectSpell(spell);
+
+        if (customPackEditor != null)
+            customPackEditor.gameObject.SetActive(true);
     }
 }

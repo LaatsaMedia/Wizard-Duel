@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CustomPackSpellSlot : MonoBehaviour
+public class CustomPackSpellSlot : MonoBehaviour, IInspectionProvider
 {
     [Header("Slot")]
     [SerializeField] private SpellMastery mastery;
@@ -11,9 +11,16 @@ public class CustomPackSpellSlot : MonoBehaviour
     [SerializeField] private Button button;
 
     private CustomSpellSelectionPanel selectionPanel;
+    private CustomPackEditor customPackEditor;
+
+    public void SetCustomPackEditor(CustomPackEditor customPackEditor)
+    {
+        this.customPackEditor = customPackEditor;
+    }
 
     public SpellMastery Mastery => mastery;
     public Spell Spell => spell;
+    public bool CanInspect => spell != null;
 
     private Spell spell;
 
@@ -28,6 +35,14 @@ public class CustomPackSpellSlot : MonoBehaviour
         }
 
         icon.sprite = spell.icon;
+    }
+
+    public InspectionData GetInspectionData()
+    {
+        if (spell == null)
+            return new InspectionData();
+
+        return SpellInspectionBuilder.Build(spell);
     }
 
     public void Clear()
@@ -50,6 +65,9 @@ public class CustomPackSpellSlot : MonoBehaviour
     {
         if (selectionPanel == null)
             return;
+
+        if (customPackEditor != null)
+            customPackEditor.gameObject.SetActive(false);
 
         selectionPanel.Open(this);
     }

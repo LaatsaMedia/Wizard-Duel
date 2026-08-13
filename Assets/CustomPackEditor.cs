@@ -8,6 +8,12 @@ public class CustomPackEditor : MonoBehaviour
     [Header("Current Pack")]
     [SerializeField] private CustomPackData customPack;
 
+    [Header("Identity")]
+    [SerializeField] private TMPro.TMP_InputField packNameInput;
+    [SerializeField] private TMPro.TMP_InputField packDescriptionInput;
+    [SerializeField] private Image packIconImage;
+    [SerializeField] private CustomPackIconSelectionPanel iconSelectionPanel;
+
     [Header("Spell Slot Prefab")]
     [SerializeField] private CustomPackSpellSlot spellSlotPrefab;
 
@@ -30,7 +36,15 @@ public class CustomPackEditor : MonoBehaviour
     [Header("Save")]
     [SerializeField] private Button saveButton;
 
+    [Header("Navigation")]
+    [SerializeField] private GameObject packSelectionPanel;
+
+    [Header("Inspection")]
+    [SerializeField] private InformationPanel informationPanel;
+
     public CustomPackData CustomPack => customPack;
+    public InformationPanel InformationPanel => informationPanel;
+    private CustomPackSelectionEntry selectionEntry;
 
     private void Awake()
     {
@@ -46,9 +60,33 @@ public class CustomPackEditor : MonoBehaviour
         PopulateAccessorySlots();
     }
 
-    public void Open(CustomPackData pack)
+    public void Open(
+        CustomPackData pack,
+        CustomPackSelectionEntry selectionEntry)
     {
         customPack = pack;
+        this.selectionEntry = selectionEntry;
+
+        if (InspectionManager.Instance != null)
+            InspectionManager.Instance.SetPanel(informationPanel);
+
+        if (packSelectionPanel != null)
+            packSelectionPanel.SetActive(false);
+
+        if (packNameInput != null)
+            packNameInput.text = customPack != null
+                ? customPack.packName
+                : "";
+
+        if (packDescriptionInput != null)
+            packDescriptionInput.text = customPack != null
+                ? customPack.description
+                : "";
+
+        if (packIconImage != null)
+            packIconImage.sprite = customPack != null
+                ? customPack.icon
+                : null;
 
         gameObject.SetActive(true);
 
@@ -125,6 +163,7 @@ public class CustomPackEditor : MonoBehaviour
             slot.SetMastery(mastery);
             slot.SetSelectionPanel(spellSelectionPanel);
             slot.Setup(spell);
+            slot.SetCustomPackEditor(this);
 
             slotIndex++;
         }
@@ -136,6 +175,7 @@ public class CustomPackEditor : MonoBehaviour
 
             slot.SetMastery(mastery);
             slot.SetSelectionPanel(spellSelectionPanel);
+            slot.SetCustomPackEditor(this);
 
             slotIndex++;
         }
@@ -177,6 +217,7 @@ public class CustomPackEditor : MonoBehaviour
             slot.SetMastery(mastery);
             slot.SetSelectionPanel(accessorySelectionPanel);
             slot.Setup(accessory);
+            slot.SetCustomPackEditor(this);
 
             slotIndex++;
         }
@@ -190,6 +231,7 @@ public class CustomPackEditor : MonoBehaviour
 
             slot.SetMastery(mastery);
             slot.SetSelectionPanel(accessorySelectionPanel);
+            slot.SetCustomPackEditor(this);
 
             slotIndex++;
         }
@@ -275,16 +317,58 @@ public class CustomPackEditor : MonoBehaviour
         customPack.spells.Add(newSpell);
     }
 
+    public void OpenIconSelection()
+    {
+        if (customPack == null)
+            return;
+
+        if (iconSelectionPanel == null)
+            return;
+
+        iconSelectionPanel.Open(this);
+    }
+
+    public void SetPackIcon(Sprite icon)
+    {
+        if (customPack == null)
+            return;
+
+        customPack.icon = icon;
+
+        if (packIconImage != null)
+            packIconImage.sprite = icon;
+    }
+
+    public void ReturnToPackSelection()
+    {
+        if (packSelectionPanel != null)
+            packSelectionPanel.SetActive(true);
+
+        gameObject.SetActive(false);
+    }
+
     public void Save()
     {
         if (customPack == null)
             return;
+
+        if (packNameInput != null)
+            customPack.packName = packNameInput.text;
+
+        if (packDescriptionInput != null)
+            customPack.description = packDescriptionInput.text;
 
         if (CustomPackManager.Instance != null)
         {
             CustomPackManager.Instance.AddPack(customPack);
         }
 
+        if (selectionEntry != null)
+            selectionEntry.Refresh();
+
+        if (packSelectionPanel != null)
+            packSelectionPanel.SetActive(true);
+        
         gameObject.SetActive(false);
     }
 }

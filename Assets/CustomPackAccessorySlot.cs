@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class CustomPackAccessorySlot : MonoBehaviour
+public class CustomPackAccessorySlot : MonoBehaviour, IInspectionProvider
 {
     [Header("Slot")]
     [SerializeField] private AccessoryMastery mastery;
@@ -12,9 +12,16 @@ public class CustomPackAccessorySlot : MonoBehaviour
 
     private Accessory accessory;
     private CustomAccessorySelectionPanel selectionPanel;
+    private CustomPackEditor customPackEditor;
+
+    public void SetCustomPackEditor(CustomPackEditor customPackEditor)
+    {
+        this.customPackEditor = customPackEditor;
+    }
 
     public AccessoryMastery Mastery => mastery;
     public Accessory Accessory => accessory;
+    public bool CanInspect => accessory != null;
 
     public void Setup(Accessory accessory)
     {
@@ -27,6 +34,14 @@ public class CustomPackAccessorySlot : MonoBehaviour
         }
 
         icon.sprite = accessory.icon;
+    }
+
+    public InspectionData GetInspectionData()
+    {
+        if (accessory == null)
+            return new InspectionData();
+
+        return AccessoryInspectionBuilder.Build(accessory);
     }
 
     public void Clear()
@@ -49,14 +64,10 @@ public class CustomPackAccessorySlot : MonoBehaviour
     public void OnClick()
     {
         if (selectionPanel == null)
-        {
-            Debug.LogError(
-                "CustomPackAccessorySlot: Selection Panel is NULL.");
             return;
-        }
 
-        Debug.Log(
-            $"Opening accessory selection for {mastery}");
+        if (customPackEditor != null)
+            customPackEditor.gameObject.SetActive(false);
 
         selectionPanel.Open(this);
     }

@@ -65,6 +65,19 @@ public class CustomPackManager : MonoBehaviour
         Save();
     }
 
+    public void DeletePack(CustomPackData pack)
+    {
+        if (pack == null)
+            return;
+
+        if (!customPacks.Contains(pack))
+            return;
+
+        customPacks.Remove(pack);
+
+        Save();
+    }
+
     private void AddPackWithoutSaving(CustomPackData pack)
     {
         if (pack == null)

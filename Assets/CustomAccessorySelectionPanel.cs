@@ -14,11 +14,17 @@ public class CustomAccessorySelectionPanel : MonoBehaviour
     [Header("Editor")]
     [SerializeField] private CustomPackEditor editor;
 
+    [Header("Inspection")]
+    [SerializeField] private InformationPanel informationPanel;
+
     private CustomPackAccessorySlot targetSlot;
 
     public void Open(CustomPackAccessorySlot slot)
     {
         targetSlot = slot;
+
+        if (InspectionManager.Instance != null)
+            InspectionManager.Instance.SetPanel(informationPanel);
 
         gameObject.SetActive(true);
 
@@ -70,6 +76,16 @@ public class CustomAccessorySelectionPanel : MonoBehaviour
         targetSlot.Setup(accessory);
 
         gameObject.SetActive(false);
+
+        if (editor != null)
+            editor.gameObject.SetActive(true);
+
+        if (InspectionManager.Instance != null &&
+            editor != null)
+        {
+            InspectionManager.Instance.SetPanel(
+                editor.InformationPanel);
+        }
     }
 
     private void Clear()

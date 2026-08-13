@@ -8,6 +8,8 @@ public class CustomPackSelectionEntry : MonoBehaviour
     [SerializeField] private Button editButton;
     [SerializeField] private Button selectButton;
     [SerializeField] private Button deleteButton;
+    [SerializeField] private Image packIcon;
+    [SerializeField] private TMPro.TMP_Text packNameText;
 
     private CustomPackData pack;
 
@@ -39,6 +41,7 @@ public class CustomPackSelectionEntry : MonoBehaviour
         PackSelectionUI packSelectionUI)
     {
         this.pack = pack;
+
         this.packPreviewPanel = packPreviewPanel;
         this.customPackEditor = customPackEditor;
         this.packSelectionUI = packSelectionUI;
@@ -46,8 +49,24 @@ public class CustomPackSelectionEntry : MonoBehaviour
         Refresh();
     }
 
-    private void Refresh()
+    public void Refresh()
     {
+        if (packIcon != null)
+        {
+            packIcon.sprite =
+                pack != null
+                ? pack.icon
+                : null;
+        }
+
+        if (packNameText != null)
+        {
+            packNameText.text =
+                pack != null
+                ? pack.packName
+                : "";
+        }
+
         if (selectButton != null)
         {
             selectButton.interactable =
@@ -82,7 +101,7 @@ public class CustomPackSelectionEntry : MonoBehaviour
             return;
         }
 
-        customPackEditor.Open(pack);
+        customPackEditor.Open(pack, this);
     }
 
     public void Select()
@@ -111,6 +130,15 @@ public class CustomPackSelectionEntry : MonoBehaviour
         Debug.Log(
             $"CustomPackSelectionEntry: Delete requested for {pack.packName}");
 
-        // We will connect the actual custom-pack deletion system here.
+        if (CustomPackManager.Instance == null)
+        {
+            Debug.LogWarning(
+                "CustomPackSelectionEntry: CustomPackManager is not available.");
+            return;
+        }
+
+        CustomPackManager.Instance.DeletePack(pack);
+
+        Destroy(gameObject);
     }
 }

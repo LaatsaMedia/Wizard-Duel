@@ -24,6 +24,6 @@ public class CreateCustomPackButton : MonoBehaviour
         newPack.description = "";
         newPack.icon = null;
 
-        customPackEditor.Open(newPack);
+        customPackEditor.Open(newPack, null);
     }
 }

@@ -31,6 +31,16 @@ public class InspectionManager : MonoBehaviour
     public static InspectionManager Instance { get; private set; }
 
     [SerializeField] private InformationPanel panel;
+    public InformationPanel Panel => panel;
+
+    public void SetPanel(InformationPanel informationPanel)
+    {
+        if (informationPanel == null)
+            return;
+
+        panel = informationPanel;
+    }
+
     public bool IsInspecting { get; private set; }
 
     private void Awake()

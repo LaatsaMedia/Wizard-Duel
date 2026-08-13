@@ -28,6 +28,9 @@ public class PackPreviewPanel : MonoBehaviour
     [Header("Navigation")]
     [SerializeField] private GameObject packSelectionPanel;
 
+    [Header("Inspection")]
+    [SerializeField] private InformationPanel informationPanel;
+
     private PackSelectionButton selectionButton;
     private CustomPackData customPack;
 
@@ -38,6 +41,12 @@ public class PackPreviewPanel : MonoBehaviour
         this.selectionButton = selectionButton;
         this.customPack = null;
 
+        if (InspectionManager.Instance != null)
+            InspectionManager.Instance.SetPanel(informationPanel);
+
+        if (packSelectionPanel != null)
+            packSelectionPanel.SetActive(false);
+
         gameObject.SetActive(true);
         ShowPack(pack);
     }
@@ -46,6 +55,12 @@ public class PackPreviewPanel : MonoBehaviour
     {
         this.customPack = customPack;
         this.selectionButton = null;
+
+        if (InspectionManager.Instance != null)
+            InspectionManager.Instance.SetPanel(informationPanel);
+
+        if (packSelectionPanel != null)
+            packSelectionPanel.SetActive(false);
 
         gameObject.SetActive(true);
 

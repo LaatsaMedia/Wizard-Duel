@@ -13,12 +13,18 @@ public class CustomSpellSelectionPanel : MonoBehaviour
 
     [Header("Editor")]
     [SerializeField] private CustomPackEditor editor;
+    
+    [Header("Inspection")]
+    [SerializeField] private InformationPanel informationPanel;
 
     private CustomPackSpellSlot targetSlot;
 
     public void Open(CustomPackSpellSlot slot)
     {
         targetSlot = slot;
+
+        if (InspectionManager.Instance != null)
+            InspectionManager.Instance.SetPanel(informationPanel);
 
         gameObject.SetActive(true);
 
@@ -70,6 +76,16 @@ public class CustomSpellSelectionPanel : MonoBehaviour
         targetSlot.Setup(spell);
 
         gameObject.SetActive(false);
+
+        if (editor != null)
+            editor.gameObject.SetActive(true);
+
+        if (InspectionManager.Instance != null &&
+            editor != null)
+        {
+            InspectionManager.Instance.SetPanel(
+                editor.InformationPanel);
+        }
     }
 
     private void Clear()

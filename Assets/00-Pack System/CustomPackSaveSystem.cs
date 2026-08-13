@@ -48,6 +48,32 @@ public class CustomPackSaveSystem : MonoBehaviour
             saveData.packName = pack.packName;
             saveData.description = pack.description;
 
+            if (pack.icon != null)
+            {
+                foreach (Spell spell in spellDatabase.spells)
+                {
+                    if (spell != null && spell.icon == pack.icon)
+                    {
+                        saveData.iconSourceType = "Spell";
+                        saveData.iconSourceName = spell.spellName;
+                        break;
+                    }
+                }
+
+                if (string.IsNullOrEmpty(saveData.iconSourceName))
+                {
+                    foreach (Accessory accessory in accessoryDatabase.accessories)
+                    {
+                        if (accessory != null && accessory.icon == pack.icon)
+                        {
+                            saveData.iconSourceType = "Accessory";
+                            saveData.iconSourceName = accessory.accessoryName;
+                            break;
+                        }
+                    }
+                }
+            }
+
             foreach (Spell spell in pack.spells)
             {
                 if (spell == null)
@@ -109,6 +135,8 @@ public class CustomPackSaveSystem : MonoBehaviour
             pack.packName = saveData.packName;
             pack.description = saveData.description;
 
+            LoadIcon(saveData, pack);
+
             LoadSpells(saveData, pack);
             LoadAccessories(saveData, pack);
 
@@ -119,6 +147,41 @@ public class CustomPackSaveSystem : MonoBehaviour
             $"CustomPackSaveSystem: Loaded {loadedPacks.Count} custom packs.");
 
         return loadedPacks;
+    }
+
+    private void LoadIcon(
+    CustomPackSaveData saveData,
+    CustomPackData pack)
+    {
+        if (string.IsNullOrEmpty(saveData.iconSourceType))
+            return;
+
+        if (string.IsNullOrEmpty(saveData.iconSourceName))
+            return;
+
+        if (saveData.iconSourceType == "Spell")
+        {
+            Spell spell =
+                FindSpell(saveData.iconSourceName);
+
+            if (spell != null)
+            {
+                pack.icon = spell.icon;
+            }
+
+            return;
+        }
+
+        if (saveData.iconSourceType == "Accessory")
+        {
+            Accessory accessory =
+                FindAccessory(saveData.iconSourceName);
+
+            if (accessory != null)
+            {
+                pack.icon = accessory.icon;
+            }
+        }
     }
 
     private void LoadSpells(
